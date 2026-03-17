@@ -67,18 +67,6 @@
   .note-label{color:var(--amber);}
   .message-box{background:var(--green-wash);border:1.5px solid var(--border);border-radius:13px;padding:16px;font-size:14px;font-weight:600;line-height:1.8;color:var(--text-dark);white-space:pre-wrap;font-family:'Nunito',sans-serif;min-height:80px;}
   .note-box{background:var(--amber-pale);border-color:#F5C88A;font-family:'Courier New',monospace;font-size:12.5px;color:var(--brown-warm);line-height:1.7;}
-  .gorgias-row{margin-bottom:14px;}
-  .ticket-hint{font-size:11px;font-weight:600;color:var(--text-muted);margin-top:6px;line-height:1.5;}
-  .send-row{display:flex;gap:10px;flex-wrap:wrap;}
-  .btn-send-note{background:var(--amber-pale);border:1.5px solid #F5C88A;color:var(--brown-warm);border-radius:10px;padding:11px 22px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all 0.15s;}
-  .btn-send-note:hover{background:#FAE4B0;}
-  .btn-send-note:disabled,.btn-send-reply:disabled{opacity:0.4;cursor:not-allowed;}
-  .btn-send-reply{background:var(--green-mid);border:none;color:white;border-radius:10px;padding:11px 22px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all 0.15s;box-shadow:0 3px 12px rgba(74,124,47,0.25);}
-  .btn-send-reply:hover{background:var(--green-deep);}
-  .status-msg{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:700;}
-  .status-ok{background:var(--green-pale);color:var(--green-mid);border:1.5px solid var(--border);}
-  .status-err{background:#FEF0F0;color:#C55;border:1.5px solid #F5BFBF;}
-  .status-loading{background:var(--green-wash);color:var(--text-muted);border:1.5px solid var(--border);}
   .settings-toggle{cursor:pointer;display:flex;align-items:center;gap:10px;}
   .settings-body{display:none;}
   .settings-body.open{display:block;}
@@ -93,7 +81,6 @@
     .col-headers,.dog-row{grid-template-columns:1fr 90px 40px;}
     .col-headers .col-units,.dog-row .col-units{display:none;}
     .plan-tabs{flex-direction:column;}
-    .send-row{flex-direction:column;}
   }
 </style>
 </head>
@@ -161,6 +148,7 @@
       </div>
       <div class="plan-tabs" id="plan-tabs"></div>
       <div class="stats-row" id="stats-row"></div>
+
       <div style="margin-bottom:18px">
         <div class="message-header">
           <span class="message-label customer-label">🌿 Customer Message</span>
@@ -168,6 +156,7 @@
         </div>
         <div class="message-box" id="customer-msg"></div>
       </div>
+
       <div>
         <div class="message-header">
           <span class="message-label note-label">📋 Internal Note</span>
@@ -175,22 +164,6 @@
         </div>
         <div class="message-box note-box" id="internal-note"></div>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header" style="margin-bottom:16px">
-        <div class="card-title"><div class="step-badge">4</div>Send to Gorgias</div>
-      </div>
-      <div class="gorgias-row">
-        <label class="field-label">Ticket ID</label>
-        <input type="text" id="g-ticket" placeholder="Just the number at the end of the URL — e.g. 261312542">
-        <p class="ticket-hint">Open the ticket in Gorgias → copy the last number from the URL → paste it here</p>
-      </div>
-      <div class="send-row">
-        <button class="btn-send-note" id="btn-note" onclick="sendGorgias('note')">📋 Send as Internal Note</button>
-        <button class="btn-send-reply" id="btn-reply" onclick="sendGorgias('reply')">🌿 Send as Customer Reply →</button>
-      </div>
-      <div id="gorgias-status" style="display:none"></div>
     </div>
   </div>
 
@@ -233,9 +206,7 @@ const PLAN_MESSAGES={
   topper:"We recommend a topper meal plan to fit within your established budget. You will want to mix 1/4 Happy Howl with 3/4 of your dog's current food or a high quality kibble."
 };
 
-let dogCount=0;
-let currentResults=null;
-let selectedPlan='full';
+let dogCount=0,currentResults=null,selectedPlan='full';
 
 function getUnitsPerDay(weight){
   const w=parseFloat(weight);
@@ -243,70 +214,41 @@ function getUnitsPerDay(weight){
   const row=WEIGHT_TABLE.find(r=>w>=r.min&&w<=r.max);
   return row?row.units:4.0;
 }
-
 function findBestOption(totalUnits,multiplier,budget,days){
   const needed=totalUnits*multiplier*days;
   const sorted=[...caseOptions].sort((a,b)=>b.units-a.units);
-  for(const c of sorted){
-    const cn=Math.ceil(needed/c.units);
-    if(cn*c.price<=budget)return{units:c.units,price:c.price,casesNeeded:cn,totalCost:cn*c.price,overBudget:false};
-  }
+  for(const c of sorted){const cn=Math.ceil(needed/c.units);if(cn*c.price<=budget)return{units:c.units,casesNeeded:cn,totalCost:cn*c.price,overBudget:false};}
   const cheapest=[...caseOptions].sort((a,b)=>a.price-b.price)[0];
   const cn=Math.ceil(needed/cheapest.units);
-  return{units:cheapest.units,price:cheapest.price,casesNeeded:cn,totalCost:cn*cheapest.price,overBudget:true};
+  return{units:cheapest.units,casesNeeded:cn,totalCost:cn*cheapest.price,overBudget:true};
 }
-
 function addDog(){
   dogCount++;
   const id=dogCount;
   const list=document.getElementById('dogs-list');
   const row=document.createElement('div');
-  row.className='dog-row';
-  row.id='dog-row-'+id;
-
+  row.className='dog-row';row.id='dog-row-'+id;
   const nameInput=document.createElement('input');
-  nameInput.type='text';
-  nameInput.placeholder='e.g. Biscuit';
-
+  nameInput.type='text';nameInput.placeholder='e.g. Biscuit';
   const weightInput=document.createElement('input');
-  weightInput.type='number';
-  weightInput.placeholder='45';
-  weightInput.min='1';
-
+  weightInput.type='number';weightInput.placeholder='45';weightInput.min='1';
   const unitsChip=document.createElement('div');
-  unitsChip.className='units-chip col-units';
-  unitsChip.textContent='—';
-
+  unitsChip.className='units-chip col-units';unitsChip.textContent='—';
   weightInput.addEventListener('input',function(){
-    const units=getUnitsPerDay(this.value);
-    if(units!==null){
-      unitsChip.textContent=units+' units';
-      unitsChip.className='units-chip col-units has-value';
-    }else{
-      unitsChip.textContent='—';
-      unitsChip.className='units-chip col-units';
-    }
+    const u=getUnitsPerDay(this.value);
+    unitsChip.textContent=u!==null?u+' units':'—';
+    unitsChip.className='units-chip col-units'+(u!==null?' has-value':'');
   });
-
   const removeBtn=document.createElement('button');
-  removeBtn.className='remove-btn';
-  removeBtn.textContent='✕';
+  removeBtn.className='remove-btn';removeBtn.textContent='✕';
   removeBtn.onclick=function(){row.remove();updateRemoveButtons();};
-
-  const nameWrap=document.createElement('div');
-  nameWrap.appendChild(nameInput);
-  const weightWrap=document.createElement('div');
-  weightWrap.appendChild(weightInput);
-
-  row.appendChild(nameWrap);
-  row.appendChild(weightWrap);
-  row.appendChild(unitsChip);
-  row.appendChild(removeBtn);
+  const nw=document.createElement('div');nw.appendChild(nameInput);
+  const ww=document.createElement('div');ww.appendChild(weightInput);
+  row.appendChild(nw);row.appendChild(ww);row.appendChild(unitsChip);row.appendChild(removeBtn);
   list.appendChild(row);
   updateRemoveButtons();
   nameInput.focus();
 }
-
 function updateRemoveButtons(){
   const rows=document.querySelectorAll('#dogs-list .dog-row');
   rows.forEach(r=>{
@@ -315,46 +257,33 @@ function updateRemoveButtons(){
     btn.style.pointerEvents=rows.length===1?'none':'auto';
   });
 }
-
 function getDogsFromDOM(){
-  const rows=document.querySelectorAll('#dogs-list .dog-row');
   const dogs=[];
-  rows.forEach(row=>{
+  document.querySelectorAll('#dogs-list .dog-row').forEach(row=>{
     const inputs=row.querySelectorAll('input');
-    const name=inputs[0].value.trim();
-    const weight=inputs[1].value;
-    if(name&&parseFloat(weight)>0){
-      dogs.push({name,weight,baseUnits:getUnitsPerDay(weight)});
-    }
+    const name=inputs[0].value.trim(),weight=inputs[1].value;
+    if(name&&parseFloat(weight)>0)dogs.push({name,weight,baseUnits:getUnitsPerDay(weight)});
   });
   return dogs;
 }
-
 function calculate(){
   const budget=parseFloat(document.getElementById('budget').value);
   const days=parseInt(document.getElementById('days').value);
   const validDogs=getDogsFromDOM();
-  if(!validDogs.length||isNaN(budget)||budget<=0){
-    alert('Please enter at least one dog with a name and weight, and a monthly budget.');
-    return;
-  }
+  if(!validDogs.length||isNaN(budget)||budget<=0){alert('Please enter at least one dog with a name and weight, and a monthly budget.');return;}
   const totalBase=validDogs.reduce((s,d)=>s+d.baseUnits,0);
   let autoPlan='topper';
-  for(const plan of PLANS){
-    if(!findBestOption(totalBase,plan.multiplier,budget,days).overBudget){autoPlan=plan.id;break;}
-  }
+  for(const plan of PLANS){if(!findBestOption(totalBase,plan.multiplier,budget,days).overBudget){autoPlan=plan.id;break;}}
   currentResults={dogsCalc:validDogs,totalBase,budget,days};
   selectedPlan=autoPlan;
   renderResults();
   document.getElementById('results').style.display='block';
   document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
-
 function renderResults(){
   if(!currentResults)return;
   const{dogsCalc,totalBase,budget,days}=currentResults;
-  const tabs=document.getElementById('plan-tabs');
-  tabs.innerHTML='';
+  const tabs=document.getElementById('plan-tabs');tabs.innerHTML='';
   PLANS.forEach(plan=>{
     const opt=findBestOption(totalBase,plan.multiplier,budget,days);
     const tab=document.createElement('button');
@@ -376,7 +305,6 @@ function renderResults(){
   document.getElementById('customer-msg').textContent=buildCustomerMsg(plan,opt,dogsCalc,days);
   document.getElementById('internal-note').textContent=buildInternalNote(plan,opt,dogsCalc,totalBase,budget,days);
 }
-
 function buildCustomerMsg(plan,opt,dogs,days){
   const dogWord=dogs.length===1?'dog':`${dogs.length} dogs`;
   let msg=`For your ${dogWord} on a ${plan.label.toLowerCase()}, you will need to order (${opt.casesNeeded}) ${opt.units}-unit case${opt.casesNeeded!==1?'s':''} every ${days} days.\n\n`;
@@ -384,7 +312,6 @@ function buildCustomerMsg(plan,opt,dogs,days){
   msg+=`\n${PLAN_MESSAGES[plan.id]}`;
   return msg;
 }
-
 function buildInternalNote(plan,opt,dogs,totalBase,budget,days){
   let note=`Happy Howl Feeding Calc — Internal Note\n${'─'.repeat(38)}\n`;
   note+=`Plan:        ${plan.label}\nBudget:      $${budget} / ${days} days\n\nDog breakdown:\n`;
@@ -393,72 +320,26 @@ function buildInternalNote(plan,opt,dogs,totalBase,budget,days){
   if(opt.overBudget)note+=`⚠  Over budget by $${(opt.totalCost-budget).toFixed(2)}\n`;
   return note;
 }
-
 function copyText(elId,btnId){
   navigator.clipboard.writeText(document.getElementById(elId).textContent).then(()=>{
-    const btn=document.getElementById(btnId);
-    const orig=btn.textContent;
+    const btn=document.getElementById(btnId),orig=btn.textContent;
     btn.textContent='✓ Copied!';btn.classList.add('copied');
     setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);
   });
 }
-
 function toggleSettings(){
-  const body=document.getElementById('settings-body');
-  const isOpen=body.classList.contains('open');
+  const body=document.getElementById('settings-body'),isOpen=body.classList.contains('open');
   body.classList.toggle('open',!isOpen);
   document.getElementById('settings-arrow').textContent=isOpen?'▼ Edit':'▲ Hide';
 }
-
-async function sendGorgias(type){
-  const ticketId=document.getElementById('g-ticket').value.trim();
-  if(!ticketId){showGorgiasStatus('error','Please enter a ticket ID first.');return;}
-  if(!currentResults){showGorgiasStatus('error','Run the calculator first.');return;}
-  const plan=PLANS.find(p=>p.id===selectedPlan);
-  const opt=findBestOption(currentResults.totalBase,plan.multiplier,currentResults.budget,currentResults.days);
-  const bodyText=type==='note'
-    ?buildInternalNote(plan,opt,currentResults.dogsCalc,currentResults.totalBase,currentResults.budget,currentResults.days)
-    :buildCustomerMsg(plan,opt,currentResults.dogsCalc,currentResults.days);
-  document.getElementById('btn-note').disabled=true;
-  document.getElementById('btn-reply').disabled=true;
-  showGorgiasStatus('loading','Sending to Gorgias…');
-  try{
-    const res=await fetch('/api/gorgias',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ticketId,messageType:type,bodyText})
-    });
-    const data=await res.json();
-    if(res.ok&&data.success){
-      showGorgiasStatus('ok',`✓ ${type==='note'?'Internal note':'Customer reply'} sent to ticket #${ticketId}`);
-    }else{
-      showGorgiasStatus('error',data.error||'Something went wrong. Try copying the message manually.');
-    }
-  }catch(err){
-    showGorgiasStatus('error','Could not reach the server. Try copying the message manually.');
-  }finally{
-    document.getElementById('btn-note').disabled=false;
-    document.getElementById('btn-reply').disabled=false;
-  }
-}
-
-function showGorgiasStatus(type,msg){
-  const el=document.getElementById('gorgias-status');
-  el.style.display='block';
-  el.className=`status-msg ${type==='ok'?'status-ok':type==='loading'?'status-loading':'status-err'}`;
-  el.textContent=msg;
-}
-
 function renderCaseSettings(){
-  const tbody=document.getElementById('case-settings');
-  tbody.innerHTML='';
+  const tbody=document.getElementById('case-settings');tbody.innerHTML='';
   caseOptions.forEach((c,i)=>{
     const tr=document.createElement('tr');
     tr.innerHTML=`<td><input type="number" value="${c.units}" min="1" oninput="caseOptions[${i}].units=parseInt(this.value)||0"></td><td><input type="number" value="${c.price}" min="1" oninput="caseOptions[${i}].price=parseFloat(this.value)||0"></td>`;
     tbody.appendChild(tr);
   });
 }
-
 renderCaseSettings();
 addDog();
 </script>

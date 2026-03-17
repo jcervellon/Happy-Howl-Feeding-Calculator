@@ -7,242 +7,93 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green-deep:   #2D5016;
-    --green-mid:    #4A7C2F;
-    --green-bright: #6AAF3D;
-    --green-light:  #A8D878;
-    --green-pale:   #EAF5DC;
-    --green-wash:   #F4FAF0;
-    --amber:        #E8A030;
-    --amber-pale:   #FEF3DC;
-    --cream:        #FEFCF7;
-    --brown-warm:   #8B5E3C;
-    --text-dark:    #1E3008;
-    --text-mid:     #4A6030;
-    --text-muted:   #8FAA70;
-    --border:       #D4E8BC;
-    --border-mid:   #B8D498;
-    --white:        #ffffff;
+    --green-deep:#2D5016;--green-mid:#4A7C2F;--green-bright:#6AAF3D;
+    --green-light:#A8D878;--green-pale:#EAF5DC;--green-wash:#F4FAF0;
+    --amber:#E8A030;--amber-pale:#FEF3DC;--cream:#FEFCF7;
+    --brown-warm:#8B5E3C;--text-dark:#1E3008;--text-mid:#4A6030;
+    --text-muted:#8FAA70;--border:#D4E8BC;--border-mid:#B8D498;--white:#ffffff;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--cream);
-    color: var(--text-dark);
-    min-height: 100vh;
-  }
-
-  header {
-    background: var(--white);
-    border-bottom: 2px solid var(--border);
-    padding: 0 28px;
-    display: flex; align-items: center; gap: 16px;
-    height: 68px; position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 8px rgba(74,124,47,0.06);
-  }
-  .logo-wrap { display: flex; align-items: center; gap: 12px; }
-  .paw-icon {
-    width: 44px; height: 44px;
-    background: var(--green-pale); border: 2px solid var(--green-light);
-    border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-  }
-  .logo-text { line-height: 1.1; }
-  .logo-text h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 19px; font-weight: 800;
-    color: var(--green-deep); letter-spacing: -0.02em;
-  }
-  .logo-text p {
-    font-size: 11px; font-weight: 700; color: var(--text-muted);
-    letter-spacing: 0.06em; text-transform: uppercase;
-  }
-  .header-badge {
-    margin-left: auto;
-    background: var(--green-pale); border: 1.5px solid var(--green-light);
-    color: var(--green-mid); font-size: 11px; font-weight: 800;
-    padding: 5px 12px; border-radius: 20px;
-    letter-spacing: 0.04em; text-transform: uppercase;
-  }
-
-  .container { max-width: 740px; margin: 0 auto; padding: 28px 20px 60px; }
-
-  .page-intro { text-align: center; padding: 20px 0 28px; }
-  .page-intro h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px; font-weight: 800; color: var(--green-deep); margin-bottom: 6px;
-  }
-  .page-intro p { font-size: 14px; font-weight: 600; color: var(--text-muted); }
-
-  .card {
-    background: var(--white); border: 1.5px solid var(--border);
-    border-radius: 20px; padding: 24px; margin-bottom: 16px;
-    box-shadow: 0 2px 12px rgba(74,124,47,0.06);
-  }
-  .card-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
-  }
-  .card-title {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 15px; font-weight: 900; color: var(--text-dark);
-  }
-  .step-badge {
-    width: 28px; height: 28px; border-radius: 9px;
-    background: var(--green-mid); color: var(--white);
-    font-size: 12px; font-weight: 900;
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  label.field-label {
-    display: block; font-size: 11px; font-weight: 800; color: var(--text-muted);
-    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px;
-  }
-  input, select {
-    width: 100%; background: var(--green-wash); border: 1.5px solid var(--border);
-    border-radius: 11px; color: var(--text-dark); padding: 11px 14px;
-    font-size: 14px; font-family: 'Nunito', sans-serif; font-weight: 700;
-    outline: none; transition: border-color 0.2s, background 0.2s; -webkit-appearance: none;
-  }
-  input:focus, select:focus { border-color: var(--green-bright); background: var(--white); }
-  input::placeholder { color: var(--text-muted); font-weight: 600; }
-  select option { background: white; color: var(--text-dark); }
-
-  .dog-row {
-    display: grid; grid-template-columns: 1fr 110px 130px 38px;
-    gap: 10px; margin-bottom: 10px; align-items: end;
-  }
-  .units-preview {
-    background: var(--green-pale); border: 1.5px solid var(--green-light);
-    border-radius: 11px; padding: 11px 14px;
-    font-size: 14px; font-weight: 900; color: var(--green-mid); text-align: center;
-  }
-  .units-empty {
-    background: #f8f8f8; border: 1.5px solid var(--border);
-    border-radius: 11px; padding: 11px 14px;
-    font-size: 14px; font-weight: 900; color: var(--text-muted); text-align: center;
-  }
-  .remove-btn {
-    background: #FEF0F0; border: 1.5px solid #F5BFBF; border-radius: 10px; color: #C55;
-    width: 38px; height: 40px; cursor: pointer; font-size: 14px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s; flex-shrink: 0;
-  }
-  .remove-btn:hover { background: #FBDDDD; }
-
-  .btn-ghost {
-    background: transparent; border: 1.5px dashed var(--border-mid); border-radius: 10px;
-    color: var(--text-muted); padding: 9px 18px; font-family: 'Nunito', sans-serif;
-    font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.15s; margin-top: 4px;
-  }
-  .btn-ghost:hover { border-color: var(--green-bright); color: var(--green-mid); background: var(--green-wash); }
-
-  .btn-primary {
-    background: var(--green-mid); border: none; border-radius: 14px; color: var(--white);
-    padding: 15px 36px; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900;
-    cursor: pointer; box-shadow: 0 4px 18px rgba(74,124,47,0.28); transition: all 0.15s; width: 100%;
-  }
-  .btn-primary:hover { background: var(--green-deep); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(74,124,47,0.38); }
-
-  .btn-copy {
-    background: var(--green-pale); border: 1.5px solid var(--border-mid); border-radius: 8px;
-    color: var(--green-mid); padding: 7px 16px; font-family: 'Nunito', sans-serif;
-    font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.15s;
-  }
-  .btn-copy:hover, .btn-copy.copied { background: var(--green-bright); color: white; border-color: var(--green-bright); }
-
-  .plan-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-  .plan-tab {
-    flex: 1; padding: 13px 8px; border-radius: 14px; border: 2px solid var(--border);
-    background: var(--green-wash); color: var(--text-muted); cursor: pointer;
-    font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800;
-    text-align: center; transition: all 0.15s;
-  }
-  .plan-tab .plan-cost { font-size: 17px; font-weight: 900; margin-top: 5px; color: var(--text-mid); }
-  .plan-tab .plan-status { font-size: 10px; font-weight: 800; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .plan-tab.active { border-color: var(--green-bright); background: var(--green-pale); color: var(--text-dark); box-shadow: 0 2px 12px rgba(74,124,47,0.15); }
-  .plan-tab.fits .plan-status { color: var(--green-mid); }
-  .plan-tab.over .plan-status { color: var(--amber); }
-  .plan-tab.over .plan-cost { color: var(--amber); }
-
-  .stats-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
-  .stat-chip {
-    background: var(--green-wash); border: 1.5px solid var(--border);
-    border-radius: 12px; padding: 10px 14px; flex: 1; min-width: 88px;
-  }
-  .stat-chip .stat-label { font-size: 9px; font-weight: 900; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
-  .stat-chip .stat-val { font-size: 17px; font-weight: 900; color: var(--text-dark); }
-  .stat-chip.highlight .stat-val { color: var(--green-mid); }
-  .stat-chip.warn { border-color: #F5C88A; background: var(--amber-pale); }
-  .stat-chip.warn .stat-val { color: var(--brown-warm); }
-
-  .message-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .message-label { font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
-  .customer-label { color: var(--green-mid); }
-  .note-label { color: var(--amber); }
-
-  .message-box {
-    background: var(--green-wash); border: 1.5px solid var(--border); border-radius: 13px; padding: 16px;
-    font-size: 14px; font-weight: 600; line-height: 1.8; color: var(--text-dark);
-    white-space: pre-wrap; font-family: 'Nunito', sans-serif; min-height: 80px;
-  }
-  .note-box {
-    background: var(--amber-pale); border-color: #F5C88A;
-    font-family: 'Courier New', monospace; font-size: 12.5px; color: var(--brown-warm); line-height: 1.7;
-  }
-
-  .gorgias-ticket-row { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 14px; }
-  .gorgias-ticket-row > div:first-child { flex: 1; }
-
-  .send-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .btn-send-note {
-    background: var(--amber-pale); border: 1.5px solid #F5C88A; color: var(--brown-warm);
-    border-radius: 10px; padding: 11px 22px; font-family: 'Nunito', sans-serif;
-    font-size: 14px; font-weight: 800; cursor: pointer; transition: all 0.15s;
-  }
-  .btn-send-note:hover { background: #FAE4B0; }
-  .btn-send-note:disabled { opacity: 0.4; cursor: not-allowed; }
-  .btn-send-reply {
-    background: var(--green-mid); border: none; color: white;
-    border-radius: 10px; padding: 11px 22px; font-family: 'Nunito', sans-serif;
-    font-size: 14px; font-weight: 800; cursor: pointer; transition: all 0.15s;
-    box-shadow: 0 3px 12px rgba(74,124,47,0.25);
-  }
-  .btn-send-reply:hover { background: var(--green-deep); }
-  .btn-send-reply:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .status-msg { margin-top: 14px; padding: 12px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; }
-  .status-ok { background: var(--green-pale); color: var(--green-mid); border: 1.5px solid var(--border); }
-  .status-err { background: #FEF0F0; color: #C55; border: 1.5px solid #F5BFBF; }
-  .status-loading { background: var(--green-wash); color: var(--text-muted); border: 1.5px solid var(--border); }
-
-  .ticket-hint { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
-
-  .settings-toggle { cursor: pointer; display: flex; align-items: center; gap: 10px; }
-  .settings-body { display: none; }
-  .settings-body.open { display: block; }
-
-  .grid-budget { display: grid; grid-template-columns: 1fr 140px; gap: 12px; }
-  .toggle-arrow { margin-left: auto; font-size: 11px; font-weight: 800; color: var(--text-muted); }
-  .auto-badge {
-    font-size: 10px; background: var(--green-pale); border: 1.5px solid var(--green-light);
-    color: var(--green-mid); padding: 4px 10px; border-radius: 20px; font-weight: 900;
-    letter-spacing: 0.06em; text-transform: uppercase;
-  }
-
-  .case-table { width: 100%; border-collapse: collapse; }
-  .case-table th {
-    font-size: 10px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text-muted); text-align: left; padding: 6px 10px; border-bottom: 1.5px solid var(--border);
-  }
-  .case-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
-  .case-table input { width: 90px; padding: 7px 10px; font-size: 13px; }
-
-  @media (max-width: 560px) {
-    .dog-row { grid-template-columns: 1fr 1fr; }
-    .dog-row .col-units { display: none; }
-    .plan-tabs { flex-direction: column; }
-    .gorgias-ticket-row { flex-direction: column; }
-    .send-row { flex-direction: column; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh;}
+  header{background:var(--white);border-bottom:2px solid var(--border);padding:0 28px;display:flex;align-items:center;gap:16px;height:68px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(74,124,47,0.06);}
+  .logo-wrap{display:flex;align-items:center;gap:12px;}
+  .paw-icon{width:44px;height:44px;background:var(--green-pale);border:2px solid var(--green-light);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+  .logo-text h1{font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:var(--green-deep);letter-spacing:-0.02em;}
+  .logo-text p{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;}
+  .header-badge{margin-left:auto;background:var(--green-pale);border:1.5px solid var(--green-light);color:var(--green-mid);font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;letter-spacing:0.04em;text-transform:uppercase;}
+  .container{max-width:740px;margin:0 auto;padding:28px 20px 60px;}
+  .page-intro{text-align:center;padding:20px 0 28px;}
+  .page-intro h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--green-deep);margin-bottom:6px;}
+  .page-intro p{font-size:14px;font-weight:600;color:var(--text-muted);}
+  .card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(74,124,47,0.06);}
+  .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+  .card-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:900;color:var(--text-dark);}
+  .step-badge{width:28px;height:28px;border-radius:9px;background:var(--green-mid);color:var(--white);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+  .field-label{display:block;font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+  input,select{width:100%;background:var(--green-wash);border:1.5px solid var(--border);border-radius:11px;color:var(--text-dark);padding:11px 14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none;}
+  input:focus,select:focus{border-color:var(--green-bright);background:var(--white);}
+  input::placeholder{color:var(--text-muted);font-weight:600;}
+  select option{background:white;color:var(--text-dark);}
+  .col-headers{display:grid;grid-template-columns:1fr 110px 130px 38px;gap:10px;margin-bottom:6px;}
+  .dog-row{display:grid;grid-template-columns:1fr 110px 130px 38px;gap:10px;margin-bottom:10px;align-items:center;}
+  .units-chip{border-radius:11px;padding:11px 14px;font-size:14px;font-weight:900;text-align:center;border:1.5px solid var(--border);background:#f8f8f8;color:var(--text-muted);}
+  .units-chip.has-value{background:var(--green-pale);border-color:var(--green-light);color:var(--green-mid);}
+  .remove-btn{background:#FEF0F0;border:1.5px solid #F5BFBF;border-radius:10px;color:#C55;width:38px;height:40px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
+  .remove-btn:hover{background:#FBDDDD;}
+  .btn-ghost{background:transparent;border:1.5px dashed var(--border-mid);border-radius:10px;color:var(--text-muted);padding:9px 18px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all 0.15s;margin-top:4px;}
+  .btn-ghost:hover{border-color:var(--green-bright);color:var(--green-mid);background:var(--green-wash);}
+  .btn-primary{background:var(--green-mid);border:none;border-radius:14px;color:var(--white);padding:15px 36px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 4px 18px rgba(74,124,47,0.28);transition:all 0.15s;width:100%;}
+  .btn-primary:hover{background:var(--green-deep);transform:translateY(-1px);}
+  .btn-copy{background:var(--green-pale);border:1.5px solid var(--border-mid);border-radius:8px;color:var(--green-mid);padding:7px 16px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:all 0.15s;}
+  .btn-copy:hover,.btn-copy.copied{background:var(--green-bright);color:white;border-color:var(--green-bright);}
+  .plan-tabs{display:flex;gap:10px;margin-bottom:20px;}
+  .plan-tab{flex:1;padding:13px 8px;border-radius:14px;border:2px solid var(--border);background:var(--green-wash);color:var(--text-muted);cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;text-align:center;transition:all 0.15s;}
+  .plan-tab .plan-cost{font-size:17px;font-weight:900;margin-top:5px;color:var(--text-mid);}
+  .plan-tab .plan-status{font-size:10px;font-weight:800;margin-top:3px;text-transform:uppercase;letter-spacing:0.05em;}
+  .plan-tab.active{border-color:var(--green-bright);background:var(--green-pale);color:var(--text-dark);box-shadow:0 2px 12px rgba(74,124,47,0.15);}
+  .plan-tab.fits .plan-status{color:var(--green-mid);}
+  .plan-tab.over .plan-status{color:var(--amber);}
+  .plan-tab.over .plan-cost{color:var(--amber);}
+  .stats-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;}
+  .stat-chip{background:var(--green-wash);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;flex:1;min-width:88px;}
+  .stat-chip .stat-label{font-size:9px;font-weight:900;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;}
+  .stat-chip .stat-val{font-size:17px;font-weight:900;color:var(--text-dark);}
+  .stat-chip.highlight .stat-val{color:var(--green-mid);}
+  .stat-chip.warn{border-color:#F5C88A;background:var(--amber-pale);}
+  .stat-chip.warn .stat-val{color:var(--brown-warm);}
+  .message-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .message-label{font-size:11px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;}
+  .customer-label{color:var(--green-mid);}
+  .note-label{color:var(--amber);}
+  .message-box{background:var(--green-wash);border:1.5px solid var(--border);border-radius:13px;padding:16px;font-size:14px;font-weight:600;line-height:1.8;color:var(--text-dark);white-space:pre-wrap;font-family:'Nunito',sans-serif;min-height:80px;}
+  .note-box{background:var(--amber-pale);border-color:#F5C88A;font-family:'Courier New',monospace;font-size:12.5px;color:var(--brown-warm);line-height:1.7;}
+  .gorgias-row{margin-bottom:14px;}
+  .ticket-hint{font-size:11px;font-weight:600;color:var(--text-muted);margin-top:6px;line-height:1.5;}
+  .send-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn-send-note{background:var(--amber-pale);border:1.5px solid #F5C88A;color:var(--brown-warm);border-radius:10px;padding:11px 22px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all 0.15s;}
+  .btn-send-note:hover{background:#FAE4B0;}
+  .btn-send-note:disabled,.btn-send-reply:disabled{opacity:0.4;cursor:not-allowed;}
+  .btn-send-reply{background:var(--green-mid);border:none;color:white;border-radius:10px;padding:11px 22px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all 0.15s;box-shadow:0 3px 12px rgba(74,124,47,0.25);}
+  .btn-send-reply:hover{background:var(--green-deep);}
+  .status-msg{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:700;}
+  .status-ok{background:var(--green-pale);color:var(--green-mid);border:1.5px solid var(--border);}
+  .status-err{background:#FEF0F0;color:#C55;border:1.5px solid #F5BFBF;}
+  .status-loading{background:var(--green-wash);color:var(--text-muted);border:1.5px solid var(--border);}
+  .settings-toggle{cursor:pointer;display:flex;align-items:center;gap:10px;}
+  .settings-body{display:none;}
+  .settings-body.open{display:block;}
+  .grid-budget{display:grid;grid-template-columns:1fr 140px;gap:12px;}
+  .toggle-arrow{margin-left:auto;font-size:11px;font-weight:800;color:var(--text-muted);}
+  .auto-badge{font-size:10px;background:var(--green-pale);border:1.5px solid var(--green-light);color:var(--green-mid);padding:4px 10px;border-radius:20px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;}
+  .case-table{width:100%;border-collapse:collapse;}
+  .case-table th{font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:6px 10px;border-bottom:1.5px solid var(--border);}
+  .case-table td{padding:8px 10px;border-bottom:1px solid var(--border);}
+  .case-table input{width:90px;padding:7px 10px;font-size:13px;}
+  @media(max-width:560px){
+    .col-headers,.dog-row{grid-template-columns:1fr 90px 40px;}
+    .col-headers .col-units,.dog-row .col-units{display:none;}
+    .plan-tabs{flex-direction:column;}
+    .send-row{flex-direction:column;}
   }
 </style>
 </head>
@@ -260,28 +111,25 @@
 </header>
 
 <div class="container">
-
   <div class="page-intro">
     <h2>How Much Should They Eat?</h2>
     <p>Enter each dog's info and the customer's budget — we'll handle the rest.</p>
   </div>
 
-  <!-- Step 1: Dogs -->
   <div class="card">
     <div class="card-header">
       <div class="card-title"><div class="step-badge">1</div>Dog Info</div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 110px 130px 38px;gap:10px;margin-bottom:6px;">
-      <label class="field-label" style="margin-bottom:0">Dog Name</label>
-      <label class="field-label" style="margin-bottom:0">Weight (lb)</label>
-      <label class="field-label" style="margin-bottom:0">Units/Day (Full)</label>
-      <div></div>
+    <div class="col-headers">
+      <span class="field-label" style="margin-bottom:0">Dog Name</span>
+      <span class="field-label" style="margin-bottom:0">Weight (lb)</span>
+      <span class="field-label col-units" style="margin-bottom:0">Units/Day</span>
+      <span></span>
     </div>
     <div id="dogs-list"></div>
     <button class="btn-ghost" onclick="addDog()">+ Add another dog</button>
   </div>
 
-  <!-- Step 2: Budget -->
   <div class="card">
     <div class="card-header">
       <div class="card-title"><div class="step-badge">2</div>Customer Budget</div>
@@ -289,11 +137,11 @@
     <div class="grid-budget">
       <div>
         <label class="field-label">Monthly Budget ($)</label>
-        <input type="number" id="budget" placeholder="e.g. 150" min="0" step="1" oninput="clearResults()">
+        <input type="number" id="budget" placeholder="e.g. 150" min="0" step="1">
       </div>
       <div>
         <label class="field-label">Billing Period</label>
-        <select id="days" onchange="clearResults()">
+        <select id="days">
           <option value="28">28 days</option>
           <option value="30">30 days</option>
         </select>
@@ -305,9 +153,7 @@
     <button class="btn-primary" onclick="calculate()">Calculate Recommendation →</button>
   </div>
 
-  <!-- Results -->
   <div id="results" style="display:none">
-
     <div class="card">
       <div class="card-header">
         <div class="card-title"><div class="step-badge">3</div>Recommendation</div>
@@ -315,7 +161,6 @@
       </div>
       <div class="plan-tabs" id="plan-tabs"></div>
       <div class="stats-row" id="stats-row"></div>
-
       <div style="margin-bottom:18px">
         <div class="message-header">
           <span class="message-label customer-label">🌿 Customer Message</span>
@@ -323,7 +168,6 @@
         </div>
         <div class="message-box" id="customer-msg"></div>
       </div>
-
       <div>
         <div class="message-header">
           <span class="message-label note-label">📋 Internal Note</span>
@@ -333,17 +177,14 @@
       </div>
     </div>
 
-    <!-- Step 4: Gorgias -->
     <div class="card">
       <div class="card-header" style="margin-bottom:16px">
         <div class="card-title"><div class="step-badge">4</div>Send to Gorgias</div>
       </div>
-      <div class="gorgias-ticket-row">
-        <div>
-          <label class="field-label">Ticket ID</label>
-          <input type="text" id="g-ticket" placeholder="Just the number at the end of the URL — e.g. 261312542" oninput="clearGorgiasStatus()">
-          <p class="ticket-hint">Open the ticket in Gorgias → copy the last number from the URL → paste it here</p>
-        </div>
+      <div class="gorgias-row">
+        <label class="field-label">Ticket ID</label>
+        <input type="text" id="g-ticket" placeholder="Just the number at the end of the URL — e.g. 261312542">
+        <p class="ticket-hint">Open the ticket in Gorgias → copy the last number from the URL → paste it here</p>
       </div>
       <div class="send-row">
         <button class="btn-send-note" id="btn-note" onclick="sendGorgias('note')">📋 Send as Internal Note</button>
@@ -351,315 +192,275 @@
       </div>
       <div id="gorgias-status" style="display:none"></div>
     </div>
+  </div>
 
-  </div><!-- /results -->
-
-  <!-- Settings -->
   <div class="card">
     <div class="settings-toggle" onclick="toggleSettings()">
       <span style="font-size:13px;font-weight:800;color:var(--text-muted)">⚙ Pricing &amp; Case Settings</span>
       <span class="toggle-arrow" id="settings-arrow">▼ Edit</span>
     </div>
     <div class="settings-body" id="settings-body">
-      <p style="font-size:12px;font-weight:600;color:var(--text-muted);margin:14px 0 12px">
-        Update case prices if they've changed — all calculations update instantly.
-      </p>
+      <p style="font-size:12px;font-weight:600;color:var(--text-muted);margin:14px 0 12px">Update case prices if they've changed — all calculations update instantly.</p>
       <table class="case-table">
         <thead><tr><th>Case size (units)</th><th>Price per case ($)</th></tr></thead>
         <tbody id="case-settings"></tbody>
       </table>
     </div>
   </div>
-
 </div>
 
 <script>
-const WEIGHT_TABLE = [
-  {min:0,   max:3,   units:0.20},
-  {min:4,   max:6,   units:0.33},
-  {min:7,   max:9,   units:0.50},
-  {min:10,  max:15,  units:0.75},
-  {min:16,  max:21,  units:0.80},
-  {min:22,  max:28,  units:1.00},
-  {min:29,  max:35,  units:1.40},
-  {min:36,  max:41,  units:1.50},
-  {min:42,  max:47,  units:1.80},
-  {min:48,  max:55,  units:2.00},
-  {min:56,  max:65,  units:2.25},
-  {min:66,  max:76,  units:2.50},
-  {min:77,  max:88,  units:2.75},
-  {min:89,  max:101, units:3.00},
-  {min:102, max:115, units:3.20},
-  {min:116, max:9999,units:4.00},
+const WEIGHT_TABLE=[
+  {min:0,max:3,units:0.20},{min:4,max:6,units:0.33},{min:7,max:9,units:0.50},
+  {min:10,max:15,units:0.75},{min:16,max:21,units:0.80},{min:22,max:28,units:1.00},
+  {min:29,max:35,units:1.40},{min:36,max:41,units:1.50},{min:42,max:47,units:1.80},
+  {min:48,max:55,units:2.00},{min:56,max:65,units:2.25},{min:66,max:76,units:2.50},
+  {min:77,max:88,units:2.75},{min:89,max:101,units:3.00},{min:102,max:115,units:3.20},
+  {min:116,max:9999,units:4.00}
 ];
-
-let caseOptions = [
-  {units:6,  price:63},
-  {units:18, price:92},
-  {units:24, price:143},
-  {units:36, price:169},
-  {units:48, price:204},
+let caseOptions=[
+  {units:6,price:63},{units:18,price:92},{units:24,price:143},
+  {units:36,price:169},{units:48,price:204}
 ];
-
-const PLANS = [
-  {id:'full',   label:'Full Meal Plan',  multiplier:1.00},
-  {id:'half',   label:'Half Meal Plan',  multiplier:0.50},
-  {id:'topper', label:'Topper Plan',     multiplier:0.25},
+const PLANS=[
+  {id:'full',label:'Full Meal Plan',multiplier:1.00},
+  {id:'half',label:'Half Meal Plan',multiplier:0.50},
+  {id:'topper',label:'Topper Plan',multiplier:0.25}
 ];
-
-const PLAN_MESSAGES = {
-  full:   "Great news! Purchasing a full Happy Howl meal plan for all of your dogs fits within your current budget! We include a transition guide with every new customer order.",
-  half:   "We recommend a half meal plan to fit within your established budget. You will want to mix Happy Howl half and half with your dog's current food or a high quality kibble.",
-  topper: "We recommend a topper meal plan to fit within your established budget. You will want to mix 1/4 Happy Howl with 3/4 of your dog's current food or a high quality kibble.",
+const PLAN_MESSAGES={
+  full:"Great news! Purchasing a full Happy Howl meal plan for all of your dogs fits within your current budget! We include a transition guide with every new customer order.",
+  half:"We recommend a half meal plan to fit within your established budget. You will want to mix Happy Howl half and half with your dog's current food or a high quality kibble.",
+  topper:"We recommend a topper meal plan to fit within your established budget. You will want to mix 1/4 Happy Howl with 3/4 of your dog's current food or a high quality kibble."
 };
 
-// Dogs stored as plain array — UI built once, updated in-place
-let dogs = [{id:1, name:'', weight:''}];
-let nextId = 2;
-let currentResults = null;
-let selectedPlan = 'full';
+let dogCount=0;
+let currentResults=null;
+let selectedPlan='full';
 
-function getUnitsPerDay(weight) {
-  const w = parseFloat(weight);
-  if (isNaN(w) || w <= 0) return null;
-  const row = WEIGHT_TABLE.find(r => w >= r.min && w <= r.max);
-  return row ? row.units : 4.0;
+function getUnitsPerDay(weight){
+  const w=parseFloat(weight);
+  if(isNaN(w)||w<=0)return null;
+  const row=WEIGHT_TABLE.find(r=>w>=r.min&&w<=r.max);
+  return row?row.units:4.0;
 }
 
-function findBestOption(totalUnits, multiplier, budget, days) {
-  const needed = totalUnits * multiplier * days;
-  const sorted = [...caseOptions].sort((a,b) => b.units - a.units);
-  for (const c of sorted) {
-    const cn = Math.ceil(needed / c.units);
-    if (cn * c.price <= budget) return {units:c.units, price:c.price, casesNeeded:cn, totalCost:cn*c.price, overBudget:false};
+function findBestOption(totalUnits,multiplier,budget,days){
+  const needed=totalUnits*multiplier*days;
+  const sorted=[...caseOptions].sort((a,b)=>b.units-a.units);
+  for(const c of sorted){
+    const cn=Math.ceil(needed/c.units);
+    if(cn*c.price<=budget)return{units:c.units,price:c.price,casesNeeded:cn,totalCost:cn*c.price,overBudget:false};
   }
-  const cheapest = [...caseOptions].sort((a,b) => a.price - b.price)[0];
-  const cn = Math.ceil(needed / cheapest.units);
-  return {units:cheapest.units, price:cheapest.price, casesNeeded:cn, totalCost:cn*cheapest.price, overBudget:true};
+  const cheapest=[...caseOptions].sort((a,b)=>a.price-b.price)[0];
+  const cn=Math.ceil(needed/cheapest.units);
+  return{units:cheapest.units,price:cheapest.price,casesNeeded:cn,totalCost:cn*cheapest.price,overBudget:true};
 }
 
-// Build the dog list rows from scratch — only called on add/remove, NOT on typing
-function renderDogs() {
-  const list = document.getElementById('dogs-list');
-  list.innerHTML = '';
-  dogs.forEach(dog => {
-    const row = document.createElement('div');
-    row.className = 'dog-row';
-    row.dataset.id = dog.id;
-    row.innerHTML = `
-      <div>
-        <input type="text" value="${dog.name}" placeholder="e.g. Biscuit"
-          oninput="onNameInput(${dog.id}, this.value)">
-      </div>
-      <div>
-        <input type="number" value="${dog.weight}" placeholder="45" min="1"
-          oninput="onWeightInput(${dog.id}, this.value)">
-      </div>
-      <div class="col-units">
-        <div class="units-empty" id="units-${dog.id}">—</div>
-      </div>
-      <button class="remove-btn" onclick="removeDog(${dog.id})"
-        ${dogs.length === 1 ? 'style="opacity:0.25;pointer-events:none"' : ''}>✕</button>
-    `;
-    list.appendChild(row);
-    // Set correct units display after building row
-    updateUnitsDisplay(dog.id, dog.weight);
+function addDog(){
+  dogCount++;
+  const id=dogCount;
+  const list=document.getElementById('dogs-list');
+  const row=document.createElement('div');
+  row.className='dog-row';
+  row.id='dog-row-'+id;
+
+  const nameInput=document.createElement('input');
+  nameInput.type='text';
+  nameInput.placeholder='e.g. Biscuit';
+
+  const weightInput=document.createElement('input');
+  weightInput.type='number';
+  weightInput.placeholder='45';
+  weightInput.min='1';
+
+  const unitsChip=document.createElement('div');
+  unitsChip.className='units-chip col-units';
+  unitsChip.textContent='—';
+
+  weightInput.addEventListener('input',function(){
+    const units=getUnitsPerDay(this.value);
+    if(units!==null){
+      unitsChip.textContent=units+' units';
+      unitsChip.className='units-chip col-units has-value';
+    }else{
+      unitsChip.textContent='—';
+      unitsChip.className='units-chip col-units';
+    }
+  });
+
+  const removeBtn=document.createElement('button');
+  removeBtn.className='remove-btn';
+  removeBtn.textContent='✕';
+  removeBtn.onclick=function(){row.remove();updateRemoveButtons();};
+
+  const nameWrap=document.createElement('div');
+  nameWrap.appendChild(nameInput);
+  const weightWrap=document.createElement('div');
+  weightWrap.appendChild(weightInput);
+
+  row.appendChild(nameWrap);
+  row.appendChild(weightWrap);
+  row.appendChild(unitsChip);
+  row.appendChild(removeBtn);
+  list.appendChild(row);
+  updateRemoveButtons();
+  nameInput.focus();
+}
+
+function updateRemoveButtons(){
+  const rows=document.querySelectorAll('#dogs-list .dog-row');
+  rows.forEach(r=>{
+    const btn=r.querySelector('.remove-btn');
+    btn.style.opacity=rows.length===1?'0.25':'1';
+    btn.style.pointerEvents=rows.length===1?'none':'auto';
   });
 }
 
-// Update just the units chip — no re-render
-function updateUnitsDisplay(id, weight) {
-  const el = document.getElementById(`units-${id}`);
-  if (!el) return;
-  const units = getUnitsPerDay(weight);
-  if (units !== null) {
-    el.textContent = `${units} units`;
-    el.className = 'units-preview';
-  } else {
-    el.textContent = '—';
-    el.className = 'units-empty';
-  }
+function getDogsFromDOM(){
+  const rows=document.querySelectorAll('#dogs-list .dog-row');
+  const dogs=[];
+  rows.forEach(row=>{
+    const inputs=row.querySelectorAll('input');
+    const name=inputs[0].value.trim();
+    const weight=inputs[1].value;
+    if(name&&parseFloat(weight)>0){
+      dogs.push({name,weight,baseUnits:getUnitsPerDay(weight)});
+    }
+  });
+  return dogs;
 }
 
-// Typing a name: update data only, no DOM re-render
-function onNameInput(id, value) {
-  const dog = dogs.find(d => d.id === id);
-  if (dog) dog.name = value;
-  clearResults();
-}
-
-// Typing a weight: update data + just the units chip
-function onWeightInput(id, value) {
-  const dog = dogs.find(d => d.id === id);
-  if (dog) dog.weight = value;
-  updateUnitsDisplay(id, value);
-  clearResults();
-}
-
-function addDog() {
-  dogs.push({id: nextId++, name: '', weight: ''});
-  clearResults();
-  renderDogs();
-}
-
-function removeDog(id) {
-  if (dogs.length === 1) return;
-  dogs = dogs.filter(d => d.id !== id);
-  clearResults();
-  renderDogs();
-}
-
-function clearResults() {
-  document.getElementById('results').style.display = 'none';
-  currentResults = null;
-}
-
-function clearGorgiasStatus() {
-  document.getElementById('gorgias-status').style.display = 'none';
-}
-
-function calculate() {
-  const budget = parseFloat(document.getElementById('budget').value);
-  const days = parseInt(document.getElementById('days').value);
-  const validDogs = dogs.filter(d => d.name.trim() && parseFloat(d.weight) > 0);
-  if (!validDogs.length || isNaN(budget) || budget <= 0) {
+function calculate(){
+  const budget=parseFloat(document.getElementById('budget').value);
+  const days=parseInt(document.getElementById('days').value);
+  const validDogs=getDogsFromDOM();
+  if(!validDogs.length||isNaN(budget)||budget<=0){
     alert('Please enter at least one dog with a name and weight, and a monthly budget.');
     return;
   }
-  const dogsCalc = validDogs.map(d => ({...d, baseUnits: getUnitsPerDay(d.weight)}));
-  const totalBase = dogsCalc.reduce((s,d) => s + d.baseUnits, 0);
-  let autoPlan = 'topper';
-  for (const plan of PLANS) {
-    if (!findBestOption(totalBase, plan.multiplier, budget, days).overBudget) { autoPlan = plan.id; break; }
+  const totalBase=validDogs.reduce((s,d)=>s+d.baseUnits,0);
+  let autoPlan='topper';
+  for(const plan of PLANS){
+    if(!findBestOption(totalBase,plan.multiplier,budget,days).overBudget){autoPlan=plan.id;break;}
   }
-  currentResults = {dogsCalc, totalBase, budget, days};
-  selectedPlan = autoPlan;
+  currentResults={dogsCalc:validDogs,totalBase,budget,days};
+  selectedPlan=autoPlan;
   renderResults();
-  document.getElementById('results').style.display = 'block';
-  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'start'});
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function renderResults() {
-  if (!currentResults) return;
-  const {dogsCalc, totalBase, budget, days} = currentResults;
-
-  const tabs = document.getElementById('plan-tabs');
-  tabs.innerHTML = '';
-  PLANS.forEach(plan => {
-    const opt = findBestOption(totalBase, plan.multiplier, budget, days);
-    const tab = document.createElement('button');
-    tab.className = `plan-tab ${opt.overBudget?'over':'fits'} ${selectedPlan===plan.id?'active':''}`;
-    tab.innerHTML = `${plan.label}<div class="plan-cost">$${opt.totalCost}</div><div class="plan-status">${opt.overBudget?'over budget':'✓ fits budget'}</div>`;
-    tab.onclick = () => { selectedPlan = plan.id; renderResults(); };
+function renderResults(){
+  if(!currentResults)return;
+  const{dogsCalc,totalBase,budget,days}=currentResults;
+  const tabs=document.getElementById('plan-tabs');
+  tabs.innerHTML='';
+  PLANS.forEach(plan=>{
+    const opt=findBestOption(totalBase,plan.multiplier,budget,days);
+    const tab=document.createElement('button');
+    tab.className=`plan-tab ${opt.overBudget?'over':'fits'} ${selectedPlan===plan.id?'active':''}`;
+    tab.innerHTML=`${plan.label}<div class="plan-cost">$${opt.totalCost}</div><div class="plan-status">${opt.overBudget?'over budget':'✓ fits budget'}</div>`;
+    tab.onclick=()=>{selectedPlan=plan.id;renderResults();};
     tabs.appendChild(tab);
   });
-
-  const plan = PLANS.find(p => p.id === selectedPlan);
-  const opt = findBestOption(totalBase, plan.multiplier, budget, days);
-  const totalDay = totalBase * plan.multiplier;
-
-  document.getElementById('stats-row').innerHTML = `
+  const plan=PLANS.find(p=>p.id===selectedPlan);
+  const opt=findBestOption(totalBase,plan.multiplier,budget,days);
+  const totalDay=totalBase*plan.multiplier;
+  document.getElementById('stats-row').innerHTML=`
     <div class="stat-chip"><div class="stat-label">Units / day</div><div class="stat-val">${totalDay.toFixed(2)}</div></div>
     <div class="stat-chip"><div class="stat-label">Units / ${days} days</div><div class="stat-val">${(totalDay*days).toFixed(1)}</div></div>
     <div class="stat-chip"><div class="stat-label">Cases needed</div><div class="stat-val">${opt.casesNeeded}× ${opt.units}-unit</div></div>
     <div class="stat-chip ${opt.overBudget?'warn':'highlight'}"><div class="stat-label">Total cost</div><div class="stat-val">$${opt.totalCost}</div></div>
     <div class="stat-chip"><div class="stat-label">Budget</div><div class="stat-val">$${budget}</div></div>
   `;
-
-  document.getElementById('customer-msg').textContent = buildCustomerMsg(plan, opt, dogsCalc, days);
-  document.getElementById('internal-note').textContent = buildInternalNote(plan, opt, dogsCalc, totalBase, budget, days);
+  document.getElementById('customer-msg').textContent=buildCustomerMsg(plan,opt,dogsCalc,days);
+  document.getElementById('internal-note').textContent=buildInternalNote(plan,opt,dogsCalc,totalBase,budget,days);
 }
 
-function buildCustomerMsg(plan, opt, dogs, days) {
-  const dogWord = dogs.length === 1 ? 'dog' : `${dogs.length} dogs`;
-  let msg = `For your ${dogWord} on a ${plan.label.toLowerCase()}, you will need to order (${opt.casesNeeded}) ${opt.units}-unit case${opt.casesNeeded!==1?'s':''} every ${days} days.\n\n`;
-  dogs.forEach(d => { msg += `${d.name} will need to be fed ${(d.baseUnits * plan.multiplier).toFixed(2)} units per day.\n`; });
-  msg += `\n${PLAN_MESSAGES[plan.id]}`;
+function buildCustomerMsg(plan,opt,dogs,days){
+  const dogWord=dogs.length===1?'dog':`${dogs.length} dogs`;
+  let msg=`For your ${dogWord} on a ${plan.label.toLowerCase()}, you will need to order (${opt.casesNeeded}) ${opt.units}-unit case${opt.casesNeeded!==1?'s':''} every ${days} days.\n\n`;
+  dogs.forEach(d=>{msg+=`${d.name} will need to be fed ${(d.baseUnits*plan.multiplier).toFixed(2)} units per day.\n`;});
+  msg+=`\n${PLAN_MESSAGES[plan.id]}`;
   return msg;
 }
 
-function buildInternalNote(plan, opt, dogs, totalBase, budget, days) {
-  let note = `Happy Howl Feeding Calc — Internal Note\n${'─'.repeat(38)}\n`;
-  note += `Plan:        ${plan.label}\nBudget:      $${budget} / ${days} days\n\nDog breakdown:\n`;
-  dogs.forEach(d => { note += `  ${d.name.padEnd(16)} ${d.weight} lb  →  ${(d.baseUnits * plan.multiplier).toFixed(4)} units/day\n`; });
-  note += `\nTotal:       ${(totalBase * plan.multiplier).toFixed(3)} units/day\n             ${(totalBase * plan.multiplier * days).toFixed(1)} units / ${days} days\n\nOrder:       ${opt.casesNeeded}× ${opt.units}-unit case${opt.casesNeeded!==1?'s':''} = $${opt.totalCost}\n`;
-  if (opt.overBudget) note += `⚠  Over budget by $${(opt.totalCost - budget).toFixed(2)}\n`;
+function buildInternalNote(plan,opt,dogs,totalBase,budget,days){
+  let note=`Happy Howl Feeding Calc — Internal Note\n${'─'.repeat(38)}\n`;
+  note+=`Plan:        ${plan.label}\nBudget:      $${budget} / ${days} days\n\nDog breakdown:\n`;
+  dogs.forEach(d=>{note+=`  ${d.name.padEnd(16)} ${d.weight} lb  →  ${(d.baseUnits*plan.multiplier).toFixed(4)} units/day\n`;});
+  note+=`\nTotal:       ${(totalBase*plan.multiplier).toFixed(3)} units/day\n             ${(totalBase*plan.multiplier*days).toFixed(1)} units / ${days} days\n\nOrder:       ${opt.casesNeeded}× ${opt.units}-unit case${opt.casesNeeded!==1?'s':''} = $${opt.totalCost}\n`;
+  if(opt.overBudget)note+=`⚠  Over budget by $${(opt.totalCost-budget).toFixed(2)}\n`;
   return note;
 }
 
-function copyText(elId, btnId) {
-  navigator.clipboard.writeText(document.getElementById(elId).textContent).then(() => {
-    const btn = document.getElementById(btnId);
-    const orig = btn.textContent;
-    btn.textContent = '✓ Copied!'; btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+function copyText(elId,btnId){
+  navigator.clipboard.writeText(document.getElementById(elId).textContent).then(()=>{
+    const btn=document.getElementById(btnId);
+    const orig=btn.textContent;
+    btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);
   });
 }
 
-function toggleSettings() {
-  const body = document.getElementById('settings-body');
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  document.getElementById('settings-arrow').textContent = isOpen ? '▼ Edit' : '▲ Hide';
+function toggleSettings(){
+  const body=document.getElementById('settings-body');
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  document.getElementById('settings-arrow').textContent=isOpen?'▼ Edit':'▲ Hide';
 }
 
-async function sendGorgias(type) {
-  const ticketId = document.getElementById('g-ticket').value.trim();
-  if (!ticketId) { showGorgiasStatus('error', 'Please enter a ticket ID first.'); return; }
-  if (!currentResults) { showGorgiasStatus('error', 'Run the calculator first.'); return; }
-
-  const plan = PLANS.find(p => p.id === selectedPlan);
-  const opt = findBestOption(currentResults.totalBase, plan.multiplier, currentResults.budget, currentResults.days);
-  const bodyText = type === 'note'
-    ? buildInternalNote(plan, opt, currentResults.dogsCalc, currentResults.totalBase, currentResults.budget, currentResults.days)
-    : buildCustomerMsg(plan, opt, currentResults.dogsCalc, currentResults.days);
-
-  document.getElementById('btn-note').disabled = true;
-  document.getElementById('btn-reply').disabled = true;
-  showGorgiasStatus('loading', 'Sending to Gorgias…');
-
-  try {
-    const res = await fetch('/api/gorgias', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ticketId, messageType: type, bodyText}),
+async function sendGorgias(type){
+  const ticketId=document.getElementById('g-ticket').value.trim();
+  if(!ticketId){showGorgiasStatus('error','Please enter a ticket ID first.');return;}
+  if(!currentResults){showGorgiasStatus('error','Run the calculator first.');return;}
+  const plan=PLANS.find(p=>p.id===selectedPlan);
+  const opt=findBestOption(currentResults.totalBase,plan.multiplier,currentResults.budget,currentResults.days);
+  const bodyText=type==='note'
+    ?buildInternalNote(plan,opt,currentResults.dogsCalc,currentResults.totalBase,currentResults.budget,currentResults.days)
+    :buildCustomerMsg(plan,opt,currentResults.dogsCalc,currentResults.days);
+  document.getElementById('btn-note').disabled=true;
+  document.getElementById('btn-reply').disabled=true;
+  showGorgiasStatus('loading','Sending to Gorgias…');
+  try{
+    const res=await fetch('/api/gorgias',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ticketId,messageType:type,bodyText})
     });
-    const data = await res.json();
-    if (res.ok && data.success) {
-      showGorgiasStatus('ok', `✓ ${type === 'note' ? 'Internal note' : 'Customer reply'} sent to ticket #${ticketId}`);
-    } else {
-      showGorgiasStatus('error', data.error || 'Something went wrong. Try copying the message manually.');
+    const data=await res.json();
+    if(res.ok&&data.success){
+      showGorgiasStatus('ok',`✓ ${type==='note'?'Internal note':'Customer reply'} sent to ticket #${ticketId}`);
+    }else{
+      showGorgiasStatus('error',data.error||'Something went wrong. Try copying the message manually.');
     }
-  } catch (err) {
-    showGorgiasStatus('error', 'Could not reach the server. Try copying the message manually.');
-  } finally {
-    document.getElementById('btn-note').disabled = false;
-    document.getElementById('btn-reply').disabled = false;
+  }catch(err){
+    showGorgiasStatus('error','Could not reach the server. Try copying the message manually.');
+  }finally{
+    document.getElementById('btn-note').disabled=false;
+    document.getElementById('btn-reply').disabled=false;
   }
 }
 
-function showGorgiasStatus(type, msg) {
-  const el = document.getElementById('gorgias-status');
-  el.style.display = 'block';
-  el.className = `status-msg ${type==='ok'?'status-ok':type==='loading'?'status-loading':'status-err'}`;
-  el.textContent = msg;
+function showGorgiasStatus(type,msg){
+  const el=document.getElementById('gorgias-status');
+  el.style.display='block';
+  el.className=`status-msg ${type==='ok'?'status-ok':type==='loading'?'status-loading':'status-err'}`;
+  el.textContent=msg;
 }
 
-function renderCaseSettings() {
-  const tbody = document.getElementById('case-settings');
-  tbody.innerHTML = '';
-  caseOptions.forEach((c,i) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input type="number" value="${c.units}" min="1" oninput="caseOptions[${i}].units=parseInt(this.value)||0;clearResults()"></td>
-      <td><input type="number" value="${c.price}" min="1" oninput="caseOptions[${i}].price=parseFloat(this.value)||0;clearResults()"></td>
-    `;
+function renderCaseSettings(){
+  const tbody=document.getElementById('case-settings');
+  tbody.innerHTML='';
+  caseOptions.forEach((c,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><input type="number" value="${c.units}" min="1" oninput="caseOptions[${i}].units=parseInt(this.value)||0"></td><td><input type="number" value="${c.price}" min="1" oninput="caseOptions[${i}].price=parseFloat(this.value)||0"></td>`;
     tbody.appendChild(tr);
   });
 }
 
-renderDogs();
 renderCaseSettings();
+addDog();
 </script>
 </body>
 </html>

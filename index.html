@@ -116,6 +116,11 @@
     border-radius: 11px; padding: 11px 14px;
     font-size: 14px; font-weight: 900; color: var(--green-mid); text-align: center;
   }
+  .units-empty {
+    background: #f8f8f8; border: 1.5px solid var(--border);
+    border-radius: 11px; padding: 11px 14px;
+    font-size: 14px; font-weight: 900; color: var(--text-muted); text-align: center;
+  }
   .remove-btn {
     background: #FEF0F0; border: 1.5px solid #F5BFBF; border-radius: 10px; color: #C55;
     width: 38px; height: 40px; cursor: pointer; font-size: 14px;
@@ -185,12 +190,7 @@
     font-family: 'Courier New', monospace; font-size: 12.5px; color: var(--brown-warm); line-height: 1.7;
   }
 
-  .divider { border: none; border-top: 1.5px solid var(--border); margin: 20px 0; }
-
-  /* Gorgias section — clean, agent-friendly */
-  .gorgias-ticket-row {
-    display: flex; gap: 12px; align-items: flex-end; margin-bottom: 14px;
-  }
+  .gorgias-ticket-row { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 14px; }
   .gorgias-ticket-row > div:first-child { flex: 1; }
 
   .send-row { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -215,9 +215,7 @@
   .status-err { background: #FEF0F0; color: #C55; border: 1.5px solid #F5BFBF; }
   .status-loading { background: var(--green-wash); color: var(--text-muted); border: 1.5px solid var(--border); }
 
-  .ticket-hint {
-    font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 6px; line-height: 1.5;
-  }
+  .ticket-hint { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
 
   .settings-toggle { cursor: pointer; display: flex; align-items: center; gap: 10px; }
   .settings-body { display: none; }
@@ -310,13 +308,11 @@
   <!-- Results -->
   <div id="results" style="display:none">
 
-    <!-- Step 3: Recommendation -->
     <div class="card">
       <div class="card-header">
         <div class="card-title"><div class="step-badge">3</div>Recommendation</div>
         <span class="auto-badge">Auto-selected</span>
       </div>
-
       <div class="plan-tabs" id="plan-tabs"></div>
       <div class="stats-row" id="stats-row"></div>
 
@@ -337,35 +333,28 @@
       </div>
     </div>
 
-    <!-- Step 4: Push to Gorgias -->
+    <!-- Step 4: Gorgias -->
     <div class="card">
       <div class="card-header" style="margin-bottom:16px">
         <div class="card-title"><div class="step-badge">4</div>Send to Gorgias</div>
       </div>
-
       <div class="gorgias-ticket-row">
         <div>
           <label class="field-label">Ticket ID</label>
-          <input type="text" id="g-ticket" placeholder="Paste the ticket number from Gorgias" oninput="clearGorgiasStatus()">
-          <p class="ticket-hint">Found in the URL when you have the ticket open — e.g. gorgias.com/tickets/<strong>12345</strong></p>
+          <input type="text" id="g-ticket" placeholder="Just the number at the end of the URL — e.g. 261312542" oninput="clearGorgiasStatus()">
+          <p class="ticket-hint">Open the ticket in Gorgias → copy the last number from the URL → paste it here</p>
         </div>
       </div>
-
       <div class="send-row">
-        <button class="btn-send-note" id="btn-note" onclick="sendGorgias('note')">
-          📋 Send as Internal Note
-        </button>
-        <button class="btn-send-reply" id="btn-reply" onclick="sendGorgias('reply')">
-          🌿 Send as Customer Reply →
-        </button>
+        <button class="btn-send-note" id="btn-note" onclick="sendGorgias('note')">📋 Send as Internal Note</button>
+        <button class="btn-send-reply" id="btn-reply" onclick="sendGorgias('reply')">🌿 Send as Customer Reply →</button>
       </div>
-
       <div id="gorgias-status" style="display:none"></div>
     </div>
 
   </div><!-- /results -->
 
-  <!-- Settings (collapsed by default) -->
+  <!-- Settings -->
   <div class="card">
     <div class="settings-toggle" onclick="toggleSettings()">
       <span style="font-size:13px;font-weight:800;color:var(--text-muted)">⚙ Pricing &amp; Case Settings</span>
@@ -424,6 +413,7 @@ const PLAN_MESSAGES = {
   topper: "We recommend a topper meal plan to fit within your established budget. You will want to mix 1/4 Happy Howl with 3/4 of your dog's current food or a high quality kibble.",
 };
 
+// Dogs stored as plain array — UI built once, updated in-place
 let dogs = [{id:1, name:'', weight:''}];
 let nextId = 2;
 let currentResults = null;
@@ -448,38 +438,84 @@ function findBestOption(totalUnits, multiplier, budget, days) {
   return {units:cheapest.units, price:cheapest.price, casesNeeded:cn, totalCost:cn*cheapest.price, overBudget:true};
 }
 
+// Build the dog list rows from scratch — only called on add/remove, NOT on typing
 function renderDogs() {
   const list = document.getElementById('dogs-list');
   list.innerHTML = '';
   dogs.forEach(dog => {
-    const units = getUnitsPerDay(dog.weight);
     const row = document.createElement('div');
     row.className = 'dog-row';
+    row.dataset.id = dog.id;
     row.innerHTML = `
-      <div><input type="text" value="${dog.name}" placeholder="e.g. Biscuit" oninput="updateDog(${dog.id},'name',this.value)"></div>
-      <div><input type="number" value="${dog.weight}" placeholder="45" min="1" oninput="updateDog(${dog.id},'weight',this.value)"></div>
-      <div class="col-units">
-        ${units !== null
-          ? `<div class="units-preview">${units} units</div>`
-          : `<div class="units-preview" style="color:var(--text-muted);background:#f8f8f8;border-color:var(--border)">—</div>`}
+      <div>
+        <input type="text" value="${dog.name}" placeholder="e.g. Biscuit"
+          oninput="onNameInput(${dog.id}, this.value)">
       </div>
-      <button class="remove-btn" onclick="removeDog(${dog.id})" ${dogs.length===1?'style="opacity:0.25;pointer-events:none"':''}>✕</button>
+      <div>
+        <input type="number" value="${dog.weight}" placeholder="45" min="1"
+          oninput="onWeightInput(${dog.id}, this.value)">
+      </div>
+      <div class="col-units">
+        <div class="units-empty" id="units-${dog.id}">—</div>
+      </div>
+      <button class="remove-btn" onclick="removeDog(${dog.id})"
+        ${dogs.length === 1 ? 'style="opacity:0.25;pointer-events:none"' : ''}>✕</button>
     `;
     list.appendChild(row);
+    // Set correct units display after building row
+    updateUnitsDisplay(dog.id, dog.weight);
   });
 }
 
-function addDog() { dogs.push({id:nextId++,name:'',weight:''}); clearResults(); renderDogs(); }
-function removeDog(id) { if(dogs.length===1)return; dogs=dogs.filter(d=>d.id!==id); clearResults(); renderDogs(); }
-function updateDog(id,field,value) { dogs=dogs.map(d=>d.id===id?{...d,[field]:value}:d); clearResults(); renderDogs(); }
+// Update just the units chip — no re-render
+function updateUnitsDisplay(id, weight) {
+  const el = document.getElementById(`units-${id}`);
+  if (!el) return;
+  const units = getUnitsPerDay(weight);
+  if (units !== null) {
+    el.textContent = `${units} units`;
+    el.className = 'units-preview';
+  } else {
+    el.textContent = '—';
+    el.className = 'units-empty';
+  }
+}
+
+// Typing a name: update data only, no DOM re-render
+function onNameInput(id, value) {
+  const dog = dogs.find(d => d.id === id);
+  if (dog) dog.name = value;
+  clearResults();
+}
+
+// Typing a weight: update data + just the units chip
+function onWeightInput(id, value) {
+  const dog = dogs.find(d => d.id === id);
+  if (dog) dog.weight = value;
+  updateUnitsDisplay(id, value);
+  clearResults();
+}
+
+function addDog() {
+  dogs.push({id: nextId++, name: '', weight: ''});
+  clearResults();
+  renderDogs();
+}
+
+function removeDog(id) {
+  if (dogs.length === 1) return;
+  dogs = dogs.filter(d => d.id !== id);
+  clearResults();
+  renderDogs();
+}
 
 function clearResults() {
-  document.getElementById('results').style.display='none';
-  currentResults=null;
+  document.getElementById('results').style.display = 'none';
+  currentResults = null;
 }
+
 function clearGorgiasStatus() {
-  const el = document.getElementById('gorgias-status');
-  el.style.display = 'none';
+  document.getElementById('gorgias-status').style.display = 'none';
 }
 
 function calculate() {
@@ -569,14 +605,8 @@ function toggleSettings() {
 
 async function sendGorgias(type) {
   const ticketId = document.getElementById('g-ticket').value.trim();
-  if (!ticketId) {
-    showGorgiasStatus('error', 'Please enter a ticket ID first.');
-    return;
-  }
-  if (!currentResults) {
-    showGorgiasStatus('error', 'Run the calculator first.');
-    return;
-  }
+  if (!ticketId) { showGorgiasStatus('error', 'Please enter a ticket ID first.'); return; }
+  if (!currentResults) { showGorgiasStatus('error', 'Run the calculator first.'); return; }
 
   const plan = PLANS.find(p => p.id === selectedPlan);
   const opt = findBestOption(currentResults.totalBase, plan.multiplier, currentResults.budget, currentResults.days);
@@ -584,7 +614,6 @@ async function sendGorgias(type) {
     ? buildInternalNote(plan, opt, currentResults.dogsCalc, currentResults.totalBase, currentResults.budget, currentResults.days)
     : buildCustomerMsg(plan, opt, currentResults.dogsCalc, currentResults.days);
 
-  // Disable buttons while sending
   document.getElementById('btn-note').disabled = true;
   document.getElementById('btn-reply').disabled = true;
   showGorgiasStatus('loading', 'Sending to Gorgias…');
@@ -592,12 +621,10 @@ async function sendGorgias(type) {
   try {
     const res = await fetch('/api/gorgias', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ticketId, messageType: type, bodyText }),
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ticketId, messageType: type, bodyText}),
     });
-
     const data = await res.json();
-
     if (res.ok && data.success) {
       showGorgiasStatus('ok', `✓ ${type === 'note' ? 'Internal note' : 'Customer reply'} sent to ticket #${ticketId}`);
     } else {
@@ -614,7 +641,7 @@ async function sendGorgias(type) {
 function showGorgiasStatus(type, msg) {
   const el = document.getElementById('gorgias-status');
   el.style.display = 'block';
-  el.className = `status-msg ${type === 'ok' ? 'status-ok' : type === 'loading' ? 'status-loading' : 'status-err'}`;
+  el.className = `status-msg ${type==='ok'?'status-ok':type==='loading'?'status-loading':'status-err'}`;
   el.textContent = msg;
 }
 

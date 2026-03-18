@@ -10,89 +10,129 @@
     --green-deep:#2D5016;--green-mid:#4A7C2F;--green-bright:#6AAF3D;
     --green-light:#A8D878;--green-pale:#EAF5DC;--green-wash:#F4FAF0;
     --amber:#E8A030;--amber-pale:#FEF3DC;--cream:#FEFCF7;
-    --brown-warm:#8B5E3C;--text-dark:#1E3008;--text-mid:#4A6030;
+    --brown:#8B5E3C;--text-dark:#1E3008;--text-mid:#4A6030;
     --text-muted:#8FAA70;--border:#D4E8BC;--border-mid:#B8D498;--white:#ffffff;
+    --blue-pale:#EEF5FE;--blue:#2A6DB5;--blue-border:#BAD4F5;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh;}
   header{background:var(--white);border-bottom:2px solid var(--border);padding:0 28px;display:flex;align-items:center;gap:16px;height:68px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(74,124,47,0.06);}
-  .logo-wrap{display:flex;align-items:center;gap:12px;}
   .paw-icon{width:44px;height:44px;background:var(--green-pale);border:2px solid var(--green-light);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;}
   .logo-text h1{font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:var(--green-deep);letter-spacing:-0.02em;}
   .logo-text p{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;}
   .header-badge{margin-left:auto;background:var(--green-pale);border:1.5px solid var(--green-light);color:var(--green-mid);font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;letter-spacing:0.04em;text-transform:uppercase;}
-  .container{max-width:740px;margin:0 auto;padding:28px 20px 60px;}
-  .page-intro{text-align:center;padding:20px 0 28px;}
-  .page-intro h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--green-deep);margin-bottom:6px;}
+  .container{max-width:760px;margin:0 auto;padding:28px 20px 60px;}
+  .page-intro{text-align:center;padding:14px 0 24px;}
+  .page-intro h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--green-deep);margin-bottom:4px;}
   .page-intro p{font-size:14px;font-weight:600;color:var(--text-muted);}
   .card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(74,124,47,0.06);}
-  .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-  .card-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:900;color:var(--text-dark);}
-  .step-badge{width:28px;height:28px;border-radius:9px;background:var(--green-mid);color:var(--white);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;}
-  .field-label{display:block;font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
-  input,select{width:100%;background:var(--green-wash);border:1.5px solid var(--border);border-radius:11px;color:var(--text-dark);padding:11px 14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none;}
-  input:focus,select:focus{border-color:var(--green-bright);background:var(--white);}
+  .card-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:900;color:var(--text-dark);margin-bottom:20px;}
+  .step-badge{width:28px;height:28px;border-radius:9px;background:var(--green-mid);color:var(--white);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .field-label{font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:6px;}
+  input{width:100%;background:var(--green-wash);border:1.5px solid var(--border);border-radius:11px;color:var(--text-dark);padding:11px 14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none;}
+  input:focus{border-color:var(--green-bright);background:var(--white);}
   input::placeholder{color:var(--text-muted);font-weight:600;}
-  select option{background:white;color:var(--text-dark);}
-  .col-headers{display:grid;grid-template-columns:1fr 110px 130px 38px;gap:10px;margin-bottom:6px;}
-  .dog-row{display:grid;grid-template-columns:1fr 110px 130px 38px;gap:10px;margin-bottom:10px;align-items:center;}
-  .units-chip{border-radius:11px;padding:11px 14px;font-size:14px;font-weight:900;text-align:center;border:1.5px solid var(--border);background:#f8f8f8;color:var(--text-muted);}
-  .units-chip.has-value{background:var(--green-pale);border-color:var(--green-light);color:var(--green-mid);}
-  .remove-btn{background:#FEF0F0;border:1.5px solid #F5BFBF;border-radius:10px;color:#C55;width:38px;height:40px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
+  .dog-card{background:var(--green-wash);border:1.5px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;}
+  .dog-card-top{display:grid;grid-template-columns:1fr 110px 38px;gap:10px;align-items:flex-end;margin-bottom:14px;}
+  .remove-btn{background:#FEF0F0;border:1.5px solid #F5BFBF;border-radius:10px;color:#C55;width:38px;height:40px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .remove-btn:hover{background:#FBDDDD;}
+  .status-section-label{font-size:11px;font-weight:900;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+  .status-ask{font-size:13px;font-weight:700;color:var(--text-mid);margin-bottom:10px;font-style:italic;line-height:1.5;}
+  .status-ask strong{color:var(--text-dark);font-style:normal;}
+  .status-pills{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+  .status-pill{border-radius:13px;padding:12px 10px;cursor:pointer;border:2px solid var(--border);background:var(--white);text-align:center;transition:all 0.15s;font-family:'Nunito',sans-serif;}
+  .status-pill:hover{border-color:var(--border-mid);}
+  .sp-icon{font-size:20px;margin-bottom:5px;}
+  .sp-label{font-size:12px;font-weight:900;color:var(--text-dark);display:block;margin-bottom:4px;}
+  .sp-desc{font-size:11px;font-weight:700;color:var(--text-muted);display:block;line-height:1.4;margin-bottom:6px;}
+  .sp-cue{font-size:10px;font-weight:800;display:block;padding:4px 6px;border-radius:7px;line-height:1.4;background:rgba(0,0,0,0.05);color:var(--text-muted);}
+  .status-pill.active-normal{border-color:var(--green-bright);background:var(--green-pale);}
+  .status-pill.active-normal .sp-label{color:var(--green-mid);}
+  .status-pill.active-normal .sp-cue{background:rgba(74,124,47,0.12);color:var(--green-mid);}
+  .status-pill.active-over{border-color:#F5C88A;background:var(--amber-pale);}
+  .status-pill.active-over .sp-label{color:var(--brown);}
+  .status-pill.active-over .sp-cue{background:rgba(232,160,48,0.15);color:var(--brown);}
+  .status-pill.active-under{border-color:var(--blue-border);background:var(--blue-pale);}
+  .status-pill.active-under .sp-label{color:var(--blue);}
+  .status-pill.active-under .sp-cue{background:rgba(42,109,181,0.1);color:var(--blue);}
   .btn-ghost{background:transparent;border:1.5px dashed var(--border-mid);border-radius:10px;color:var(--text-muted);padding:9px 18px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all 0.15s;margin-top:4px;}
   .btn-ghost:hover{border-color:var(--green-bright);color:var(--green-mid);background:var(--green-wash);}
   .btn-primary{background:var(--green-mid);border:none;border-radius:14px;color:var(--white);padding:15px 36px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 4px 18px rgba(74,124,47,0.28);transition:all 0.15s;width:100%;}
   .btn-primary:hover{background:var(--green-deep);transform:translateY(-1px);}
   .btn-copy{background:var(--green-pale);border:1.5px solid var(--border-mid);border-radius:8px;color:var(--green-mid);padding:7px 16px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:all 0.15s;}
   .btn-copy:hover,.btn-copy.copied{background:var(--green-bright);color:white;border-color:var(--green-bright);}
-  .plan-tabs{display:flex;gap:10px;margin-bottom:20px;}
+  .plan-tabs{display:flex;gap:10px;}
   .plan-tab{flex:1;padding:13px 8px;border-radius:14px;border:2px solid var(--border);background:var(--green-wash);color:var(--text-muted);cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;text-align:center;transition:all 0.15s;}
-  .plan-tab .plan-cost{font-size:17px;font-weight:900;margin-top:5px;color:var(--text-mid);}
-  .plan-tab .plan-status{font-size:10px;font-weight:800;margin-top:3px;text-transform:uppercase;letter-spacing:0.05em;}
-  .plan-tab.active{border-color:var(--green-bright);background:var(--green-pale);color:var(--text-dark);box-shadow:0 2px 12px rgba(74,124,47,0.15);}
-  .plan-tab.fits .plan-status{color:var(--green-mid);}
-  .plan-tab.over .plan-status{color:var(--amber);}
-  .plan-tab.over .plan-cost{color:var(--amber);}
-  .stats-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;}
-  .stat-chip{background:var(--green-wash);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;flex:1;min-width:88px;}
-  .stat-chip .stat-label{font-size:9px;font-weight:900;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;}
-  .stat-chip .stat-val{font-size:17px;font-weight:900;color:var(--text-dark);}
-  .stat-chip.highlight .stat-val{color:var(--green-mid);}
-  .stat-chip.warn{border-color:#F5C88A;background:var(--amber-pale);}
-  .stat-chip.warn .stat-val{color:var(--brown-warm);}
-  .message-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-  .message-label{font-size:11px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;}
-  .customer-label{color:var(--green-mid);}
-  .note-label{color:var(--amber);}
-  .message-box{background:var(--green-wash);border:1.5px solid var(--border);border-radius:13px;padding:16px;font-size:14px;font-weight:600;line-height:1.8;color:var(--text-dark);white-space:pre-wrap;font-family:'Nunito',sans-serif;min-height:80px;}
-  .note-box{background:var(--amber-pale);border-color:#F5C88A;font-family:'Courier New',monospace;font-size:12.5px;color:var(--brown-warm);line-height:1.7;}
-  .settings-toggle{cursor:pointer;display:flex;align-items:center;gap:10px;}
+  .plan-tab.active{border-color:var(--green-bright);background:var(--green-pale);color:var(--text-dark);}
+  .plan-tab.disabled{opacity:0.4;cursor:not-allowed;}
+  .upgrade-banner{background:linear-gradient(135deg,#fff8e6,#fef3d5);border:2px solid #F5C88A;border-radius:14px;padding:14px 18px;margin-top:14px;display:none;align-items:flex-start;gap:12px;}
+  .upgrade-banner.show{display:flex;}
+  .upgrade-banner-text{font-size:13px;font-weight:700;color:var(--brown);line-height:1.6;}
+  .upgrade-banner-text strong{color:var(--text-dark);}
+  .dog-table{width:100%;border-collapse:collapse;}
+  .dog-table th{font-size:9px;font-weight:900;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;text-align:left;padding:6px 10px;border-bottom:1.5px solid var(--border);}
+  .dog-table td{padding:9px 10px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;}
+  .dog-table tr:last-child td{border-bottom:none;}
+  .badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;}
+  .badge-normal{background:var(--green-pale);color:var(--green-mid);border:1px solid var(--green-light);}
+  .badge-over{background:var(--amber-pale);color:var(--brown);border:1px solid #F5C88A;}
+  .badge-under{background:var(--blue-pale);color:var(--blue);border:1px solid var(--blue-border);}
+  .sales-card{border-radius:20px;margin-bottom:16px;background:linear-gradient(150deg,#1a3a0a,var(--green-deep));color:white;overflow:hidden;}
+  .sc-hero{padding:24px 24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .sc-eyebrow{font-size:10px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--green-light);margin-bottom:12px;}
+  .sc-product-block{background:rgba(106,175,61,0.2);border:2px solid rgba(106,175,61,0.45);border-radius:14px;padding:16px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px;}
+  .sc-product-icon{font-size:30px;flex-shrink:0;}
+  .sc-product-info{flex:1;}
+  .sc-product-name{font-size:22px;font-weight:900;color:white;line-height:1.1;margin-bottom:4px;}
+  .sc-product-freq{font-size:13px;font-weight:800;color:rgba(255,255,255,0.75);}
+  .sc-product-price{text-align:right;flex-shrink:0;}
+  .sc-product-price-val{font-size:26px;font-weight:900;color:var(--green-light);}
+  .sc-product-price-label{font-size:10px;font-weight:800;color:rgba(255,255,255,0.5);text-align:right;letter-spacing:0.06em;text-transform:uppercase;}
+  .savings-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,48,0.25);border:1px solid rgba(232,160,48,0.5);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:900;color:#FFD580;margin-bottom:16px;}
+  .sc-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .sc-metric{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 14px;}
+  .sc-metric .sm-label{font-size:9px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:4px;}
+  .sc-metric .sm-val{font-size:18px;font-weight:900;color:white;}
+  .sc-metric .sm-sub{font-size:11px;font-weight:700;color:var(--green-light);margin-top:2px;}
+  .sc-bottom{padding:18px 24px;}
+  .sc-nudge{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:13px;padding:14px;display:none;margin-bottom:16px;}
+  .sc-nudge.show{display:block;}
+  .sc-nudge-label{font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:#FFD580;margin-bottom:6px;}
+  .sc-nudge-text{font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);line-height:1.6;}
+  .sc-nudge-text strong{color:white;}
+  .script-line{background:rgba(255,255,255,0.05);border-left:3px solid var(--green-light);border-radius:0 10px 10px 0;padding:12px 16px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);line-height:1.6;font-style:italic;}
+  .script-line-label{font-size:9px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-light);margin-bottom:6px;font-style:normal;}
+  .msg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .msg-label{font-size:11px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;}
+  .msg-label.green{color:var(--green-mid);}
+  .msg-label.amber{color:var(--amber);}
+  .msg-box{background:var(--green-wash);border:1.5px solid var(--border);border-radius:13px;padding:16px;font-size:14px;font-weight:600;line-height:1.8;color:var(--text-dark);white-space:pre-wrap;font-family:'Nunito',sans-serif;min-height:80px;}
+  .msg-box.note{background:var(--amber-pale);border-color:#F5C88A;font-family:'Courier New',monospace;font-size:12.5px;color:var(--brown);line-height:1.7;}
+  .settings-toggle{cursor:pointer;display:flex;align-items:center;}
   .settings-body{display:none;}
   .settings-body.open{display:block;}
-  .grid-budget{display:grid;grid-template-columns:1fr 140px;gap:12px;}
   .toggle-arrow{margin-left:auto;font-size:11px;font-weight:800;color:var(--text-muted);}
-  .auto-badge{font-size:10px;background:var(--green-pale);border:1.5px solid var(--green-light);color:var(--green-mid);padding:4px 10px;border-radius:20px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;}
-  .case-table{width:100%;border-collapse:collapse;}
-  .case-table th{font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:6px 10px;border-bottom:1.5px solid var(--border);}
-  .case-table td{padding:8px 10px;border-bottom:1px solid var(--border);}
-  .case-table input{width:90px;padding:7px 10px;font-size:13px;}
+  .price-table{width:100%;border-collapse:collapse;margin-top:14px;}
+  .price-table th{font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:6px 10px;border-bottom:1.5px solid var(--border);}
+  .price-table td{padding:8px 10px;border-bottom:1px solid var(--border);}
+  .price-table input{width:90px;padding:7px 10px;font-size:13px;}
   @media(max-width:560px){
-    .col-headers,.dog-row{grid-template-columns:1fr 90px 40px;}
-    .col-headers .col-units,.dog-row .col-units{display:none;}
+    .dog-card-top{grid-template-columns:1fr 90px 38px;}
+    .status-pills{grid-template-columns:1fr;}
     .plan-tabs{flex-direction:column;}
+    .sc-metrics{grid-template-columns:1fr;}
+    .sc-product-block{flex-direction:column;text-align:center;}
+    .sc-product-price{text-align:center;}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-wrap">
-    <div class="paw-icon">🐾</div>
-    <div class="logo-text">
-      <h1>Happy Howl</h1>
-      <p>Feeding Calculator · Support Tool</p>
-    </div>
+  <div class="paw-icon">🐾</div>
+  <div class="logo-text">
+    <h1>Happy Howl</h1>
+    <p>Feeding Calculator · Support Tool</p>
   </div>
   <div class="header-badge">Internal Use</div>
 </header>
@@ -100,247 +140,341 @@
 <div class="container">
   <div class="page-intro">
     <h2>How Much Should They Eat?</h2>
-    <p>Enter each dog's info and the customer's budget — we'll handle the rest.</p>
+    <p>Enter dog info → get the exact subscription to recommend and how to sell it.</p>
   </div>
 
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><div class="step-badge">1</div>Dog Info</div>
-    </div>
-    <div class="col-headers">
-      <span class="field-label" style="margin-bottom:0">Dog Name</span>
-      <span class="field-label" style="margin-bottom:0">Weight (lb)</span>
-      <span class="field-label col-units" style="margin-bottom:0">Units/Day</span>
-      <span></span>
-    </div>
+    <div class="card-title"><div class="step-badge">1</div>Dog Info</div>
     <div id="dogs-list"></div>
     <button class="btn-ghost" onclick="addDog()">+ Add another dog</button>
   </div>
 
   <div class="card">
-    <div class="card-header">
-      <div class="card-title"><div class="step-badge">2</div>Customer Budget</div>
+    <div class="card-title"><div class="step-badge">2</div>Meal Plan Type</div>
+    <div class="plan-tabs" id="plan-selector">
+      <button class="plan-tab active" data-plan="full" onclick="selectPlan('full')">🥗 Full (100%)</button>
+      <button class="plan-tab" data-plan="half" onclick="selectPlan('half')">🥣 Mix (50/50)</button>
+      <button class="plan-tab" data-plan="topper" onclick="selectPlan('topper')">✨ Topper (25/75)</button>
     </div>
-    <div class="grid-budget">
-      <div>
-        <label class="field-label">Monthly Budget ($)</label>
-        <input type="number" id="budget" placeholder="e.g. 150" min="0" step="1">
-      </div>
-      <div>
-        <label class="field-label">Billing Period</label>
-        <select id="days">
-          <option value="28">28 days</option>
-          <option value="30">30 days</option>
-        </select>
-      </div>
+    <div class="upgrade-banner" id="upgrade-banner">
+      <div style="font-size:20px;flex-shrink:0">⚠️</div>
+      <div class="upgrade-banner-text" id="upgrade-banner-text"></div>
     </div>
   </div>
 
-  <div style="margin-bottom:20px;">
+  <div style="margin-bottom:20px">
     <button class="btn-primary" onclick="calculate()">Calculate Recommendation →</button>
   </div>
 
   <div id="results" style="display:none">
     <div class="card">
-      <div class="card-header">
-        <div class="card-title"><div class="step-badge">3</div>Recommendation</div>
-        <span class="auto-badge">Auto-selected</span>
-      </div>
-      <div class="plan-tabs" id="plan-tabs"></div>
-      <div class="stats-row" id="stats-row"></div>
+      <div class="card-title"><div class="step-badge">3</div>Dog Breakdown</div>
+      <table class="dog-table">
+        <thead><tr><th>Dog</th><th>Weight</th><th>Status</th><th>Cal/Day</th><th>Units/Day</th></tr></thead>
+        <tbody id="dog-table-body"></tbody>
+      </table>
+    </div>
 
+    <div class="sales-card">
+      <div class="sc-hero">
+        <div class="sc-eyebrow">📦 Subscription Recommendation</div>
+        <div class="sc-product-block">
+          <div class="sc-product-icon">🛒</div>
+          <div class="sc-product-info">
+            <div class="sc-product-name" id="sc-main"></div>
+            <div class="sc-product-freq" id="sc-freq"></div>
+          </div>
+          <div class="sc-product-price">
+            <div class="sc-product-price-label">Sub price</div>
+            <div class="sc-product-price-val" id="sc-price-val"></div>
+          </div>
+        </div>
+        <div class="savings-pill" id="sc-savings"></div>
+        <div class="sc-metrics" id="sc-metrics"></div>
+      </div>
+      <div class="sc-bottom">
+        <div class="sc-nudge" id="sc-nudge">
+          <div class="sc-nudge-label">💡 Upgrade opportunity</div>
+          <div class="sc-nudge-text" id="sc-nudge-text"></div>
+        </div>
+        <div class="script-line">
+          <div class="script-line-label">Say to customer</div>
+          <span id="sc-script-text"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="step-badge">4</div>Messages</div>
       <div style="margin-bottom:18px">
-        <div class="message-header">
-          <span class="message-label customer-label">🌿 Customer Message</span>
+        <div class="msg-header">
+          <span class="msg-label green">🌿 Customer Message (subscription close)</span>
           <button class="btn-copy" id="copy-msg-btn" onclick="copyText('customer-msg','copy-msg-btn')">Copy</button>
         </div>
-        <div class="message-box" id="customer-msg"></div>
+        <div class="msg-box" id="customer-msg"></div>
       </div>
-
       <div>
-        <div class="message-header">
-          <span class="message-label note-label">📋 Internal Note</span>
+        <div class="msg-header">
+          <span class="msg-label amber">📋 Internal Note</span>
           <button class="btn-copy" id="copy-note-btn" onclick="copyText('internal-note','copy-note-btn')">Copy</button>
         </div>
-        <div class="message-box note-box" id="internal-note"></div>
+        <div class="msg-box note" id="internal-note"></div>
       </div>
     </div>
   </div>
 
   <div class="card">
     <div class="settings-toggle" onclick="toggleSettings()">
-      <span style="font-size:13px;font-weight:800;color:var(--text-muted)">⚙ Pricing &amp; Case Settings</span>
+      <span style="font-size:13px;font-weight:800;color:var(--text-muted)">⚙ Pack Prices</span>
       <span class="toggle-arrow" id="settings-arrow">▼ Edit</span>
     </div>
     <div class="settings-body" id="settings-body">
-      <p style="font-size:12px;font-weight:600;color:var(--text-muted);margin:14px 0 12px">Update case prices if they've changed — all calculations update instantly.</p>
-      <table class="case-table">
-        <thead><tr><th>Case size (units)</th><th>Price per case ($)</th></tr></thead>
-        <tbody id="case-settings"></tbody>
+      <p style="font-size:12px;font-weight:600;color:var(--text-muted);margin-top:12px">Update if prices have changed. Savings % is calculated automatically.</p>
+      <table class="price-table">
+        <thead><tr><th>Pack</th><th>One-Time ($)</th><th>Subscription ($)</th></tr></thead>
+        <tbody id="price-settings"></tbody>
       </table>
     </div>
   </div>
 </div>
 
 <script>
-const WEIGHT_TABLE=[
-  {min:0,max:3,units:0.20},{min:4,max:6,units:0.33},{min:7,max:9,units:0.50},
-  {min:10,max:15,units:0.75},{min:16,max:21,units:0.80},{min:22,max:28,units:1.00},
-  {min:29,max:35,units:1.40},{min:36,max:41,units:1.50},{min:42,max:47,units:1.80},
-  {min:48,max:55,units:2.00},{min:56,max:65,units:2.25},{min:66,max:76,units:2.50},
-  {min:77,max:88,units:2.75},{min:89,max:101,units:3.00},{min:102,max:115,units:3.20},
-  {min:116,max:9999,units:4.00}
+const CAL_TABLE=[
+  {min:0,max:3,units:0.2},{min:4,max:6,units:0.4125},{min:7,max:9,units:0.575},
+  {min:10,max:15,units:0.8125},{min:16,max:21,units:1.0875},{min:22,max:28,units:1.36},
+  {min:29,max:35,units:1.6375},{min:36,max:41,units:1.885},{min:42,max:47,units:2.1025},
+  {min:48,max:55,units:2.3475},{min:56,max:65,units:2.625},{min:66,max:76,units:2.95},
+  {min:77,max:88,units:3.325},{min:89,max:101,units:3.71},{min:102,max:115,units:4.075},
+  {min:116,max:9999,units:4.5}
 ];
-let caseOptions=[
-  {units:6,price:63},{units:18,price:92},{units:24,price:143},
-  {units:36,price:169},{units:48,price:204}
+const STATUS_MULT={normal:1.0,over:0.9,under:1.1};
+const STATUS_LABELS={normal:'Normal',over:'Overweight',under:'Underweight'};
+const SMALL_DOG_MAX_LB=15;
+const STATUS_DEFS=[
+  {val:'normal',icon:'✅',label:'Normal Weight',
+   desc:'Can feel ribs but not see them. Visible waist from above.',
+   cue:'"Vet says they\'re healthy" or "looks about right"'},
+  {val:'over',icon:'⬆️',label:'Overweight',
+   desc:'Hard to feel ribs. No visible waist. Vet mentioned losing weight.',
+   cue:'"Vet said to slim down" or "a little chunky"'},
+  {val:'under',icon:'⬇️',label:'Underweight',
+   desc:'Ribs, spine or hip bones visible. Vet wants them to gain.',
+   cue:'"Too skinny" or "needs to gain weight"'},
 ];
+let PACKS=[
+  {units:6,  label:'1 × 6-Unit Pack',      oneTime:75.00, subPrice:60.00},
+  {units:18, label:'1 × 18-Unit Pack',      oneTime:109.00,subPrice:87.20},
+  {units:24, label:'1 × 24-Unit Pack',      oneTime:169.00,subPrice:135.20},
+  {units:36, label:'1 × 36-Unit Pack',      oneTime:199.00,subPrice:159.20},
+  {units:48, label:'1 × 48-Unit Bulk Pack', oneTime:240.00,subPrice:192.00},
+  {units:54, label:'3 × 18-Unit Packs',     oneTime:327.00,subPrice:261.60},
+  {units:72, label:'2 × 36-Unit Packs',     oneTime:398.00,subPrice:318.40},
+  {units:96, label:'1 × 96-Unit Bulk Pack', oneTime:410.00,subPrice:328.00},
+];
+const FREQ_WEEKS=[2,3,4,5,6,8,10,12];
 const PLANS=[
-  {id:'full',label:'Full Meal Plan',multiplier:1.00},
-  {id:'half',label:'Half Meal Plan',multiplier:0.50},
-  {id:'topper',label:'Topper Plan',multiplier:0.25}
+  {id:'full',  label:'Full Meal Plan',mult:1.0},
+  {id:'half',  label:'Mix 50/50',     mult:0.5},
+  {id:'topper',label:'Topper 25/75',  mult:0.25},
 ];
-const PLAN_MESSAGES={
-  full:"Great news! Purchasing a full Happy Howl meal plan for all of your dogs fits within your current budget! We include a transition guide with every new customer order.",
-  half:"We recommend a half meal plan to fit within your established budget. You will want to mix Happy Howl half and half with your dog's current food or a high quality kibble.",
-  topper:"We recommend a topper meal plan to fit within your established budget. You will want to mix 1/4 Happy Howl with 3/4 of your dog's current food or a high quality kibble."
-};
-
 let dogCount=0,currentResults=null,selectedPlan='full';
-
-function getUnitsPerDay(weight){
-  const w=parseFloat(weight);
-  if(isNaN(w)||w<=0)return null;
-  const row=WEIGHT_TABLE.find(r=>w>=r.min&&w<=r.max);
-  return row?row.units:4.0;
+function costAnchor(c){
+  if(c<2)return'less than a can of soda a day';
+  if(c<3.5)return'less than a cup of coffee a day';
+  if(c<5)return'less than a fancy latte a day';
+  if(c<8)return'less than lunch out a day';
+  return'an investment in their health every day';
 }
-function findBestOption(totalUnits,multiplier,budget,days){
-  const needed=totalUnits*multiplier*days;
-  const sorted=[...caseOptions].sort((a,b)=>b.units-a.units);
-  for(const c of sorted){const cn=Math.ceil(needed/c.units);if(cn*c.price<=budget)return{units:c.units,casesNeeded:cn,totalCost:cn*c.price,overBudget:false};}
-  const cheapest=[...caseOptions].sort((a,b)=>a.price-b.price)[0];
-  const cn=Math.ceil(needed/cheapest.units);
-  return{units:cheapest.units,casesNeeded:cn,totalCost:cn*cheapest.price,overBudget:true};
+function getBaseUnits(w){
+  const weight=parseFloat(w);if(isNaN(weight)||weight<=0)return null;
+  const row=CAL_TABLE.find(r=>weight>=r.min&&weight<=r.max);return row?row.units:4.5;
+}
+function getAdjustedUnits(w,s){const b=getBaseUnits(w);return b===null?null:b*(STATUS_MULT[s]||1);}
+function findSub(upd){
+  let best=null,bs=Infinity;
+  PACKS.forEach(p=>{
+    const d=p.units/upd,wks=d/7;
+    const cw=FREQ_WEEKS.reduce((a,b)=>Math.abs(b-wks)<Math.abs(a-wks)?b:a);
+    const fd=cw*7;
+    if(d>=fd-1){const sc=(p.subPrice/fd)+Math.abs(fd-28)*0.01;if(sc<bs){bs=sc;best={pack:p,freqWeeks:cw,freqDays:fd,daysSupply:Math.round(d),costPerDay:p.subPrice/fd};}}
+  });
+  if(!best){const p=PACKS[PACKS.length-1];const d=p.units/upd;const cw=FREQ_WEEKS.reduce((a,b)=>Math.abs(b-d/7)<Math.abs(a-d/7)?b:a);best={pack:p,freqWeeks:cw,freqDays:cw*7,daysSupply:Math.round(d),costPerDay:p.subPrice/(cw*7)};}
+  return best;
+}
+function hasSmallDog(dogs){return dogs.some(d=>d.weight<=SMALL_DOG_MAX_LB);}
+function selectPlan(id){
+  selectedPlan=id;
+  document.querySelectorAll('.plan-tab').forEach(t=>t.classList.toggle('active',t.dataset.plan===id));
+  checkAutoUpgrade();if(currentResults)renderResults();
+}
+function checkAutoUpgrade(){
+  const dogs=getDogsFromDOM();
+  const banner=document.getElementById('upgrade-banner');
+  if((selectedPlan==='half'||selectedPlan==='topper')&&hasSmallDog(dogs)){
+    const small=dogs.filter(d=>d.weight<=SMALL_DOG_MAX_LB).map(d=>d.name||'your dog');
+    banner.classList.add('show');
+    document.getElementById('upgrade-banner-text').innerHTML=`<strong>Auto-upgrading to Full Meal Plan.</strong> ${small.join(' & ')} weigh${small.length>1?'':'s'} 15 lb or under — Mix/Topper portions are too small to be nutritionally complete at this weight.`;
+    selectedPlan='full';
+    document.querySelectorAll('.plan-tab').forEach(t=>{t.classList.toggle('active',t.dataset.plan==='full');t.classList.toggle('disabled',t.dataset.plan!=='full');});
+  } else {
+    banner.classList.remove('show');
+    document.querySelectorAll('.plan-tab').forEach(t=>t.classList.remove('disabled'));
+  }
+}
+function setStatus(dogId,status){
+  STATUS_DEFS.forEach(s=>{
+    const pill=document.getElementById('pill-'+dogId+'-'+s.val);
+    if(!pill)return;
+    pill.className='status-pill'+(status===s.val?' active-'+status:'');
+  });
+  const si=document.getElementById('status-'+dogId);
+  if(si)si.value=status;
+  checkAutoUpgrade();
 }
 function addDog(){
-  dogCount++;
-  const id=dogCount;
+  dogCount++;const id=dogCount;
   const list=document.getElementById('dogs-list');
-  const row=document.createElement('div');
-  row.className='dog-row';row.id='dog-row-'+id;
-  const nameInput=document.createElement('input');
-  nameInput.type='text';nameInput.placeholder='e.g. Biscuit';
-  const weightInput=document.createElement('input');
-  weightInput.type='number';weightInput.placeholder='45';weightInput.min='1';
-  const unitsChip=document.createElement('div');
-  unitsChip.className='units-chip col-units';unitsChip.textContent='—';
-  weightInput.addEventListener('input',function(){
-    const u=getUnitsPerDay(this.value);
-    unitsChip.textContent=u!==null?u+' units':'—';
-    unitsChip.className='units-chip col-units'+(u!==null?' has-value':'');
+  const card=document.createElement('div');card.className='dog-card';card.id='dog-card-'+id;
+  card.innerHTML=`
+    <div class="dog-card-top">
+      <div><label class="field-label">Dog Name</label><input type="text" id="name-${id}" placeholder="e.g. Biscuit"></div>
+      <div><label class="field-label">Weight (lb)</label><input type="number" id="weight-${id}" placeholder="lbs" min="1"></div>
+      <button class="remove-btn" onclick="removeDog(${id})">✕</button>
+    </div>
+    <div class="status-section-label" style="margin-bottom:6px">⚖️ Weight Status</div>
+    <div class="status-ask">Ask the customer: <strong>"Has your vet ever mentioned their weight, or would you say your dog is lean, average, or on the heavier side?"</strong></div>
+    <div class="status-pills" id="pills-${id}"></div>
+    <input type="hidden" id="status-${id}" value="normal">
+  `;
+  const pillsWrap=card.querySelector('#pills-'+id);
+  STATUS_DEFS.forEach(s=>{
+    const pill=document.createElement('button');
+    pill.className='status-pill'+(s.val==='normal'?' active-normal':'');
+    pill.id='pill-'+id+'-'+s.val;
+    pill.innerHTML=`<div class="sp-icon">${s.icon}</div><span class="sp-label">${s.label}</span><span class="sp-desc">${s.desc}</span><span class="sp-cue">${s.cue}</span>`;
+    pill.onclick=()=>setStatus(id,s.val);
+    pillsWrap.appendChild(pill);
   });
-  const removeBtn=document.createElement('button');
-  removeBtn.className='remove-btn';removeBtn.textContent='✕';
-  removeBtn.onclick=function(){row.remove();updateRemoveButtons();};
-  const nw=document.createElement('div');nw.appendChild(nameInput);
-  const ww=document.createElement('div');ww.appendChild(weightInput);
-  row.appendChild(nw);row.appendChild(ww);row.appendChild(unitsChip);row.appendChild(removeBtn);
-  list.appendChild(row);
-  updateRemoveButtons();
-  nameInput.focus();
+  card.querySelector('#weight-'+id).addEventListener('input',checkAutoUpgrade);
+  list.appendChild(card);
+  updateRemoveBtns();
+  card.querySelector('#name-'+id).focus();
 }
-function updateRemoveButtons(){
-  const rows=document.querySelectorAll('#dogs-list .dog-row');
-  rows.forEach(r=>{
-    const btn=r.querySelector('.remove-btn');
-    btn.style.opacity=rows.length===1?'0.25':'1';
-    btn.style.pointerEvents=rows.length===1?'none':'auto';
+function removeDog(id){
+  const card=document.getElementById('dog-card-'+id);
+  if(card)card.remove();
+  updateRemoveBtns();checkAutoUpgrade();
+}
+function updateRemoveBtns(){
+  const cards=document.querySelectorAll('#dogs-list .dog-card');
+  cards.forEach(c=>{
+    const b=c.querySelector('.remove-btn');
+    b.style.opacity=cards.length===1?'0.25':'1';
+    b.style.pointerEvents=cards.length===1?'none':'auto';
   });
 }
 function getDogsFromDOM(){
   const dogs=[];
-  document.querySelectorAll('#dogs-list .dog-row').forEach(row=>{
-    const inputs=row.querySelectorAll('input');
-    const name=inputs[0].value.trim(),weight=inputs[1].value;
-    if(name&&parseFloat(weight)>0)dogs.push({name,weight,baseUnits:getUnitsPerDay(weight)});
+  document.querySelectorAll('#dogs-list .dog-card').forEach(card=>{
+    const id=card.id.replace('dog-card-','');
+    const name=document.getElementById('name-'+id)?.value.trim();
+    const weight=document.getElementById('weight-'+id)?.value;
+    const status=document.getElementById('status-'+id)?.value||'normal';
+    const b=getBaseUnits(weight);
+    if(name&&parseFloat(weight)>0&&b!==null)
+      dogs.push({name,weight:parseFloat(weight),status,baseUnits:b,adjustedUnits:getAdjustedUnits(weight,status)});
   });
   return dogs;
 }
 function calculate(){
-  const budget=parseFloat(document.getElementById('budget').value);
-  const days=parseInt(document.getElementById('days').value);
-  const validDogs=getDogsFromDOM();
-  if(!validDogs.length||isNaN(budget)||budget<=0){alert('Please enter at least one dog with a name and weight, and a monthly budget.');return;}
-  const totalBase=validDogs.reduce((s,d)=>s+d.baseUnits,0);
-  let autoPlan='topper';
-  for(const plan of PLANS){if(!findBestOption(totalBase,plan.multiplier,budget,days).overBudget){autoPlan=plan.id;break;}}
-  currentResults={dogsCalc:validDogs,totalBase,budget,days};
-  selectedPlan=autoPlan;
-  renderResults();
+  const dogs=getDogsFromDOM();
+  if(!dogs.length){alert('Please enter at least one dog with a name and weight.');return;}
+  checkAutoUpgrade();currentResults={dogs};renderResults();
   document.getElementById('results').style.display='block';
   document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function renderResults(){
   if(!currentResults)return;
-  const{dogsCalc,totalBase,budget,days}=currentResults;
-  const tabs=document.getElementById('plan-tabs');tabs.innerHTML='';
-  PLANS.forEach(plan=>{
-    const opt=findBestOption(totalBase,plan.multiplier,budget,days);
-    const tab=document.createElement('button');
-    tab.className=`plan-tab ${opt.overBudget?'over':'fits'} ${selectedPlan===plan.id?'active':''}`;
-    tab.innerHTML=`${plan.label}<div class="plan-cost">$${opt.totalCost}</div><div class="plan-status">${opt.overBudget?'over budget':'✓ fits budget'}</div>`;
-    tab.onclick=()=>{selectedPlan=plan.id;renderResults();};
-    tabs.appendChild(tab);
-  });
+  const{dogs}=currentResults;
   const plan=PLANS.find(p=>p.id===selectedPlan);
-  const opt=findBestOption(totalBase,plan.multiplier,budget,days);
-  const totalDay=totalBase*plan.multiplier;
-  document.getElementById('stats-row').innerHTML=`
-    <div class="stat-chip"><div class="stat-label">Units / day</div><div class="stat-val">${totalDay.toFixed(2)}</div></div>
-    <div class="stat-chip"><div class="stat-label">Units / ${days} days</div><div class="stat-val">${(totalDay*days).toFixed(1)}</div></div>
-    <div class="stat-chip"><div class="stat-label">Cases needed</div><div class="stat-val">${opt.casesNeeded}× ${opt.units}-unit</div></div>
-    <div class="stat-chip ${opt.overBudget?'warn':'highlight'}"><div class="stat-label">Total cost</div><div class="stat-val">$${opt.totalCost}</div></div>
-    <div class="stat-chip"><div class="stat-label">Budget</div><div class="stat-val">$${budget}</div></div>
+  const total=dogs.reduce((s,d)=>s+d.adjustedUnits,0);
+  const upd=total*plan.mult;
+  const sub=findSub(upd);
+  const cpd=sub.costPerDay;
+  const savPct=Math.round((1-sub.pack.subPrice/sub.pack.oneTime)*100);
+  const tb=document.getElementById('dog-table-body');tb.innerHTML='';
+  dogs.forEach(d=>{
+    const tr=document.createElement('tr');
+    const cal=Math.round(d.adjustedUnits*plan.mult*400);
+    const u=(d.adjustedUnits*plan.mult).toFixed(3);
+    tr.innerHTML=`<td><strong>${d.name}</strong></td><td>${d.weight} lb</td><td><span class="badge badge-${d.status}">${STATUS_LABELS[d.status]}</span></td><td>${cal} cal</td><td>${u}</td>`;
+    tb.appendChild(tr);
+  });
+  document.getElementById('sc-main').textContent=sub.pack.label;
+  document.getElementById('sc-freq').textContent=`Delivered every ${sub.freqWeeks} weeks  ·  ~${sub.daysSupply} day supply`;
+  document.getElementById('sc-price-val').textContent=`$${sub.pack.subPrice.toFixed(2)}`;
+  document.getElementById('sc-savings').textContent=`🎉 Subscribe & save ${savPct}% vs one-time ($${sub.pack.oneTime.toFixed(2)} → $${sub.pack.subPrice.toFixed(2)})`;
+  document.getElementById('sc-metrics').innerHTML=`
+    <div class="sc-metric"><div class="sm-label">Cost per day</div><div class="sm-val">$${cpd.toFixed(2)}</div><div class="sm-sub">${costAnchor(cpd)}</div></div>
+    <div class="sc-metric"><div class="sm-label">Units per day</div><div class="sm-val">${upd.toFixed(3)}</div><div class="sm-sub">${plan.label}</div></div>
+    <div class="sc-metric"><div class="sm-label">Save vs one-time</div><div class="sm-val">$${(sub.pack.oneTime-sub.pack.subPrice).toFixed(2)}</div><div class="sm-sub">per order</div></div>
+    <div class="sc-metric"><div class="sm-label">Days per order</div><div class="sm-val">${sub.daysSupply}</div><div class="sm-sub">day supply</div></div>
   `;
-  document.getElementById('customer-msg').textContent=buildCustomerMsg(plan,opt,dogsCalc,days);
-  document.getElementById('internal-note').textContent=buildInternalNote(plan,opt,dogsCalc,totalBase,budget,days);
+  const nudge=document.getElementById('sc-nudge');
+  if(selectedPlan!=='full'){
+    const fs=findSub(total);const diff=fs.costPerDay-cpd;
+    nudge.classList.add('show');
+    document.getElementById('sc-nudge-text').innerHTML=`Upgrading to <strong>Full Meal Plan</strong> is just <strong>$${diff.toFixed(2)} more per day</strong> — ${costAnchor(diff)} — and gives ${dogs.length===1?dogs[0].name:'their dogs'} 100% Happy Howl nutrition. Recommended: <strong>${fs.pack.label} every ${fs.freqWeeks} weeks</strong> at $${fs.pack.subPrice.toFixed(2)}.`;
+  } else nudge.classList.remove('show');
+  const names=dogs.map(d=>d.name).join(' & ');
+  document.getElementById('sc-script-text').textContent=`"Based on ${names}'s weight, I'd recommend the ${sub.pack.label} on a ${sub.freqWeeks}-week subscription — that's only $${cpd.toFixed(2)} a day, ${costAnchor(cpd)}, and you save ${savPct}% vs buying one-time."`;
+  document.getElementById('customer-msg').textContent=buildMsg(plan,sub,dogs,savPct,cpd);
+  document.getElementById('internal-note').textContent=buildNote(plan,sub,dogs,upd,cpd,savPct);
 }
-function buildCustomerMsg(plan,opt,dogs,days){
-  const dogWord=dogs.length===1?'dog':`${dogs.length} dogs`;
-  let msg=`For your ${dogWord} on a ${plan.label.toLowerCase()}, you will need to order (${opt.casesNeeded}) ${opt.units}-unit case${opt.casesNeeded!==1?'s':''} every ${days} days.\n\n`;
-  dogs.forEach(d=>{msg+=`${d.name} will need to be fed ${(d.baseUnits*plan.multiplier).toFixed(2)} units per day.\n`;});
-  msg+=`\n${PLAN_MESSAGES[plan.id]}`;
-  return msg;
+function buildMsg(plan,sub,dogs,savPct,cpd){
+  const dw=dogs.length===1?dogs[0].name:`your ${dogs.length} pups`;
+  let m=`Hi! Based on what we know about ${dw}, here's the Happy Howl subscription I'd recommend:\n\n`;
+  m+=`📦 ${sub.pack.label} — delivered every ${sub.freqWeeks} weeks\n`;
+  m+=`💰 $${sub.pack.subPrice.toFixed(2)} per order (save ${savPct}% vs one-time)\n`;
+  m+=`📅 That's just $${cpd.toFixed(2)} per day — ${costAnchor(cpd)}!\n\nFeeding guide:\n`;
+  dogs.forEach(d=>{
+    const u=(d.adjustedUnits*PLANS.find(p=>p.id===selectedPlan).mult).toFixed(2);
+    const sn=d.status==='over'?' (reduced for weight management)':d.status==='under'?' (increased for healthy weight gain)':'';
+    m+=`• ${d.name}: ${u} units per day${sn}\n`;
+  });
+  m+=`\nYour subscription ships automatically — pause, skip, or cancel anytime. No commitment.\n\nReady to get started? https://www.thehappyhowl.com/products/happy-howl-all-natural-meals`;
+  return m;
 }
-function buildInternalNote(plan,opt,dogs,totalBase,budget,days){
-  let note=`Happy Howl Feeding Calc — Internal Note\n${'─'.repeat(38)}\n`;
-  note+=`Plan:        ${plan.label}\nBudget:      $${budget} / ${days} days\n\nDog breakdown:\n`;
-  dogs.forEach(d=>{note+=`  ${d.name.padEnd(16)} ${d.weight} lb  →  ${(d.baseUnits*plan.multiplier).toFixed(4)} units/day\n`;});
-  note+=`\nTotal:       ${(totalBase*plan.multiplier).toFixed(3)} units/day\n             ${(totalBase*plan.multiplier*days).toFixed(1)} units / ${days} days\n\nOrder:       ${opt.casesNeeded}× ${opt.units}-unit case${opt.casesNeeded!==1?'s':''} = $${opt.totalCost}\n`;
-  if(opt.overBudget)note+=`⚠  Over budget by $${(opt.totalCost-budget).toFixed(2)}\n`;
-  return note;
+function buildNote(plan,sub,dogs,upd,cpd,savPct){
+  let n=`Happy Howl — Internal Recommendation\n${'─'.repeat(40)}\nPlan: ${plan.label}\n\nDog breakdown:\n`;
+  dogs.forEach(d=>{
+    const adj=d.status!=='normal'?` [${STATUS_LABELS[d.status]}]`:'';
+    n+=`  ${d.name.padEnd(14)} ${d.weight}lb${adj}  →  ${(d.adjustedUnits*plan.mult).toFixed(4)} u/day\n`;
+  });
+  n+=`\nTotal u/day:  ${upd.toFixed(4)}\nUnits/month:  ${(upd*30).toFixed(1)}\n\nSUBSCRIPTION:\n  ${sub.pack.label}\n  Every ${sub.freqWeeks} weeks (~${sub.daysSupply} days)\n  Sub: $${sub.pack.subPrice.toFixed(2)} | One-time: $${sub.pack.oneTime.toFixed(2)} | Save ${savPct}%\n  Cost/day: $${cpd.toFixed(2)} — ${costAnchor(cpd)}\n`;
+  if(document.getElementById('upgrade-banner').classList.contains('show'))n+=`\n⚠ AUTO-UPGRADED: small dog detected → Full Meal Plan\n`;
+  return n;
 }
-function copyText(elId,btnId){
-  navigator.clipboard.writeText(document.getElementById(elId).textContent).then(()=>{
-    const btn=document.getElementById(btnId),orig=btn.textContent;
-    btn.textContent='✓ Copied!';btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);
+function copyText(id,bid){
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{
+    const b=document.getElementById(bid),o=b.textContent;b.textContent='✓ Copied!';b.classList.add('copied');
+    setTimeout(()=>{b.textContent=o;b.classList.remove('copied');},2000);
   });
 }
 function toggleSettings(){
-  const body=document.getElementById('settings-body'),isOpen=body.classList.contains('open');
-  body.classList.toggle('open',!isOpen);
-  document.getElementById('settings-arrow').textContent=isOpen?'▼ Edit':'▲ Hide';
+  const body=document.getElementById('settings-body'),open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  document.getElementById('settings-arrow').textContent=open?'▼ Edit':'▲ Hide';
 }
-function renderCaseSettings(){
-  const tbody=document.getElementById('case-settings');tbody.innerHTML='';
-  caseOptions.forEach((c,i)=>{
+function renderPriceSettings(){
+  const tb=document.getElementById('price-settings');tb.innerHTML='';
+  PACKS.forEach((p,i)=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td><input type="number" value="${c.units}" min="1" oninput="caseOptions[${i}].units=parseInt(this.value)||0"></td><td><input type="number" value="${c.price}" min="1" oninput="caseOptions[${i}].price=parseFloat(this.value)||0"></td>`;
-    tbody.appendChild(tr);
+    tr.innerHTML=`<td style="font-size:13px;font-weight:700">${p.label}</td><td><input type="number" value="${p.oneTime}" min="1" step="0.01" oninput="PACKS[${i}].oneTime=parseFloat(this.value)||0"></td><td><input type="number" value="${p.subPrice}" min="1" step="0.01" oninput="PACKS[${i}].subPrice=parseFloat(this.value)||0"></td>`;
+    tb.appendChild(tr);
   });
 }
-renderCaseSettings();
+renderPriceSettings();
 addDog();
 </script>
 </body>

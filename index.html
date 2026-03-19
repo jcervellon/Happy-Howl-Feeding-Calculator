@@ -6,141 +6,193 @@
 <title>Happy Howl Feeding Calculator</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green-deep:#2D5016;--green-mid:#4A7C2F;--green-bright:#6AAF3D;
-    --green-light:#A8D878;--green-pale:#EAF5DC;--green-wash:#F4FAF0;
-    --amber:#E8A030;--amber-pale:#FEF3DC;--cream:#FEFCF7;
-    --brown:#8B5E3C;--text-dark:#1E3008;--text-mid:#4A6030;
-    --text-muted:#8FAA70;--border:#D4E8BC;--border-mid:#B8D498;--white:#ffffff;
-    --blue-pale:#EEF5FE;--blue:#2A6DB5;--blue-border:#BAD4F5;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh;}
-  header{background:var(--white);border-bottom:2px solid var(--border);padding:0 28px;display:flex;align-items:center;gap:16px;height:68px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(74,124,47,0.06);}
-  .paw-icon{width:44px;height:44px;background:var(--green-pale);border:2px solid var(--green-light);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;}
-  .logo-text h1{font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:var(--green-deep);letter-spacing:-0.02em;}
-  .logo-text p{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;}
-  .header-badge{margin-left:auto;background:var(--green-pale);border:1.5px solid var(--green-light);color:var(--green-mid);font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;letter-spacing:0.04em;text-transform:uppercase;}
-  .container{max-width:760px;margin:0 auto;padding:28px 20px 60px;}
-  .page-intro{text-align:center;padding:14px 0 24px;}
-  .page-intro h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--green-deep);margin-bottom:4px;}
-  .page-intro p{font-size:14px;font-weight:600;color:var(--text-muted);}
-  .card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(74,124,47,0.06);}
-  .card-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:900;color:var(--text-dark);margin-bottom:20px;}
-  .step-badge{width:28px;height:28px;border-radius:9px;background:var(--green-mid);color:var(--white);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .field-label{font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:6px;}
-  input{width:100%;background:var(--green-wash);border:1.5px solid var(--border);border-radius:11px;color:var(--text-dark);padding:11px 14px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none;}
-  input:focus{border-color:var(--green-bright);background:var(--white);}
-  input::placeholder{color:var(--text-muted);font-weight:600;}
-  .dog-card{background:var(--green-wash);border:1.5px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;}
-  .dog-card-top{display:grid;grid-template-columns:1fr 110px 38px;gap:10px;align-items:flex-end;margin-bottom:14px;}
-  .remove-btn{background:#FEF0F0;border:1.5px solid #F5BFBF;border-radius:10px;color:#C55;width:38px;height:40px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .remove-btn:hover{background:#FBDDDD;}
-  .status-section-label{font-size:11px;font-weight:900;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
-  .status-ask{font-size:13px;font-weight:700;color:var(--text-mid);margin-bottom:10px;font-style:italic;line-height:1.5;}
-  .status-ask strong{color:var(--text-dark);font-style:normal;}
-  .status-pills{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-  .status-pill{border-radius:13px;padding:12px 10px;cursor:pointer;border:2px solid var(--border);background:var(--white);text-align:center;transition:all 0.15s;font-family:'Nunito',sans-serif;}
-  .status-pill:hover{border-color:var(--border-mid);}
-  .sp-icon{font-size:20px;margin-bottom:5px;}
-  .sp-label{font-size:12px;font-weight:900;color:var(--text-dark);display:block;margin-bottom:4px;}
-  .sp-desc{font-size:11px;font-weight:700;color:var(--text-muted);display:block;line-height:1.4;margin-bottom:6px;}
-  .sp-cue{font-size:10px;font-weight:800;display:block;padding:4px 6px;border-radius:7px;line-height:1.4;background:rgba(0,0,0,0.05);color:var(--text-muted);}
-  .status-pill.active-normal{border-color:var(--green-bright);background:var(--green-pale);}
-  .status-pill.active-normal .sp-label{color:var(--green-mid);}
-  .status-pill.active-normal .sp-cue{background:rgba(74,124,47,0.12);color:var(--green-mid);}
-  .status-pill.active-over{border-color:#F5C88A;background:var(--amber-pale);}
-  .status-pill.active-over .sp-label{color:var(--brown);}
-  .status-pill.active-over .sp-cue{background:rgba(232,160,48,0.15);color:var(--brown);}
-  .status-pill.active-under{border-color:var(--blue-border);background:var(--blue-pale);}
-  .status-pill.active-under .sp-label{color:var(--blue);}
-  .status-pill.active-under .sp-cue{background:rgba(42,109,181,0.1);color:var(--blue);}
-  .btn-ghost{background:transparent;border:1.5px dashed var(--border-mid);border-radius:10px;color:var(--text-muted);padding:9px 18px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all 0.15s;margin-top:4px;}
-  .btn-ghost:hover{border-color:var(--green-bright);color:var(--green-mid);background:var(--green-wash);}
-  .btn-primary{background:var(--green-mid);border:none;border-radius:14px;color:var(--white);padding:15px 36px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 4px 18px rgba(74,124,47,0.28);transition:all 0.15s;width:100%;}
-  .btn-primary:hover{background:var(--green-deep);transform:translateY(-1px);}
-  .btn-copy{background:var(--green-pale);border:1.5px solid var(--border-mid);border-radius:8px;color:var(--green-mid);padding:7px 16px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:all 0.15s;}
-  .btn-copy:hover,.btn-copy.copied{background:var(--green-bright);color:white;border-color:var(--green-bright);}
-  .plan-tabs{display:flex;gap:10px;}
-  .plan-tab{flex:1;padding:13px 8px;border-radius:14px;border:2px solid var(--border);background:var(--green-wash);color:var(--text-muted);cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;text-align:center;transition:all 0.15s;}
-  .plan-tab.active{border-color:var(--green-bright);background:var(--green-pale);color:var(--text-dark);}
-  .plan-tab.disabled{opacity:0.4;cursor:not-allowed;}
-  .upgrade-banner{background:linear-gradient(135deg,#fff8e6,#fef3d5);border:2px solid #F5C88A;border-radius:14px;padding:14px 18px;margin-top:14px;display:none;align-items:flex-start;gap:12px;}
-  .upgrade-banner.show{display:flex;}
-  .upgrade-banner-text{font-size:13px;font-weight:700;color:var(--brown);line-height:1.6;}
-  .upgrade-banner-text strong{color:var(--text-dark);}
-  .dog-table{width:100%;border-collapse:collapse;}
-  .dog-table th{font-size:9px;font-weight:900;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;text-align:left;padding:6px 10px;border-bottom:1.5px solid var(--border);}
-  .dog-table td{padding:9px 10px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;}
-  .dog-table tr:last-child td{border-bottom:none;}
-  .badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;}
-  .badge-normal{background:var(--green-pale);color:var(--green-mid);border:1px solid var(--green-light);}
-  .badge-over{background:var(--amber-pale);color:var(--brown);border:1px solid #F5C88A;}
-  .badge-under{background:var(--blue-pale);color:var(--blue);border:1px solid var(--blue-border);}
-  .sales-card{border-radius:20px;margin-bottom:16px;background:linear-gradient(150deg,#1a3a0a,var(--green-deep));color:white;overflow:hidden;}
-  .sc-hero{padding:24px 24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);}
-  .sc-eyebrow{font-size:10px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--green-light);margin-bottom:12px;}
-  .sc-product-block{background:rgba(106,175,61,0.2);border:2px solid rgba(106,175,61,0.45);border-radius:14px;padding:16px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px;}
-  .sc-product-icon{font-size:30px;flex-shrink:0;}
-  .sc-product-info{flex:1;}
-  .sc-product-name{font-size:22px;font-weight:900;color:white;line-height:1.1;margin-bottom:4px;}
-  .sc-product-freq{font-size:13px;font-weight:800;color:rgba(255,255,255,0.75);}
-  .sc-product-price{text-align:right;flex-shrink:0;}
-  .sc-product-price-val{font-size:26px;font-weight:900;color:var(--green-light);}
-  .sc-product-price-label{font-size:10px;font-weight:800;color:rgba(255,255,255,0.5);text-align:right;letter-spacing:0.06em;text-transform:uppercase;}
-  .savings-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,48,0.25);border:1px solid rgba(232,160,48,0.5);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:900;color:#FFD580;margin-bottom:16px;}
-  .sc-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  .sc-metric{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 14px;}
-  .sc-metric .sm-label{font-size:9px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:4px;}
-  .sc-metric .sm-val{font-size:18px;font-weight:900;color:white;}
-  .sc-metric .sm-sub{font-size:11px;font-weight:700;color:var(--green-light);margin-top:2px;}
-  .sc-bottom{padding:18px 24px;}
-  .sc-nudge{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:13px;padding:14px;display:none;margin-bottom:16px;}
-  .sc-nudge.show{display:block;}
-  .sc-nudge-label{font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:#FFD580;margin-bottom:6px;}
-  .sc-nudge-text{font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);line-height:1.6;}
-  .sc-nudge-text strong{color:white;}
-  .script-line{background:rgba(255,255,255,0.05);border-left:3px solid var(--green-light);border-radius:0 10px 10px 0;padding:12px 16px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.85);line-height:1.6;font-style:italic;}
-  .script-line-label{font-size:9px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-light);margin-bottom:6px;font-style:normal;}
-  .msg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-  .msg-label{font-size:11px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;}
-  .msg-label.green{color:var(--green-mid);}
-  .msg-label.amber{color:var(--amber);}
-  .msg-box{background:var(--green-wash);border:1.5px solid var(--border);border-radius:13px;padding:16px;font-size:14px;font-weight:600;line-height:1.8;color:var(--text-dark);white-space:pre-wrap;font-family:'Nunito',sans-serif;min-height:80px;}
-  .msg-box.note{background:var(--amber-pale);border-color:#F5C88A;font-family:'Courier New',monospace;font-size:12.5px;color:var(--brown);line-height:1.7;}
-  .settings-toggle{cursor:pointer;display:flex;align-items:center;}
-  .settings-body{display:none;}
-  .settings-body.open{display:block;}
-  .toggle-arrow{margin-left:auto;font-size:11px;font-weight:800;color:var(--text-muted);}
-  .price-table{width:100%;border-collapse:collapse;margin-top:14px;}
-  .price-table th{font-size:10px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:6px 10px;border-bottom:1.5px solid var(--border);}
-  .price-table td{padding:8px 10px;border-bottom:1px solid var(--border);}
-  .price-table input{width:90px;padding:7px 10px;font-size:13px;}
-  @media(max-width:560px){
-    .dog-card-top{grid-template-columns:1fr 90px 38px;}
-    .status-pills{grid-template-columns:1fr;}
-    .plan-tabs{flex-direction:column;}
-    .sc-metrics{grid-template-columns:1fr;}
-    .sc-product-block{flex-direction:column;text-align:center;}
-    .sc-product-price{text-align:center;}
-  }
+:root{
+  --gd:#2D5016;--gm:#4A7C2F;--gb:#6AAF3D;--gl:#A8D878;--gp:#EAF5DC;--gw:#F4FAF0;
+  --am:#E8A030;--ap:#FEF3DC;--ab:#F5C88A;
+  --br:#8B5E3C;--td:#1E3008;--ts:#8FAA70;
+  --bo:#D4E8BC;--bm:#B8D498;--wh:#ffffff;--cr:#FEFCF7;
+  --bl:#2A6DB5;--bp:#EEF5FE;--bb:#BAD4F5;
+  --re:#B91C1C;--rp:#FEE2E2;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--cr);color:var(--td);min-height:100vh;}
+header{background:var(--wh);border-bottom:2px solid var(--bo);padding:0 24px;display:flex;align-items:center;gap:14px;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(74,124,47,0.07);}
+.paw{width:40px;height:40px;background:var(--gp);border:2px solid var(--gl);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.logo h1{font-family:'Playfair Display',serif;font-size:17px;font-weight:800;color:var(--gd);}
+.logo p{font-size:10px;font-weight:700;color:var(--ts);letter-spacing:0.06em;text-transform:uppercase;}
+.hbadge{margin-left:auto;background:var(--gp);border:1.5px solid var(--gl);color:var(--gm);font-size:10px;font-weight:800;padding:4px 11px;border-radius:20px;text-transform:uppercase;letter-spacing:0.04em;}
+.clear-btn{background:var(--rp);border:1.5px solid #FCA5A5;border-radius:10px;color:var(--re);font-size:12px;font-weight:800;padding:7px 14px;cursor:pointer;font-family:'Nunito',sans-serif;transition:all 0.15s;}
+.clear-btn:hover{background:#FECACA;border-color:#F87171;}
+.container{max-width:780px;margin:0 auto;padding:24px 18px 60px;}
+.page-intro{text-align:center;padding:10px 0 20px;}
+.page-intro h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--gd);margin-bottom:4px;}
+.page-intro p{font-size:13px;font-weight:600;color:var(--ts);}
+.card{background:var(--wh);border:1.5px solid var(--bo);border-radius:18px;padding:22px;margin-bottom:14px;box-shadow:0 2px 10px rgba(74,124,47,0.06);}
+.card-title{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:900;color:var(--td);margin-bottom:18px;}
+.step-badge{width:26px;height:26px;border-radius:8px;background:var(--gm);color:var(--wh);font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.field-label{font-size:10px;font-weight:800;color:var(--ts);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:5px;}
+input[type=text],input[type=number]{width:100%;background:var(--gw);border:1.5px solid var(--bo);border-radius:10px;color:var(--td);padding:10px 12px;font-size:13px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none;}
+input:focus{border-color:var(--gb);background:var(--wh);}
+input::placeholder{color:var(--ts);font-weight:600;}
+.dog-card{background:var(--gw);border:1.5px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;}
+.dog-card-top{display:grid;grid-template-columns:1fr 100px 36px;gap:8px;align-items:flex-end;margin-bottom:12px;}
+.remove-btn{background:var(--rp);border:1.5px solid #FCA5A5;border-radius:9px;color:var(--re);width:36px;height:38px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;}
+.remove-btn:hover{background:#FECACA;}
+.remove-btn:disabled{opacity:0.3;pointer-events:none;}
+.rep-prompt-blue{background:var(--bp);border:1.5px solid var(--bb);border-radius:11px;padding:11px 14px;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
+.rep-prompt-amber{background:var(--ap);border:1.5px solid var(--ab);border-radius:11px;padding:11px 14px;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
+.rp-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.rp-label{font-size:9px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;}
+.rp-label-blue{color:var(--bl);}
+.rp-label-amber{color:var(--br);}
+.rp-ask{font-size:12px;font-weight:800;color:var(--td);font-style:italic;line-height:1.5;padding:5px 9px;border-radius:7px;margin-bottom:4px;}
+.rp-ask-blue{background:rgba(42,109,181,0.1);border-left:2px solid var(--bl);}
+.rp-ask-amber{background:rgba(232,160,48,0.12);border-left:2px solid var(--ab);}
+.rp-note{font-size:10px;font-weight:700;line-height:1.5;}
+.rp-note-blue{color:var(--bl);}
+.rp-note-amber{color:var(--br);}
+.status-pills{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
+.sp{border-radius:12px;padding:11px 8px;cursor:pointer;border:2px solid var(--bo);background:var(--wh);text-align:center;font-family:'Nunito',sans-serif;transition:all 0.15s;}
+.sp:hover{border-color:var(--bm);background:var(--gw);}
+.sp-icon{font-size:18px;margin-bottom:4px;}
+.sp-label{font-size:11px;font-weight:900;color:var(--td);display:block;margin-bottom:3px;}
+.sp-desc{font-size:10px;font-weight:700;color:var(--ts);display:block;line-height:1.35;margin-bottom:5px;}
+.sp-cue{font-size:10px;font-weight:800;display:block;padding:3px 6px;border-radius:6px;background:rgba(0,0,0,0.05);color:var(--ts);line-height:1.35;}
+.sp.an{border-color:var(--gb);background:var(--gp);}
+.sp.an .sp-label{color:var(--gd);}
+.sp.an .sp-desc{color:var(--gm);}
+.sp.an .sp-cue{background:rgba(74,124,47,0.15);color:var(--gd);}
+.sp.ao{border-color:var(--ab);background:var(--ap);}
+.sp.ao .sp-label{color:var(--br);}
+.sp.ao .sp-desc{color:var(--br);opacity:0.85;}
+.sp.ao .sp-cue{background:rgba(139,94,60,0.12);color:var(--br);}
+.sp.au{border-color:var(--bb);background:var(--bp);}
+.sp.au .sp-label{color:var(--bl);}
+.sp.au .sp-desc{color:var(--bl);opacity:0.85;}
+.sp.au .sp-cue{background:rgba(42,109,181,0.12);color:var(--bl);}
+.plan-tabs{display:flex;gap:9px;}
+.plan-tab{flex:1;padding:12px 6px;border-radius:12px;border:2px solid var(--bo);background:var(--gw);color:var(--ts);cursor:pointer;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;text-align:center;transition:all 0.15s;}
+.plan-tab:hover{border-color:var(--bm);color:var(--td);}
+.plan-tab.active{border-color:var(--gb);background:var(--gp);color:var(--gd);}
+.plan-tab.disabled{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+.upgrade-banner{background:linear-gradient(135deg,#fff8e6,#fef3d5);border:2px solid var(--ab);border-radius:12px;padding:12px 15px;margin-top:12px;display:none;align-items:flex-start;gap:10px;}
+.upgrade-banner.show{display:flex;}
+.upgrade-banner-text{font-size:12px;font-weight:700;color:var(--br);line-height:1.6;}
+.upgrade-banner-text strong{color:var(--td);}
+.meals-options{display:flex;flex-direction:column;gap:8px;}
+.meal-opt{display:flex;align-items:center;gap:11px;background:var(--gw);border:2px solid var(--bo);border-radius:11px;padding:11px 14px;cursor:pointer;transition:all 0.15s;font-family:'Nunito',sans-serif;}
+.meal-opt:hover{border-color:var(--bm);}
+.meal-opt.active{border-color:var(--gb);background:var(--gp);}
+.meal-opt-icon{font-size:18px;flex-shrink:0;}
+.meal-opt-info{flex:1;}
+.meal-opt-label{font-size:13px;font-weight:900;color:var(--td);margin-bottom:2px;}
+.meal-opt.active .meal-opt-label{color:var(--gd);}
+.meal-opt-desc{font-size:11px;font-weight:700;color:var(--ts);}
+.meal-opt.active .meal-opt-desc{color:var(--gm);}
+.meal-opt-badge{font-size:9px;font-weight:900;color:var(--gd);background:rgba(74,124,47,0.15);border:1px solid var(--gl);padding:3px 9px;border-radius:20px;flex-shrink:0;}
+.btn-ghost{background:transparent;border:1.5px dashed var(--bm);border-radius:9px;color:var(--ts);padding:8px 16px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:all 0.15s;margin-top:4px;}
+.btn-ghost:hover{border-color:var(--gb);color:var(--gm);background:var(--gw);}
+.btn-primary{background:var(--gm);border:2px solid var(--gm);border-radius:13px;color:#FFFFFF;padding:15px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(74,124,47,0.3);transition:all 0.15s;width:100%;letter-spacing:0.01em;}
+.btn-primary:hover{background:var(--gd);border-color:var(--gd);color:#FFFFFF;transform:translateY(-1px);box-shadow:0 6px 20px rgba(74,124,47,0.35);}
+.btn-primary:active{transform:translateY(0);}
+.btn-copy{background:var(--gp);border:1.5px solid var(--bm);border-radius:7px;color:var(--gd);padding:6px 13px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;cursor:pointer;transition:all 0.15s;}
+.btn-copy:hover,.btn-copy.copied{background:var(--gb);color:var(--wh);border-color:var(--gb);}
+.dog-table{width:100%;border-collapse:collapse;margin-bottom:16px;}
+.dog-table th{font-size:9px;font-weight:900;color:var(--ts);letter-spacing:0.1em;text-transform:uppercase;text-align:left;padding:6px 9px;border-bottom:1.5px solid var(--bo);}
+.dog-table td{padding:9px;border-bottom:1px solid #E5F0D0;font-size:13px;font-weight:700;vertical-align:top;}
+.dog-table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;}
+.bn{background:var(--gp);color:var(--gd);border:1px solid var(--gl);}
+.bo2{background:var(--ap);color:var(--br);border:1px solid var(--ab);}
+.bu{background:var(--bp);color:var(--bl);border:1px solid var(--bb);}
+.frac-display{font-size:14px;font-weight:900;color:var(--gd);}
+.frac-sub{font-size:11px;font-weight:700;color:var(--ts);margin-top:2px;}
+.monthly-box{background:linear-gradient(135deg,var(--gp),#f0f9e8);border:1.5px solid var(--gl);border-radius:14px;padding:16px;margin-bottom:14px;}
+.mb-title{font-size:10px;font-weight:900;color:var(--ts);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;}
+.mb-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.mb-stat{background:var(--wh);border-radius:9px;padding:10px 11px;border:1px solid var(--bo);}
+.mb-l{font-size:9px;font-weight:800;color:var(--ts);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px;}
+.mb-v{font-size:17px;font-weight:900;color:var(--td);}
+.mb-s{font-size:10px;font-weight:700;color:var(--gm);margin-top:2px;}
+.pack-section-label{font-size:10px;font-weight:900;color:var(--ts);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.pack-upsell-note{background:var(--ap);border:1.5px solid var(--ab);border-radius:10px;padding:10px 13px;font-size:12px;font-weight:700;color:var(--br);line-height:1.6;margin-bottom:12px;}
+.pack-upsell-note strong{color:var(--td);}
+.pack-option{border-radius:14px;padding:16px;margin-bottom:10px;border:2px solid var(--bo);background:var(--wh);cursor:pointer;transition:all 0.15s;position:relative;}
+.pack-option:hover{border-color:var(--gl);box-shadow:0 2px 10px rgba(74,124,47,0.1);}
+.pack-option.selected{border-color:var(--gm);background:var(--gp);box-shadow:0 0 0 3px rgba(74,124,47,0.12);}
+.pack-option.lead{border-color:var(--gb);}
+.po-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.po-badge{font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+.pob-lead{background:var(--gm);color:var(--wh);}
+.pob-rebuttal{background:var(--bp);color:var(--bl);}
+.pob-bulk{background:var(--ap);color:var(--br);}
+.po-selected-check{margin-left:auto;width:22px;height:22px;border-radius:50%;background:var(--gm);color:var(--wh);display:none;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.pack-option.selected .po-selected-check{display:flex;}
+.po-name{font-size:15px;font-weight:900;color:var(--td);margin-bottom:2px;}
+.po-freq{font-size:12px;font-weight:700;color:var(--ts);margin-bottom:8px;}
+.po-pricing{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+.po-price{font-size:20px;font-weight:900;color:var(--gm);}
+.po-price-label{font-size:11px;font-weight:700;color:var(--ts);}
+.sub-save-badge{background:var(--ap);border:1.5px solid var(--ab);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:900;color:var(--br);display:inline-flex;align-items:center;gap:4px;}
+.po-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;}
+.po-chip{background:rgba(74,124,47,0.08);border-radius:7px;padding:5px 9px;font-size:11px;font-weight:800;color:var(--gd);}
+.pack-option.selected .po-chip{background:rgba(74,124,47,0.15);}
+.pack-option.selected .po-name{color:var(--gd);}
+.po-rep-script{border-radius:8px;padding:8px 11px;font-size:11px;font-weight:700;line-height:1.6;}
+.po-rep-script.upsell{background:rgba(74,124,47,0.08);border-left:3px solid var(--gm);color:var(--td);}
+.po-rep-script.rebuttal{background:rgba(42,109,181,0.07);border-left:3px solid var(--bl);color:var(--td);}
+.po-rep-label{font-size:9px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
+.upsell .po-rep-label{color:var(--gm);}
+.rebuttal .po-rep-label{color:var(--bl);}
+.sales-card{border-radius:18px;margin-bottom:14px;background:linear-gradient(150deg,#1e4010,var(--gd));color:var(--wh);overflow:hidden;}
+.sc-hero{padding:20px 22px 18px;border-bottom:1px solid rgba(255,255,255,0.12);}
+.sc-eyebrow{font-size:10px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--gl);margin-bottom:8px;}
+.sc-nudge{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:12px;padding:13px;display:none;margin-bottom:14px;}
+.sc-nudge.show{display:block;}
+.sc-nudge-label{font-size:9px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:#FFD580;margin-bottom:5px;}
+.sc-nudge-text{font-size:12px;font-weight:700;color:rgba(255,255,255,0.92);line-height:1.65;}
+.sc-nudge-text strong{color:var(--wh);}
+.script-line{background:rgba(255,255,255,0.06);border-left:3px solid var(--gl);border-radius:0 9px 9px 0;padding:11px 14px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.88);line-height:1.65;font-style:italic;}
+.script-line-label{font-size:9px;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--gl);margin-bottom:5px;font-style:normal;}
+.sc-bottom{padding:18px 22px;}
+.msg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.msg-label{font-size:10px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;}
+.mlg{color:var(--gm);}
+.mla{color:var(--am);}
+.msg-box{background:var(--gw);border:1.5px solid var(--bo);border-radius:12px;padding:14px;font-size:13px;font-weight:600;line-height:1.85;color:var(--td);white-space:pre-wrap;font-family:'Nunito',sans-serif;min-height:80px;}
+.msg-box.note{background:var(--ap);border-color:var(--ab);font-family:'Courier New',monospace;font-size:12px;color:var(--br);line-height:1.7;}
+.settings-toggle{cursor:pointer;display:flex;align-items:center;}
+.settings-body{display:none;}
+.settings-body.open{display:block;}
+.toggle-arrow{margin-left:auto;font-size:11px;font-weight:800;color:var(--ts);}
+.price-table{width:100%;border-collapse:collapse;margin-top:12px;}
+.price-table th{font-size:9px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;color:var(--ts);text-align:left;padding:5px 9px;border-bottom:1.5px solid var(--bo);}
+.price-table td{padding:7px 9px;border-bottom:1px solid #E5F0D0;font-size:12px;font-weight:700;}
+.price-table input[type=number]{width:85px;padding:6px 9px;font-size:12px;}
+@media(max-width:560px){
+  .dog-card-top{grid-template-columns:1fr 90px 36px;}
+  .plan-tabs{flex-direction:column;}
+  .mb-grid{grid-template-columns:1fr 1fr;}
+  .status-pills{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="paw-icon">🐾</div>
-  <div class="logo-text">
+  <div class="paw">🐾</div>
+  <div class="logo">
     <h1>Happy Howl</h1>
     <p>Feeding Calculator · Support Tool</p>
   </div>
-  <div class="header-badge">Internal Use</div>
+  <div class="hbadge">Internal Use</div>
+  <button class="clear-btn" onclick="clearAll()">↺ New Customer</button>
 </header>
 
 <div class="container">
   <div class="page-intro">
     <h2>How Much Should They Eat?</h2>
-    <p>Enter dog info → get the exact subscription to recommend and how to sell it.</p>
+    <p>Enter dog info → get correct serving sizes and subscription options to offer the customer.</p>
   </div>
 
   <div class="card">
@@ -157,42 +209,78 @@
       <button class="plan-tab" data-plan="topper" onclick="selectPlan('topper')">✨ Topper (25/75)</button>
     </div>
     <div class="upgrade-banner" id="upgrade-banner">
-      <div style="font-size:20px;flex-shrink:0">⚠️</div>
+      <div style="font-size:18px;flex-shrink:0">⚠️</div>
       <div class="upgrade-banner-text" id="upgrade-banner-text"></div>
     </div>
   </div>
 
-  <div style="margin-bottom:20px">
+  <div class="card">
+    <div class="card-title"><div class="step-badge">3</div>How do they feed their dog?</div>
+    <div class="rep-prompt-blue">
+      <div class="rp-icon">💬</div>
+      <div style="flex:1">
+        <div class="rp-label rp-label-blue">Ask the customer</div>
+        <div class="rp-ask rp-ask-blue">"How many times a day do you feed [dog name]?"</div>
+        <div class="rp-note rp-note-blue">This tells us the per-meal portion so you can give the customer an exact amount to scoop each time.</div>
+      </div>
+    </div>
+    <div class="meals-options">
+      <div class="meal-opt active" onclick="setMeal(this,1)">
+        <div class="meal-opt-icon">🍽️</div>
+        <div class="meal-opt-info">
+          <div class="meal-opt-label">Once a day</div>
+          <div class="meal-opt-desc">Give the full daily amount in one sitting</div>
+        </div>
+        <div class="meal-opt-badge">Most common</div>
+      </div>
+      <div class="meal-opt" onclick="setMeal(this,2)">
+        <div class="meal-opt-icon">🍽️🍽️</div>
+        <div class="meal-opt-info">
+          <div class="meal-opt-label">Twice a day</div>
+          <div class="meal-opt-desc">Morning and evening — daily amount divided in half</div>
+        </div>
+      </div>
+      <div class="meal-opt" onclick="setMeal(this,3)">
+        <div class="meal-opt-icon">🍽️🍽️🍽️</div>
+        <div class="meal-opt-info">
+          <div class="meal-opt-label">Three times a day</div>
+          <div class="meal-opt-desc">Three smaller meals — daily amount divided by 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:18px">
     <button class="btn-primary" onclick="calculate()">Calculate Recommendation →</button>
   </div>
 
   <div id="results" style="display:none">
     <div class="card">
-      <div class="card-title"><div class="step-badge">3</div>Dog Breakdown</div>
+      <div class="card-title"><div class="step-badge">4</div>Feeding Breakdown</div>
       <table class="dog-table">
-        <thead><tr><th>Dog</th><th>Weight</th><th>Status</th><th>Cal/Day</th><th>Units/Day</th></tr></thead>
+        <thead><tr>
+          <th>Dog</th><th>Weight</th><th>Status</th>
+          <th>Per Day</th><th>Per Meal</th><th>Oz / Meal</th>
+        </tr></thead>
         <tbody id="dog-table-body"></tbody>
       </table>
     </div>
 
+    <div class="monthly-box">
+      <div class="mb-title">📅 Monthly Cost Estimate (30 days)</div>
+      <div class="mb-grid" id="monthly-grid"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="step-badge">5</div>Subscription Options to Offer</div>
+      <div class="pack-upsell-note" id="upsell-note"></div>
+      <div class="pack-section-label">Select the pack you're recommending — the customer message updates automatically</div>
+      <div id="pack-options"></div>
+    </div>
+
     <div class="sales-card">
       <div class="sc-hero">
-        <div class="sc-eyebrow">📦 Subscription Recommendation</div>
-        <div class="sc-product-block">
-          <div class="sc-product-icon">🛒</div>
-          <div class="sc-product-info">
-            <div class="sc-product-name" id="sc-main"></div>
-            <div class="sc-product-freq" id="sc-freq"></div>
-          </div>
-          <div class="sc-product-price">
-            <div class="sc-product-price-label">Sub price</div>
-            <div class="sc-product-price-val" id="sc-price-val"></div>
-          </div>
-        </div>
-        <div class="savings-pill" id="sc-savings"></div>
-        <div class="sc-metrics" id="sc-metrics"></div>
-      </div>
-      <div class="sc-bottom">
+        <div class="sc-eyebrow">💬 Rep Script</div>
         <div class="sc-nudge" id="sc-nudge">
           <div class="sc-nudge-label">💡 Upgrade opportunity</div>
           <div class="sc-nudge-text" id="sc-nudge-text"></div>
@@ -202,36 +290,34 @@
           <span id="sc-script-text"></span>
         </div>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><div class="step-badge">4</div>Messages</div>
-      <div style="margin-bottom:18px">
-        <div class="msg-header">
-          <span class="msg-label green">🌿 Customer Message (subscription close)</span>
-          <button class="btn-copy" id="copy-msg-btn" onclick="copyText('customer-msg','copy-msg-btn')">Copy</button>
+      <div class="sc-bottom">
+        <div style="margin-bottom:16px">
+          <div class="msg-header">
+            <span class="msg-label mlg">🌿 Customer Message</span>
+            <button class="btn-copy" id="copy-msg-btn" onclick="copyText('customer-msg','copy-msg-btn')">Copy</button>
+          </div>
+          <div class="msg-box" id="customer-msg"></div>
         </div>
-        <div class="msg-box" id="customer-msg"></div>
-      </div>
-      <div>
-        <div class="msg-header">
-          <span class="msg-label amber">📋 Internal Note</span>
-          <button class="btn-copy" id="copy-note-btn" onclick="copyText('internal-note','copy-note-btn')">Copy</button>
+        <div>
+          <div class="msg-header">
+            <span class="msg-label mla">📋 Internal Note</span>
+            <button class="btn-copy" id="copy-note-btn" onclick="copyText('internal-note','copy-note-btn')">Copy</button>
+          </div>
+          <div class="msg-box note" id="internal-note"></div>
         </div>
-        <div class="msg-box note" id="internal-note"></div>
       </div>
     </div>
   </div>
 
   <div class="card">
     <div class="settings-toggle" onclick="toggleSettings()">
-      <span style="font-size:13px;font-weight:800;color:var(--text-muted)">⚙ Pack Prices</span>
+      <span style="font-size:12px;font-weight:800;color:var(--ts)">⚙ Pack Prices</span>
       <span class="toggle-arrow" id="settings-arrow">▼ Edit</span>
     </div>
     <div class="settings-body" id="settings-body">
-      <p style="font-size:12px;font-weight:600;color:var(--text-muted);margin-top:12px">Update if prices have changed. Savings % is calculated automatically.</p>
+      <p style="font-size:11px;font-weight:600;color:var(--ts);margin-top:10px">Subscription is 20% off one-time. Update if prices change — savings % auto-calculates.</p>
       <table class="price-table">
-        <thead><tr><th>Pack</th><th>One-Time ($)</th><th>Subscription ($)</th></tr></thead>
+        <thead><tr><th>Pack</th><th>Units</th><th>One-Time ($)</th><th>Sub ($)</th></tr></thead>
         <tbody id="price-settings"></tbody>
       </table>
     </div>
@@ -239,81 +325,77 @@
 </div>
 
 <script>
-const CAL_TABLE=[
-  {min:0,max:3,units:0.2},{min:4,max:6,units:0.4125},{min:7,max:9,units:0.575},
-  {min:10,max:15,units:0.8125},{min:16,max:21,units:1.0875},{min:22,max:28,units:1.36},
-  {min:29,max:35,units:1.6375},{min:36,max:41,units:1.885},{min:42,max:47,units:2.1025},
-  {min:48,max:55,units:2.3475},{min:56,max:65,units:2.625},{min:66,max:76,units:2.95},
-  {min:77,max:88,units:3.325},{min:89,max:101,units:3.71},{min:102,max:115,units:4.075},
-  {min:116,max:9999,units:4.5}
+const FEED_TABLE = [
+  {min:0,   max:3,   units:0.2},
+  {min:4,   max:6,   units:1/3},
+  {min:7,   max:9,   units:0.5},
+  {min:10,  max:15,  units:0.75},
+  {min:16,  max:21,  units:0.8},
+  {min:22,  max:28,  units:1.0},
+  {min:29,  max:35,  units:1.4},
+  {min:36,  max:41,  units:1.5},
+  {min:42,  max:47,  units:1.8},
+  {min:48,  max:55,  units:2.0},
+  {min:56,  max:65,  units:2.25},
+  {min:66,  max:76,  units:2.5},
+  {min:77,  max:88,  units:2.75},
+  {min:89,  max:101, units:3.0},
+  {min:102, max:115, units:3.2},
+  {min:116, max:9999,units:4.0},
 ];
 const STATUS_MULT={normal:1.0,over:0.9,under:1.1};
 const STATUS_LABELS={normal:'Normal',over:'Overweight',under:'Underweight'};
-const SMALL_DOG_MAX_LB=15;
-const STATUS_DEFS=[
-  {val:'normal',icon:'✅',label:'Normal Weight',
-   desc:'Can feel ribs but not see them. Visible waist from above.',
-   cue:'"Vet says they\'re healthy" or "looks about right"'},
-  {val:'over',icon:'⬆️',label:'Overweight',
-   desc:'Hard to feel ribs. No visible waist. Vet mentioned losing weight.',
-   cue:'"Vet said to slim down" or "a little chunky"'},
-  {val:'under',icon:'⬇️',label:'Underweight',
-   desc:'Ribs, spine or hip bones visible. Vet wants them to gain.',
-   cue:'"Too skinny" or "needs to gain weight"'},
-];
+const OZ_PER_UNIT=14.6,TBSP_PER_UNIT=29.2,SMALL_DOG_LB=15;
 let PACKS=[
-  {units:6,  label:'1 × 6-Unit Pack',      oneTime:75.00, subPrice:60.00},
-  {units:18, label:'1 × 18-Unit Pack',      oneTime:109.00,subPrice:87.20},
-  {units:24, label:'1 × 24-Unit Pack',      oneTime:169.00,subPrice:135.20},
-  {units:36, label:'1 × 36-Unit Pack',      oneTime:199.00,subPrice:159.20},
-  {units:48, label:'1 × 48-Unit Bulk Pack', oneTime:240.00,subPrice:192.00},
-  {units:54, label:'3 × 18-Unit Packs',     oneTime:327.00,subPrice:261.60},
-  {units:72, label:'2 × 36-Unit Packs',     oneTime:398.00,subPrice:318.40},
-  {units:96, label:'1 × 96-Unit Bulk Pack', oneTime:410.00,subPrice:328.00},
+  {units:6,  label:'1 × 6-Unit Pack',      oneTime:75.00,  subPrice:60.00},
+  {units:18, label:'1 × 18-Unit Pack',      oneTime:109.00, subPrice:87.20},
+  {units:24, label:'1 × 24-Unit Pack',      oneTime:169.00, subPrice:135.20},
+  {units:36, label:'1 × 36-Unit Pack',      oneTime:199.00, subPrice:159.20},
+  {units:48, label:'1 × 48-Unit Bulk Pack', oneTime:240.00, subPrice:192.00},
+  {units:54, label:'3 × 18-Unit Packs',     oneTime:327.00, subPrice:261.60},
+  {units:72, label:'2 × 36-Unit Packs',     oneTime:398.00, subPrice:318.40},
+  {units:96, label:'1 × 96-Unit Bulk Pack', oneTime:410.00, subPrice:328.00},
 ];
+const PLAN_MULT={full:1.0,half:0.5,topper:0.25};
+const PLAN_LABELS={full:'Full Meal Plan',half:'Mix 50/50',topper:'Topper 25/75'};
+const PLAN_MSG={
+  full:'Great news! Purchasing a full Happy Howl meal plan fits within your budget! We include a transition guide with every new customer order.',
+  half:'We recommend a half meal plan — mix Happy Howl 50/50 with your dog\'s current food or a high quality kibble.',
+  topper:'We recommend a topper plan — mix ¼ Happy Howl with ¾ of your dog\'s current food or a high quality kibble.',
+};
 const FREQ_WEEKS=[2,3,4,5,6,8,10,12];
-const PLANS=[
-  {id:'full',  label:'Full Meal Plan',mult:1.0},
-  {id:'half',  label:'Mix 50/50',     mult:0.5},
-  {id:'topper',label:'Topper 25/75',  mult:0.25},
-];
-let dogCount=0,currentResults=null,selectedPlan='full';
-function costAnchor(c){
-  if(c<2)return'less than a can of soda a day';
-  if(c<3.5)return'less than a cup of coffee a day';
-  if(c<5)return'less than a fancy latte a day';
-  if(c<8)return'less than lunch out a day';
-  return'an investment in their health every day';
+let dogCount=0,selectedPlan='full',mealsPerDay=1,currentResults=null,selectedPackIdx=0,currentPacks=[];
+
+function toFraction(val){
+  const whole=Math.floor(val),dec=val-whole;
+  const fracs=[[0,''],[0.1,'⅒'],[0.2,'⅕'],[0.25,'¼'],[1/3,'⅓'],[0.4,'⅖'],[0.5,'½'],[0.6,'⅗'],[2/3,'⅔'],[0.75,'¾'],[0.8,'⅘'],[0.9,'⁹⁄₁₀']];
+  let best='',bd=1;
+  fracs.forEach(([f,s])=>{const d=Math.abs(dec-f);if(d<bd){bd=d;best=s;}});
+  if(whole===0&&best)return best;
+  if(whole>0&&best)return`${whole} ${best}`;
+  return`${whole}`;
 }
-function getBaseUnits(w){
-  const weight=parseFloat(w);if(isNaN(weight)||weight<=0)return null;
-  const row=CAL_TABLE.find(r=>weight>=r.min&&weight<=r.max);return row?row.units:4.5;
-}
-function getAdjustedUnits(w,s){const b=getBaseUnits(w);return b===null?null:b*(STATUS_MULT[s]||1);}
-function findSub(upd){
-  let best=null,bs=Infinity;
-  PACKS.forEach(p=>{
-    const d=p.units/upd,wks=d/7;
+function getBase(weight){const w=parseFloat(weight);if(isNaN(w)||w<=0)return null;const row=FEED_TABLE.find(r=>w>=r.min&&w<=r.max);return row?row.units:4.0;}
+function getAdj(weight,status){const b=getBase(weight);return b===null?null:b*(STATUS_MULT[status]||1.0);}
+function isSmall(weight){return parseFloat(weight)<=SMALL_DOG_LB;}
+function costAnchor(c){if(c<2)return'less than a can of soda a day';if(c<3.5)return'less than a cup of coffee a day';if(c<5)return'less than a fancy latte a day';if(c<8)return'less than lunch out a day';return'an investment in their health every day';}
+function scorePacks(upd){
+  const scored=PACKS.map(pack=>{
+    const days=pack.units/upd,wks=days/7;
     const cw=FREQ_WEEKS.reduce((a,b)=>Math.abs(b-wks)<Math.abs(a-wks)?b:a);
-    const fd=cw*7;
-    if(d>=fd-1){const sc=(p.subPrice/fd)+Math.abs(fd-28)*0.01;if(sc<bs){bs=sc;best={pack:p,freqWeeks:cw,freqDays:fd,daysSupply:Math.round(d),costPerDay:p.subPrice/fd};}}
+    const fd=cw*7,cpd=pack.subPrice/fd,savePct=Math.round((1-pack.subPrice/pack.oneTime)*100);
+    return{pack,freqWeeks:cw,freqDays:fd,daysSupply:Math.round(days),costPerDay:cpd,savePct};
   });
-  if(!best){const p=PACKS[PACKS.length-1];const d=p.units/upd;const cw=FREQ_WEEKS.reduce((a,b)=>Math.abs(b-d/7)<Math.abs(a-d/7)?b:a);best={pack:p,freqWeeks:cw,freqDays:cw*7,daysSupply:Math.round(d),costPerDay:p.subPrice/(cw*7)};}
-  return best;
+  return scored.filter(s=>s.daysSupply>=s.freqDays*0.8).sort((a,b)=>b.pack.units-a.pack.units);
 }
-function hasSmallDog(dogs){return dogs.some(d=>d.weight<=SMALL_DOG_MAX_LB);}
-function selectPlan(id){
-  selectedPlan=id;
-  document.querySelectorAll('.plan-tab').forEach(t=>t.classList.toggle('active',t.dataset.plan===id));
-  checkAutoUpgrade();if(currentResults)renderResults();
-}
-function checkAutoUpgrade(){
-  const dogs=getDogsFromDOM();
-  const banner=document.getElementById('upgrade-banner');
-  if((selectedPlan==='half'||selectedPlan==='topper')&&hasSmallDog(dogs)){
-    const small=dogs.filter(d=>d.weight<=SMALL_DOG_MAX_LB).map(d=>d.name||'your dog');
+function selectPlan(id){selectedPlan=id;document.querySelectorAll('.plan-tab').forEach(t=>t.classList.toggle('active',t.dataset.plan===id));checkUpgrade();if(currentResults)renderResults();}
+function setMeal(el,n){mealsPerDay=n;document.querySelectorAll('.meal-opt').forEach(m=>m.classList.remove('active'));el.classList.add('active');if(currentResults)renderResults();}
+function checkUpgrade(){
+  const dogs=getDogsFromDOM(),banner=document.getElementById('upgrade-banner');
+  if((selectedPlan==='half'||selectedPlan==='topper')&&dogs.some(d=>isSmall(d.weight))){
+    const small=dogs.filter(d=>isSmall(d.weight)).map(d=>d.name||'your small dog');
     banner.classList.add('show');
-    document.getElementById('upgrade-banner-text').innerHTML=`<strong>Auto-upgrading to Full Meal Plan.</strong> ${small.join(' & ')} weigh${small.length>1?'':'s'} 15 lb or under — Mix/Topper portions are too small to be nutritionally complete at this weight.`;
+    document.getElementById('upgrade-banner-text').innerHTML=`<strong>Auto-upgrading to Full Meal Plan.</strong> ${small.join(' & ')} weigh 15 lb or under — Mix/Topper portions are too small to be nutritionally complete at this size.`;
     selectedPlan='full';
     document.querySelectorAll('.plan-tab').forEach(t=>{t.classList.toggle('active',t.dataset.plan==='full');t.classList.toggle('disabled',t.dataset.plan!=='full');});
   } else {
@@ -322,14 +404,9 @@ function checkAutoUpgrade(){
   }
 }
 function setStatus(dogId,status){
-  STATUS_DEFS.forEach(s=>{
-    const pill=document.getElementById('pill-'+dogId+'-'+s.val);
-    if(!pill)return;
-    pill.className='status-pill'+(status===s.val?' active-'+status:'');
-  });
-  const si=document.getElementById('status-'+dogId);
-  if(si)si.value=status;
-  checkAutoUpgrade();
+  ['normal','over','under'].forEach(s=>{const p=document.getElementById(`pill-${dogId}-${s}`);if(p)p.className=`sp${status===s?' a'+s.charAt(0):''}`;});
+  const si=document.getElementById('status-'+dogId);if(si)si.value=status;
+  checkUpgrade();
 }
 function addDog(){
   dogCount++;const id=dogCount;
@@ -337,42 +414,38 @@ function addDog(){
   const card=document.createElement('div');card.className='dog-card';card.id='dog-card-'+id;
   card.innerHTML=`
     <div class="dog-card-top">
-      <div><label class="field-label">Dog Name</label><input type="text" id="name-${id}" placeholder="e.g. Biscuit"></div>
+      <div><label class="field-label">Dog Name <span style="font-weight:600;opacity:0.65">(optional)</span></label><input type="text" id="name-${id}" placeholder="e.g. Biscuit"></div>
       <div><label class="field-label">Weight (lb)</label><input type="number" id="weight-${id}" placeholder="lbs" min="1"></div>
-      <button class="remove-btn" onclick="removeDog(${id})">✕</button>
+      <button class="remove-btn" id="remove-${id}" onclick="removeDog(${id})">✕</button>
     </div>
-    <div class="status-section-label" style="margin-bottom:6px">⚖️ Weight Status</div>
-    <div class="status-ask">Ask the customer: <strong>"Has your vet ever mentioned their weight, or would you say your dog is lean, average, or on the heavier side?"</strong></div>
+    <div class="rep-prompt-amber">
+      <div class="rp-icon">🗣️</div>
+      <div style="flex:1">
+        <div class="rp-label rp-label-amber">Ask the customer</div>
+        <div class="rp-ask rp-ask-amber">"Would you say [dog name] is a healthy weight, or has your vet mentioned they need to lose or gain a few pounds?"</div>
+        <div class="rp-note rp-note-amber">Not sure? Default to Normal. Over = vet said lose weight. Under = vet said gain weight.</div>
+      </div>
+    </div>
     <div class="status-pills" id="pills-${id}"></div>
     <input type="hidden" id="status-${id}" value="normal">
   `;
-  const pillsWrap=card.querySelector('#pills-'+id);
-  STATUS_DEFS.forEach(s=>{
+  const pw=card.querySelector('#pills-'+id);
+  [{val:'normal',icon:'✅',label:'Normal Weight',desc:'Can feel ribs but not see them. Visible waist from above.',cue:'"Healthy" or "vet says great"'},
+   {val:'over',icon:'⬆️',label:'Overweight',desc:'Hard to feel ribs. No visible waist. Vet said to slim down.',cue:'"Chunky" or "needs to lose weight"'},
+   {val:'under',icon:'⬇️',label:'Underweight',desc:'Ribs or spine visible. Vet wants them to gain weight.',cue:'"Too skinny" or "needs to gain"'},
+  ].forEach(s=>{
     const pill=document.createElement('button');
-    pill.className='status-pill'+(s.val==='normal'?' active-normal':'');
-    pill.id='pill-'+id+'-'+s.val;
+    pill.className=`sp${s.val==='normal'?' an':''}`;
+    pill.id=`pill-${id}-${s.val}`;
     pill.innerHTML=`<div class="sp-icon">${s.icon}</div><span class="sp-label">${s.label}</span><span class="sp-desc">${s.desc}</span><span class="sp-cue">${s.cue}</span>`;
     pill.onclick=()=>setStatus(id,s.val);
-    pillsWrap.appendChild(pill);
+    pw.appendChild(pill);
   });
-  card.querySelector('#weight-'+id).addEventListener('input',checkAutoUpgrade);
-  list.appendChild(card);
-  updateRemoveBtns();
-  card.querySelector('#name-'+id).focus();
+  card.querySelector('#weight-'+id).addEventListener('input',checkUpgrade);
+  list.appendChild(card);updateRemoveBtns();card.querySelector('#name-'+id).focus();
 }
-function removeDog(id){
-  const card=document.getElementById('dog-card-'+id);
-  if(card)card.remove();
-  updateRemoveBtns();checkAutoUpgrade();
-}
-function updateRemoveBtns(){
-  const cards=document.querySelectorAll('#dogs-list .dog-card');
-  cards.forEach(c=>{
-    const b=c.querySelector('.remove-btn');
-    b.style.opacity=cards.length===1?'0.25':'1';
-    b.style.pointerEvents=cards.length===1?'none':'auto';
-  });
-}
+function removeDog(id){const c=document.getElementById('dog-card-'+id);if(c)c.remove();updateRemoveBtns();checkUpgrade();}
+function updateRemoveBtns(){const cards=document.querySelectorAll('#dogs-list .dog-card');cards.forEach(c=>{c.querySelector('.remove-btn').disabled=cards.length===1;});}
 function getDogsFromDOM(){
   const dogs=[];
   document.querySelectorAll('#dogs-list .dog-card').forEach(card=>{
@@ -380,99 +453,111 @@ function getDogsFromDOM(){
     const name=document.getElementById('name-'+id)?.value.trim();
     const weight=document.getElementById('weight-'+id)?.value;
     const status=document.getElementById('status-'+id)?.value||'normal';
-    const b=getBaseUnits(weight);
-    if(name&&parseFloat(weight)>0&&b!==null)
-      dogs.push({name,weight:parseFloat(weight),status,baseUnits:b,adjustedUnits:getAdjustedUnits(weight,status)});
+    const b=getBase(weight);
+    if(parseFloat(weight)>0&&b!==null)dogs.push({name:name||null,displayName:name||`${weight} lb dog`,weight:parseFloat(weight),status,baseUnits:b,adjUnits:getAdj(weight,status)});
   });
   return dogs;
 }
+function clearAll(){
+  document.getElementById('dogs-list').innerHTML='';dogCount=0;selectedPlan='full';mealsPerDay=1;currentResults=null;currentPacks=[];selectedPackIdx=0;
+  document.querySelectorAll('.plan-tab').forEach(t=>{t.classList.toggle('active',t.dataset.plan==='full');t.classList.remove('disabled');});
+  document.querySelectorAll('.meal-opt').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.getElementById('upgrade-banner').classList.remove('show');
+  document.getElementById('results').style.display='none';
+  addDog();
+}
 function calculate(){
   const dogs=getDogsFromDOM();
-  if(!dogs.length){alert('Please enter at least one dog with a name and weight.');return;}
-  checkAutoUpgrade();currentResults={dogs};renderResults();
+  if(!dogs.length){alert('Please enter at least one dog with a weight.');return;}
+  checkUpgrade();currentResults={dogs};selectedPackIdx=0;renderResults();
   document.getElementById('results').style.display='block';
   document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function renderResults(){
   if(!currentResults)return;
-  const{dogs}=currentResults;
-  const plan=PLANS.find(p=>p.id===selectedPlan);
-  const total=dogs.reduce((s,d)=>s+d.adjustedUnits,0);
-  const upd=total*plan.mult;
-  const sub=findSub(upd);
-  const cpd=sub.costPerDay;
-  const savPct=Math.round((1-sub.pack.subPrice/sub.pack.oneTime)*100);
-  const tb=document.getElementById('dog-table-body');tb.innerHTML='';
-  dogs.forEach(d=>{
+  const{dogs}=currentResults,pm=PLAN_MULT[selectedPlan],pl=PLAN_LABELS[selectedPlan];
+  const tbody=document.getElementById('dog-table-body');tbody.innerHTML='';
+  dogs.forEach(dog=>{
+    const upd=dog.adjUnits*pm,upm=upd/mealsPerDay;
+    const sb=dog.status==='normal'?`<span class="badge bn">Normal</span>`:dog.status==='over'?`<span class="badge bo2">Overweight</span>`:`<span class="badge bu">Underweight</span>`;
+    const sn=dog.status==='over'?'<br><span style="font-size:10px;color:var(--br)">−10% for weight mgmt</span>':dog.status==='under'?'<br><span style="font-size:10px;color:var(--bl)">+10% for weight gain</span>':'';
     const tr=document.createElement('tr');
-    const cal=Math.round(d.adjustedUnits*plan.mult*400);
-    const u=(d.adjustedUnits*plan.mult).toFixed(3);
-    tr.innerHTML=`<td><strong>${d.name}</strong></td><td>${d.weight} lb</td><td><span class="badge badge-${d.status}">${STATUS_LABELS[d.status]}</span></td><td>${cal} cal</td><td>${u}</td>`;
-    tb.appendChild(tr);
+    tr.innerHTML=`<td><strong>${dog.displayName}</strong></td><td>${dog.weight} lb</td><td>${sb}${sn}</td><td><div class="frac-display">${toFraction(upd)} carton${upd!==1?'s':''}</div><div class="frac-sub">${upd.toFixed(2)} units/day</div></td><td><div class="frac-display">${toFraction(upm)} carton${upm!==1?'s':''}</div><div class="frac-sub">${mealsPerDay}× daily</div></td><td><div class="frac-display">${(upm*OZ_PER_UNIT).toFixed(1)} oz</div><div class="frac-sub">~${(upm*TBSP_PER_UNIT).toFixed(0)} tbsp</div></td>`;
+    tbody.appendChild(tr);
   });
-  document.getElementById('sc-main').textContent=sub.pack.label;
-  document.getElementById('sc-freq').textContent=`Delivered every ${sub.freqWeeks} weeks  ·  ~${sub.daysSupply} day supply`;
-  document.getElementById('sc-price-val').textContent=`$${sub.pack.subPrice.toFixed(2)}`;
-  document.getElementById('sc-savings').textContent=`🎉 Subscribe & save ${savPct}% vs one-time ($${sub.pack.oneTime.toFixed(2)} → $${sub.pack.subPrice.toFixed(2)})`;
-  document.getElementById('sc-metrics').innerHTML=`
-    <div class="sc-metric"><div class="sm-label">Cost per day</div><div class="sm-val">$${cpd.toFixed(2)}</div><div class="sm-sub">${costAnchor(cpd)}</div></div>
-    <div class="sc-metric"><div class="sm-label">Units per day</div><div class="sm-val">${upd.toFixed(3)}</div><div class="sm-sub">${plan.label}</div></div>
-    <div class="sc-metric"><div class="sm-label">Save vs one-time</div><div class="sm-val">$${(sub.pack.oneTime-sub.pack.subPrice).toFixed(2)}</div><div class="sm-sub">per order</div></div>
-    <div class="sc-metric"><div class="sm-label">Days per order</div><div class="sm-val">${sub.daysSupply}</div><div class="sm-sub">day supply</div></div>
+  const totalUpd=dogs.reduce((s,d)=>s+d.adjUnits*pm,0);
+  currentPacks=scorePacks(totalUpd);
+  const mp=currentPacks[selectedPackIdx]||currentPacks[0];
+  const monthlyCost=mp?((30/mp.freqDays)*mp.pack.subPrice).toFixed(2):'–';
+  document.getElementById('monthly-grid').innerHTML=`
+    <div class="mb-stat"><div class="mb-l">Units needed / month</div><div class="mb-v">${(totalUpd*30).toFixed(1)}</div><div class="mb-s">${totalUpd.toFixed(2)} units/day × 30</div></div>
+    <div class="mb-stat"><div class="mb-l">Est. monthly cost</div><div class="mb-v">$${monthlyCost}</div><div class="mb-s">on subscription</div></div>
+    <div class="mb-stat"><div class="mb-l">Cost per day</div><div class="mb-v">$${mp?mp.costPerDay.toFixed(2):'–'}</div><div class="mb-s">${mp?costAnchor(mp.costPerDay):''}</div></div>
   `;
+  const leadPack=currentPacks[0];
+  document.getElementById('upsell-note').innerHTML=leadPack?`<strong>Lead with the ${leadPack.pack.label}</strong> — it's the highest value per unit and covers the longest supply. Start here and work down if needed.`:'';
+  const packContainer=document.getElementById('pack-options');packContainer.innerHTML='';
+  currentPacks.forEach((opt,i)=>{
+    const isLead=i===0,isSelected=i===selectedPackIdx;
+    const div=document.createElement('div');
+    div.className=`pack-option${isLead?' lead':''}${isSelected?' selected':''}`;
+    let repScript='',repClass='';
+    if(i===0){repScript=`"The ${opt.pack.label} on a ${opt.freqWeeks}-week subscription is the best setup — you're getting the most cartons at the lowest cost per day. That's only $${opt.costPerDay.toFixed(2)} a day, ${costAnchor(opt.costPerDay)}, and you save ${opt.savePct}% vs buying one-time."`;repClass='upsell';}
+    else if(i===1){repScript=`"If the upfront cost is a concern, the ${opt.pack.label} is a great option — same 20% savings on subscription, just a shorter reorder cycle. Still only $${opt.costPerDay.toFixed(2)} a day."`;repClass='rebuttal';}
+    else{repScript=`"For flexibility, the ${opt.pack.label} lets you start smaller. It's still 20% off on subscription at $${opt.costPerDay.toFixed(2)} a day — and you can always move up to the larger pack once you see how much the pup loves it."`;repClass='rebuttal';}
+    div.innerHTML=`
+      <div class="po-top"><span class="po-badge ${isLead?'pob-lead':i===1?'pob-rebuttal':'pob-bulk'}">${isLead?'⭐ Lead with this':i===1?'💬 If budget is tight':'🔄 Flexible option'}</span><div class="po-selected-check">✓</div></div>
+      <div class="po-name">${opt.pack.label}</div>
+      <div class="po-freq">Every ${opt.freqWeeks} weeks · ~${opt.daysSupply} day supply</div>
+      <div class="po-pricing"><span class="po-price">$${opt.pack.subPrice.toFixed(2)}</span><span class="po-price-label">/order on subscription</span><span class="sub-save-badge">🎉 Subscribe &amp; Save ${opt.savePct}%</span></div>
+      <div class="po-meta"><span class="po-chip">$${opt.costPerDay.toFixed(2)}/day · ${costAnchor(opt.costPerDay)}</span><span class="po-chip">One-time: $${opt.pack.oneTime.toFixed(2)}</span><span class="po-chip">Save $${(opt.pack.oneTime-opt.pack.subPrice).toFixed(2)}/order</span></div>
+      <div class="po-rep-script ${repClass}"><div class="po-rep-label">${isLead?'🗣 Lead script':'🗣 Rebuttal script'}</div>${repScript}</div>
+    `;
+    div.addEventListener('click',()=>selectPackOption(i));
+    packContainer.appendChild(div);
+  });
   const nudge=document.getElementById('sc-nudge');
   if(selectedPlan!=='full'){
-    const fs=findSub(total);const diff=fs.costPerDay-cpd;
-    nudge.classList.add('show');
-    document.getElementById('sc-nudge-text').innerHTML=`Upgrading to <strong>Full Meal Plan</strong> is just <strong>$${diff.toFixed(2)} more per day</strong> — ${costAnchor(diff)} — and gives ${dogs.length===1?dogs[0].name:'their dogs'} 100% Happy Howl nutrition. Recommended: <strong>${fs.pack.label} every ${fs.freqWeeks} weeks</strong> at $${fs.pack.subPrice.toFixed(2)}.`;
+    const fullUpd=dogs.reduce((s,d)=>s+d.adjUnits,0),fullPacks=scorePacks(fullUpd),fp=fullPacks[0];
+    if(fp){const diffPerDay=fp.costPerDay-(mp?mp.costPerDay:0);nudge.classList.add('show');document.getElementById('sc-nudge-text').innerHTML=`Upgrading to <strong>Full Meal Plan</strong> adds just <strong>$${diffPerDay.toFixed(2)}/day</strong> more — ${costAnchor(diffPerDay)} — and gives ${dogs.map(d=>d.displayName).join(' & ')} 100% Happy Howl nutrition. Full plan: <strong>${fp.pack.label} every ${fp.freqWeeks} weeks</strong> at $${fp.pack.subPrice.toFixed(2)}.`;}
   } else nudge.classList.remove('show');
-  const names=dogs.map(d=>d.name).join(' & ');
-  document.getElementById('sc-script-text').textContent=`"Based on ${names}'s weight, I'd recommend the ${sub.pack.label} on a ${sub.freqWeeks}-week subscription — that's only $${cpd.toFixed(2)} a day, ${costAnchor(cpd)}, and you save ${savPct}% vs buying one-time."`;
-  document.getElementById('customer-msg').textContent=buildMsg(plan,sub,dogs,savPct,cpd);
-  document.getElementById('internal-note').textContent=buildNote(plan,sub,dogs,upd,cpd,savPct);
+  updateMessageOutputs(dogs,totalUpd,pm,pl);
 }
-function buildMsg(plan,sub,dogs,savPct,cpd){
-  const dw=dogs.length===1?dogs[0].name:`your ${dogs.length} pups`;
-  let m=`Hi! Based on what we know about ${dw}, here's the Happy Howl subscription I'd recommend:\n\n`;
-  m+=`📦 ${sub.pack.label} — delivered every ${sub.freqWeeks} weeks\n`;
-  m+=`💰 $${sub.pack.subPrice.toFixed(2)} per order (save ${savPct}% vs one-time)\n`;
-  m+=`📅 That's just $${cpd.toFixed(2)} per day — ${costAnchor(cpd)}!\n\nFeeding guide:\n`;
+function selectPackOption(idx){
+  selectedPackIdx=idx;
+  document.querySelectorAll('.pack-option').forEach((el,i)=>el.classList.toggle('selected',i===idx));
+  if(currentResults){const{dogs}=currentResults,pm=PLAN_MULT[selectedPlan],pl=PLAN_LABELS[selectedPlan];updateMessageOutputs(dogs,dogs.reduce((s,d)=>s+d.adjUnits*pm,0),pm,pl);}
+}
+function updateMessageOutputs(dogs,totalUpd,pm,pl){
+  const opt=currentPacks[selectedPackIdx]||currentPacks[0];if(!opt)return;
+  const dw=dogs.length===1?dogs[0].displayName:`your ${dogs.length} pups`;
+  const isUpgraded=document.getElementById('upgrade-banner').classList.contains('show');
+  document.getElementById('sc-script-text').textContent=`"Based on ${dogs.map(d=>d.displayName).join(' & ')}'s weight, I'd recommend the ${opt.pack.label} on a ${opt.freqWeeks}-week subscription — that's $${opt.costPerDay.toFixed(2)} a day, ${costAnchor(opt.costPerDay)}, and you save ${opt.savePct}% compared to buying one-time."`;
+  let msg=`Hi! Based on what we know about ${dw}, here's the Happy Howl plan I'd recommend:\n\n`;
+  msg+=`📦 ${opt.pack.label} — delivered every ${opt.freqWeeks} weeks\n`;
+  msg+=`💰 $${opt.pack.subPrice.toFixed(2)}/order on subscription (Subscribe & Save ${opt.savePct}% vs one-time)\n`;
+  msg+=`📅 That's just $${opt.costPerDay.toFixed(2)}/day — ${costAnchor(opt.costPerDay)}!\n\nFeeding guide (${pl}):\n`;
   dogs.forEach(d=>{
-    const u=(d.adjustedUnits*PLANS.find(p=>p.id===selectedPlan).mult).toFixed(2);
+    const upd=d.adjUnits*pm,upm=upd/mealsPerDay;
     const sn=d.status==='over'?' (reduced for weight management)':d.status==='under'?' (increased for healthy weight gain)':'';
-    m+=`• ${d.name}: ${u} units per day${sn}\n`;
+    msg+=`• ${d.displayName}: ${toFraction(upd)} carton${upd!==1?'s':''}/day (${upd.toFixed(2)} units)${sn}\n`;
+    if(mealsPerDay>1)msg+=`  Per meal (${mealsPerDay}× daily): ${toFraction(upm)} carton · ${(upm*OZ_PER_UNIT).toFixed(1)} oz · ~${(upm*TBSP_PER_UNIT).toFixed(0)} tbsp\n`;
   });
-  m+=`\nYour subscription ships automatically — pause, skip, or cancel anytime. No commitment.\n\nReady to get started? https://www.thehappyhowl.com/products/happy-howl-all-natural-meals`;
-  return m;
+  if(isUpgraded){const small=dogs.filter(d=>isSmall(d.weight)).map(d=>d.displayName).join(' & ');msg+=`\nNote: Because ${small} is under 15 lb, we recommend the Full Meal Plan to ensure complete nutrition.\n`;}
+  msg+=`\n${PLAN_MSG[selectedPlan]}\n\nYour subscription ships automatically — pause, skip, or cancel anytime. No commitment required.\n\nReady to get started? https://www.thehappyhowl.com/products/happy-howl-all-natural-meals`;
+  document.getElementById('customer-msg').textContent=msg;
+  let note=`Happy Howl — Internal Recommendation\n${'─'.repeat(40)}\nPlan: ${pl}\n\nDog breakdown:\n`;
+  dogs.forEach(d=>{const upd=d.adjUnits*pm;const adj=d.status!=='normal'?` [${STATUS_LABELS[d.status]}]`:'';note+=`  ${d.displayName.padEnd(16)} ${d.weight}lb${adj}  →  ${toFraction(upd)} cartons/day (${upd.toFixed(4)} units)\n`;});
+  note+=`\nTotal units/day: ${totalUpd.toFixed(4)}\nUnits/month:     ${(totalUpd*30).toFixed(1)}\n\nSELECTED SUBSCRIPTION:\n  ${opt.pack.label}  |  Every ${opt.freqWeeks} weeks (~${opt.daysSupply} days)\n  Sub: $${opt.pack.subPrice.toFixed(2)}  |  One-time: $${opt.pack.oneTime.toFixed(2)}  |  Save ${opt.savePct}%\n  Cost/day: $${opt.costPerDay.toFixed(2)} — ${costAnchor(opt.costPerDay)}\n\nALL OPTIONS OFFERED:\n`;
+  currentPacks.forEach((p,i)=>{note+=`  ${i===selectedPackIdx?'★':' '} ${p.pack.label} every ${p.freqWeeks}wks | $${p.pack.subPrice.toFixed(2)}/order | $${p.costPerDay.toFixed(2)}/day\n`;});
+  if(isUpgraded)note+=`\n⚠ AUTO-UPGRADED: small dog (≤15 lb) → Full Meal Plan\n`;
+  document.getElementById('internal-note').textContent=note;
 }
-function buildNote(plan,sub,dogs,upd,cpd,savPct){
-  let n=`Happy Howl — Internal Recommendation\n${'─'.repeat(40)}\nPlan: ${plan.label}\n\nDog breakdown:\n`;
-  dogs.forEach(d=>{
-    const adj=d.status!=='normal'?` [${STATUS_LABELS[d.status]}]`:'';
-    n+=`  ${d.name.padEnd(14)} ${d.weight}lb${adj}  →  ${(d.adjustedUnits*plan.mult).toFixed(4)} u/day\n`;
-  });
-  n+=`\nTotal u/day:  ${upd.toFixed(4)}\nUnits/month:  ${(upd*30).toFixed(1)}\n\nSUBSCRIPTION:\n  ${sub.pack.label}\n  Every ${sub.freqWeeks} weeks (~${sub.daysSupply} days)\n  Sub: $${sub.pack.subPrice.toFixed(2)} | One-time: $${sub.pack.oneTime.toFixed(2)} | Save ${savPct}%\n  Cost/day: $${cpd.toFixed(2)} — ${costAnchor(cpd)}\n`;
-  if(document.getElementById('upgrade-banner').classList.contains('show'))n+=`\n⚠ AUTO-UPGRADED: small dog detected → Full Meal Plan\n`;
-  return n;
-}
-function copyText(id,bid){
-  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{
-    const b=document.getElementById(bid),o=b.textContent;b.textContent='✓ Copied!';b.classList.add('copied');
-    setTimeout(()=>{b.textContent=o;b.classList.remove('copied');},2000);
-  });
-}
-function toggleSettings(){
-  const body=document.getElementById('settings-body'),open=body.classList.contains('open');
-  body.classList.toggle('open',!open);
-  document.getElementById('settings-arrow').textContent=open?'▼ Edit':'▲ Hide';
-}
+function copyText(id,bid){navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{const b=document.getElementById(bid),o=b.textContent;b.textContent='✓ Copied!';b.classList.add('copied');setTimeout(()=>{b.textContent=o;b.classList.remove('copied');},2000);});}
+function toggleSettings(){const body=document.getElementById('settings-body'),open=body.classList.contains('open');body.classList.toggle('open',!open);document.getElementById('settings-arrow').textContent=open?'▼ Edit':'▲ Hide';}
 function renderPriceSettings(){
   const tb=document.getElementById('price-settings');tb.innerHTML='';
-  PACKS.forEach((p,i)=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td style="font-size:13px;font-weight:700">${p.label}</td><td><input type="number" value="${p.oneTime}" min="1" step="0.01" oninput="PACKS[${i}].oneTime=parseFloat(this.value)||0"></td><td><input type="number" value="${p.subPrice}" min="1" step="0.01" oninput="PACKS[${i}].subPrice=parseFloat(this.value)||0"></td>`;
-    tb.appendChild(tr);
-  });
+  PACKS.forEach((p,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td style="font-size:12px;font-weight:700">${p.label}</td><td style="font-size:12px;color:var(--ts)">${p.units}</td><td><input type="number" value="${p.oneTime}" min="1" step="0.01" oninput="PACKS[${i}].oneTime=parseFloat(this.value)||0;if(currentResults)renderResults()"></td><td><input type="number" value="${p.subPrice}" min="1" step="0.01" oninput="PACKS[${i}].subPrice=parseFloat(this.value)||0;if(currentResults)renderResults()"></td>`;tb.appendChild(tr);});
 }
 renderPriceSettings();
 addDog();

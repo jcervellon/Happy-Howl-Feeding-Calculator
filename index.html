@@ -22,7 +22,7 @@ header{background:var(--wh);border-bottom:2px solid var(--bo);padding:0 24px;dis
 .logo p{font-size:10px;font-weight:700;color:var(--ts);letter-spacing:0.06em;text-transform:uppercase;}
 .hbadge{margin-left:auto;background:var(--gp);border:1.5px solid var(--gl);color:var(--gm);font-size:10px;font-weight:800;padding:4px 11px;border-radius:20px;text-transform:uppercase;letter-spacing:0.04em;}
 .clear-btn{background:var(--rp);border:1.5px solid #FCA5A5;border-radius:10px;color:var(--re);font-size:12px;font-weight:800;padding:7px 14px;cursor:pointer;font-family:'Nunito',sans-serif;transition:all 0.15s;}
-.clear-btn:hover{background:#FECACA;border-color:#F87171;}
+.clear-btn:hover{background:#FECACA;}
 .container{max-width:780px;margin:0 auto;padding:24px 18px 60px;}
 .page-intro{text-align:center;padding:10px 0 20px;}
 .page-intro h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--gd);margin-bottom:4px;}
@@ -31,12 +31,12 @@ header{background:var(--wh);border-bottom:2px solid var(--bo);padding:0 24px;dis
 .card-title{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:900;color:var(--td);margin-bottom:18px;}
 .step-badge{width:26px;height:26px;border-radius:8px;background:var(--gm);color:var(--wh);font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .field-label{font-size:10px;font-weight:800;color:var(--ts);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:5px;}
-input[type=text],input[type=number]{width:100%;background:var(--gw);border:1.5px solid var(--bo);border-radius:10px;color:var(--td);padding:10px 12px;font-size:13px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none;}
+input[type=text],input[type=number]{width:100%;background:var(--gw);border:1.5px solid var(--bo);border-radius:10px;color:var(--td);padding:10px 12px;font-size:13px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color 0.2s;-webkit-appearance:none;}
 input:focus{border-color:var(--gb);background:var(--wh);}
 input::placeholder{color:var(--ts);font-weight:600;}
 .dog-card{background:var(--gw);border:1.5px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;}
 .dog-card-top{display:grid;grid-template-columns:1fr 100px 36px;gap:8px;align-items:flex-end;margin-bottom:12px;}
-.remove-btn{background:var(--rp);border:1.5px solid #FCA5A5;border-radius:9px;color:var(--re);width:36px;height:38px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;}
+.remove-btn{background:var(--rp);border:1.5px solid #FCA5A5;border-radius:9px;color:var(--re);width:36px;height:38px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
 .remove-btn:hover{background:#FECACA;}
 .remove-btn:disabled{opacity:0.3;pointer-events:none;}
 .rep-prompt-blue{background:var(--bp);border:1.5px solid var(--bb);border-radius:11px;padding:11px 14px;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
@@ -79,21 +79,15 @@ input::placeholder{color:var(--ts);font-weight:600;}
 .upgrade-banner.show{display:flex;}
 .upgrade-banner-text{font-size:12px;font-weight:700;color:var(--br);line-height:1.6;}
 .upgrade-banner-text strong{color:var(--td);}
-.meals-options{display:flex;flex-direction:column;gap:8px;}
-.meal-opt{display:flex;align-items:center;gap:11px;background:var(--gw);border:2px solid var(--bo);border-radius:11px;padding:11px 14px;cursor:pointer;transition:all 0.15s;font-family:'Nunito',sans-serif;}
-.meal-opt:hover{border-color:var(--bm);}
-.meal-opt.active{border-color:var(--gb);background:var(--gp);}
-.meal-opt-icon{font-size:18px;flex-shrink:0;}
-.meal-opt-info{flex:1;}
-.meal-opt-label{font-size:13px;font-weight:900;color:var(--td);margin-bottom:2px;}
-.meal-opt.active .meal-opt-label{color:var(--gd);}
-.meal-opt-desc{font-size:11px;font-weight:700;color:var(--ts);}
-.meal-opt.active .meal-opt-desc{color:var(--gm);}
-.meal-opt-badge{font-size:9px;font-weight:900;color:var(--gd);background:rgba(74,124,47,0.15);border:1px solid var(--gl);padding:3px 9px;border-radius:20px;flex-shrink:0;}
+.recipe-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
+.recipe-btn{padding:11px 6px;border-radius:12px;border:2px solid var(--bo);background:var(--gw);color:var(--ts);cursor:pointer;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;text-align:center;transition:all 0.15s;line-height:1.4;}
+.recipe-btn:hover{border-color:var(--bm);color:var(--td);}
+.recipe-btn.active{border-color:var(--gb);background:var(--gp);color:var(--gd);}
+.recipe-price-note{font-size:10px;font-weight:700;color:var(--ts);margin-top:8px;padding:7px 10px;background:var(--gw);border-radius:8px;border:1px solid var(--bo);}
 .btn-ghost{background:transparent;border:1.5px dashed var(--bm);border-radius:9px;color:var(--ts);padding:8px 16px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:all 0.15s;margin-top:4px;}
 .btn-ghost:hover{border-color:var(--gb);color:var(--gm);background:var(--gw);}
-.btn-primary{background:var(--gm);border:2px solid var(--gm);border-radius:13px;color:#FFFFFF;padding:15px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(74,124,47,0.3);transition:all 0.15s;width:100%;letter-spacing:0.01em;}
-.btn-primary:hover{background:var(--gd);border-color:var(--gd);color:#FFFFFF;transform:translateY(-1px);box-shadow:0 6px 20px rgba(74,124,47,0.35);}
+.btn-primary{background:var(--gm);border:2px solid var(--gm);border-radius:13px;color:#FFFFFF;padding:15px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(74,124,47,0.3);transition:all 0.15s;width:100%;}
+.btn-primary:hover{background:var(--gd);border-color:var(--gd);color:#FFFFFF;transform:translateY(-1px);}
 .btn-primary:active{transform:translateY(0);}
 .btn-copy{background:var(--gp);border:1.5px solid var(--bm);border-radius:7px;color:var(--gd);padding:6px 13px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;cursor:pointer;transition:all 0.15s;}
 .btn-copy:hover,.btn-copy.copied{background:var(--gb);color:var(--wh);border-color:var(--gb);}
@@ -114,36 +108,36 @@ input::placeholder{color:var(--ts);font-weight:600;}
 .mb-l{font-size:9px;font-weight:800;color:var(--ts);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px;}
 .mb-v{font-size:17px;font-weight:900;color:var(--td);}
 .mb-s{font-size:10px;font-weight:700;color:var(--gm);margin-top:2px;}
-.pack-section-label{font-size:10px;font-weight:900;color:var(--ts);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
 .pack-upsell-note{background:var(--ap);border:1.5px solid var(--ab);border-radius:10px;padding:10px 13px;font-size:12px;font-weight:700;color:var(--br);line-height:1.6;margin-bottom:12px;}
 .pack-upsell-note strong{color:var(--td);}
-.pack-option{border-radius:14px;padding:16px;margin-bottom:10px;border:2px solid var(--bo);background:var(--wh);cursor:pointer;transition:all 0.15s;position:relative;}
+.pack-section-label{font-size:10px;font-weight:900;color:var(--ts);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+.pack-option{border-radius:14px;padding:16px;margin-bottom:10px;border:2px solid var(--bo);background:var(--wh);cursor:pointer;transition:all 0.15s;}
 .pack-option:hover{border-color:var(--gl);box-shadow:0 2px 10px rgba(74,124,47,0.1);}
-.pack-option.selected{border-color:var(--gm);background:var(--gp);box-shadow:0 0 0 3px rgba(74,124,47,0.12);}
 .pack-option.lead{border-color:var(--gb);}
+.pack-option.selected{border-color:var(--gm);background:var(--gp);box-shadow:0 0 0 3px rgba(74,124,47,0.12);}
 .po-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .po-badge{font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
 .pob-lead{background:var(--gm);color:var(--wh);}
 .pob-rebuttal{background:var(--bp);color:var(--bl);}
-.pob-bulk{background:var(--ap);color:var(--br);}
-.po-selected-check{margin-left:auto;width:22px;height:22px;border-radius:50%;background:var(--gm);color:var(--wh);display:none;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
-.pack-option.selected .po-selected-check{display:flex;}
+.pob-flex{background:var(--ap);color:var(--br);}
+.po-check{margin-left:auto;width:22px;height:22px;border-radius:50%;background:var(--gm);color:var(--wh);display:none;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.pack-option.selected .po-check{display:flex;}
 .po-name{font-size:15px;font-weight:900;color:var(--td);margin-bottom:2px;}
+.pack-option.selected .po-name{color:var(--gd);}
 .po-freq{font-size:12px;font-weight:700;color:var(--ts);margin-bottom:8px;}
 .po-pricing{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
 .po-price{font-size:20px;font-weight:900;color:var(--gm);}
 .po-price-label{font-size:11px;font-weight:700;color:var(--ts);}
-.sub-save-badge{background:var(--ap);border:1.5px solid var(--ab);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:900;color:var(--br);display:inline-flex;align-items:center;gap:4px;}
+.sub-save-badge{background:var(--ap);border:1.5px solid var(--ab);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:900;color:var(--br);}
 .po-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;}
 .po-chip{background:rgba(74,124,47,0.08);border-radius:7px;padding:5px 9px;font-size:11px;font-weight:800;color:var(--gd);}
 .pack-option.selected .po-chip{background:rgba(74,124,47,0.15);}
-.pack-option.selected .po-name{color:var(--gd);}
-.po-rep-script{border-radius:8px;padding:8px 11px;font-size:11px;font-weight:700;line-height:1.6;}
-.po-rep-script.upsell{background:rgba(74,124,47,0.08);border-left:3px solid var(--gm);color:var(--td);}
-.po-rep-script.rebuttal{background:rgba(42,109,181,0.07);border-left:3px solid var(--bl);color:var(--td);}
-.po-rep-label{font-size:9px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
-.upsell .po-rep-label{color:var(--gm);}
-.rebuttal .po-rep-label{color:var(--bl);}
+.po-script{border-radius:8px;padding:8px 11px;font-size:11px;font-weight:700;line-height:1.6;}
+.po-script.upsell{background:rgba(74,124,47,0.08);border-left:3px solid var(--gm);color:var(--td);}
+.po-script.rebuttal{background:rgba(42,109,181,0.07);border-left:3px solid var(--bl);color:var(--td);}
+.po-script-label{font-size:9px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
+.upsell .po-script-label{color:var(--gm);}
+.rebuttal .po-script-label{color:var(--bl);}
 .sales-card{border-radius:18px;margin-bottom:14px;background:linear-gradient(150deg,#1e4010,var(--gd));color:var(--wh);overflow:hidden;}
 .sc-hero{padding:20px 22px 18px;border-bottom:1px solid rgba(255,255,255,0.12);}
 .sc-eyebrow{font-size:10px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--gl);margin-bottom:8px;}
@@ -165,26 +159,24 @@ input::placeholder{color:var(--ts);font-weight:600;}
 .settings-body{display:none;}
 .settings-body.open{display:block;}
 .toggle-arrow{margin-left:auto;font-size:11px;font-weight:800;color:var(--ts);}
-.price-table{width:100%;border-collapse:collapse;margin-top:12px;}
+.price-section-label{font-size:10px;font-weight:900;color:var(--ts);letter-spacing:0.08em;text-transform:uppercase;margin:14px 0 6px;}
+.price-table{width:100%;border-collapse:collapse;}
 .price-table th{font-size:9px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;color:var(--ts);text-align:left;padding:5px 9px;border-bottom:1.5px solid var(--bo);}
 .price-table td{padding:7px 9px;border-bottom:1px solid #E5F0D0;font-size:12px;font-weight:700;}
 .price-table input[type=number]{width:85px;padding:6px 9px;font-size:12px;}
 @media(max-width:560px){
   .dog-card-top{grid-template-columns:1fr 90px 36px;}
   .plan-tabs{flex-direction:column;}
+  .recipe-grid{grid-template-columns:1fr 1fr;}
   .mb-grid{grid-template-columns:1fr 1fr;}
   .status-pills{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
-
 <header>
   <div class="paw">🐾</div>
-  <div class="logo">
-    <h1>Happy Howl</h1>
-    <p>Feeding Calculator · Support Tool</p>
-  </div>
+  <div class="logo"><h1>Happy Howl</h1><p>Feeding Calculator · Support Tool</p></div>
   <div class="hbadge">Internal Use</div>
   <button class="clear-btn" onclick="clearAll()">↺ New Customer</button>
 </header>
@@ -192,18 +184,20 @@ input::placeholder{color:var(--ts);font-weight:600;}
 <div class="container">
   <div class="page-intro">
     <h2>How Much Should They Eat?</h2>
-    <p>Enter dog info → get correct serving sizes and subscription options to offer the customer.</p>
+    <p>Enter dog info → get correct serving sizes and the right subscription to offer.</p>
   </div>
 
+  <!-- Step 1: Dogs -->
   <div class="card">
     <div class="card-title"><div class="step-badge">1</div>Dog Info</div>
     <div id="dogs-list"></div>
     <button class="btn-ghost" onclick="addDog()">+ Add another dog</button>
   </div>
 
+  <!-- Step 2: Plan type -->
   <div class="card">
     <div class="card-title"><div class="step-badge">2</div>Meal Plan Type</div>
-    <div class="plan-tabs" id="plan-selector">
+    <div class="plan-tabs">
       <button class="plan-tab active" data-plan="full" onclick="selectPlan('full')">🥗 Full (100%)</button>
       <button class="plan-tab" data-plan="half" onclick="selectPlan('half')">🥣 Mix (50/50)</button>
       <button class="plan-tab" data-plan="topper" onclick="selectPlan('topper')">✨ Topper (25/75)</button>
@@ -214,53 +208,38 @@ input::placeholder{color:var(--ts);font-weight:600;}
     </div>
   </div>
 
+  <!-- Step 3: Recipe -->
   <div class="card">
-    <div class="card-title"><div class="step-badge">3</div>How do they feed their dog?</div>
-    <div class="rep-prompt-blue">
+    <div class="card-title"><div class="step-badge">3</div>Recipe</div>
+    <div class="rep-prompt-blue" style="margin-bottom:14px">
       <div class="rp-icon">💬</div>
       <div style="flex:1">
         <div class="rp-label rp-label-blue">Ask the customer</div>
-        <div class="rp-ask rp-ask-blue">"How many times a day do you feed [dog name]?"</div>
-        <div class="rp-note rp-note-blue">This tells us the per-meal portion so you can give the customer an exact amount to scoop each time.</div>
+        <div class="rp-ask rp-ask-blue">"Do you have a preference on recipe — Variety, Beef, Turkey, or Lamb?"</div>
+        <div class="rp-note rp-note-blue">Default to Variety (Best Seller). Lamb is priced higher. Beef and Turkey are the same price as each other.</div>
       </div>
     </div>
-    <div class="meals-options">
-      <div class="meal-opt active" onclick="setMeal(this,1)">
-        <div class="meal-opt-icon">🍽️</div>
-        <div class="meal-opt-info">
-          <div class="meal-opt-label">Once a day</div>
-          <div class="meal-opt-desc">Give the full daily amount in one sitting</div>
-        </div>
-        <div class="meal-opt-badge">Most common</div>
-      </div>
-      <div class="meal-opt" onclick="setMeal(this,2)">
-        <div class="meal-opt-icon">🍽️🍽️</div>
-        <div class="meal-opt-info">
-          <div class="meal-opt-label">Twice a day</div>
-          <div class="meal-opt-desc">Morning and evening — daily amount divided in half</div>
-        </div>
-      </div>
-      <div class="meal-opt" onclick="setMeal(this,3)">
-        <div class="meal-opt-icon">🍽️🍽️🍽️</div>
-        <div class="meal-opt-info">
-          <div class="meal-opt-label">Three times a day</div>
-          <div class="meal-opt-desc">Three smaller meals — daily amount divided by 3</div>
-        </div>
-      </div>
+    <div class="recipe-grid">
+      <button class="recipe-btn active" data-recipe="variety" onclick="selectRecipe('variety')">🎉 Variety Pack<br><span style="font-weight:700;font-size:10px;opacity:0.75">Best Seller</span></button>
+      <button class="recipe-btn" data-recipe="beef" onclick="selectRecipe('beef')">🥩 Beef<br><span style="font-weight:700;font-size:10px;opacity:0.75">Single Protein</span></button>
+      <button class="recipe-btn" data-recipe="turkey" onclick="selectRecipe('turkey')">🦃 Turkey<br><span style="font-weight:700;font-size:10px;opacity:0.75">Single Protein</span></button>
+      <button class="recipe-btn" data-recipe="lamb" onclick="selectRecipe('lamb')">🐑 Lamb<br><span style="font-weight:700;font-size:10px;opacity:0.75">Premium · $$ more</span></button>
     </div>
+    <div class="recipe-price-note" id="recipe-price-note">Variety Pack pricing selected — most affordable option.</div>
   </div>
 
   <div style="margin-bottom:18px">
     <button class="btn-primary" onclick="calculate()">Calculate Recommendation →</button>
   </div>
 
+  <!-- Results -->
   <div id="results" style="display:none">
     <div class="card">
-      <div class="card-title"><div class="step-badge">4</div>Feeding Breakdown</div>
+      <div class="card-title"><div class="step-badge">4</div>Feeding Breakdown <span style="font-size:11px;font-weight:700;color:var(--ts);margin-left:6px">· Always fed twice daily</span></div>
       <table class="dog-table">
         <thead><tr>
           <th>Dog</th><th>Weight</th><th>Status</th>
-          <th>Per Day</th><th>Per Meal</th><th>Oz / Meal</th>
+          <th>Per Day (total)</th><th>Per Meal (÷2)</th><th>Oz per meal</th>
         </tr></thead>
         <tbody id="dog-table-body"></tbody>
       </table>
@@ -274,7 +253,7 @@ input::placeholder{color:var(--ts);font-weight:600;}
     <div class="card">
       <div class="card-title"><div class="step-badge">5</div>Subscription Options to Offer</div>
       <div class="pack-upsell-note" id="upsell-note"></div>
-      <div class="pack-section-label">Select the pack you're recommending — the customer message updates automatically</div>
+      <div class="pack-section-label">Click the pack you're recommending — customer message updates automatically</div>
       <div id="pack-options"></div>
     </div>
 
@@ -309,113 +288,186 @@ input::placeholder{color:var(--ts);font-weight:600;}
     </div>
   </div>
 
+  <!-- Settings -->
   <div class="card">
     <div class="settings-toggle" onclick="toggleSettings()">
       <span style="font-size:12px;font-weight:800;color:var(--ts)">⚙ Pack Prices</span>
       <span class="toggle-arrow" id="settings-arrow">▼ Edit</span>
     </div>
     <div class="settings-body" id="settings-body">
-      <p style="font-size:11px;font-weight:600;color:var(--ts);margin-top:10px">Subscription is 20% off one-time. Update if prices change — savings % auto-calculates.</p>
-      <table class="price-table">
-        <thead><tr><th>Pack</th><th>Units</th><th>One-Time ($)</th><th>Sub ($)</th></tr></thead>
-        <tbody id="price-settings"></tbody>
-      </table>
+      <p style="font-size:11px;font-weight:600;color:var(--ts);margin-top:10px">All prices confirmed from live site screenshots (March 2026). Update if prices change.</p>
+      <div id="price-settings-container"></div>
     </div>
   </div>
 </div>
 
 <script>
+// ─── FEEDING TABLE ────────────────────────────────────────────────────────────
+// Source: How_much_to_feed_calculations.xlsx → DONT EDIT tab
+// Validated: Rocky 33lb=1.4 ✓  Lara 65lb=2.25 ✓  Riley 20lb=0.8 ✓
+// Always fed TWICE DAILY — per meal = total units/day ÷ 2
 const FEED_TABLE = [
-  {min:0,   max:3,   units:0.2},
-  {min:4,   max:6,   units:1/3},
-  {min:7,   max:9,   units:0.5},
+  {min:0,   max:3,   units:0.2 },
+  {min:4,   max:6,   units:1/3 },
+  {min:7,   max:9,   units:0.5 },
   {min:10,  max:15,  units:0.75},
-  {min:16,  max:21,  units:0.8},
-  {min:22,  max:28,  units:1.0},
-  {min:29,  max:35,  units:1.4},
-  {min:36,  max:41,  units:1.5},
-  {min:42,  max:47,  units:1.8},
-  {min:48,  max:55,  units:2.0},
+  {min:16,  max:21,  units:0.8 },
+  {min:22,  max:28,  units:1.0 },
+  {min:29,  max:35,  units:1.4 },
+  {min:36,  max:41,  units:1.5 },
+  {min:42,  max:47,  units:1.8 },
+  {min:48,  max:55,  units:2.0 },
   {min:56,  max:65,  units:2.25},
-  {min:66,  max:76,  units:2.5},
+  {min:66,  max:76,  units:2.5 },
   {min:77,  max:88,  units:2.75},
-  {min:89,  max:101, units:3.0},
-  {min:102, max:115, units:3.2},
-  {min:116, max:9999,units:4.0},
+  {min:89,  max:101, units:3.0 },
+  {min:102, max:115, units:3.2 },
+  {min:116, max:9999,units:4.0 },
 ];
-const STATUS_MULT={normal:1.0,over:0.9,under:1.1};
-const STATUS_LABELS={normal:'Normal',over:'Overweight',under:'Underweight'};
-const OZ_PER_UNIT=14.6,TBSP_PER_UNIT=29.2,SMALL_DOG_LB=15;
-let PACKS=[
-  {units:6,  label:'1 × 6-Unit Pack',      oneTime:75.00,  subPrice:60.00},
-  {units:18, label:'1 × 18-Unit Pack',      oneTime:109.00, subPrice:87.20},
-  {units:24, label:'1 × 24-Unit Pack',      oneTime:169.00, subPrice:135.20},
-  {units:36, label:'1 × 36-Unit Pack',      oneTime:199.00, subPrice:159.20},
-  {units:48, label:'1 × 48-Unit Bulk Pack', oneTime:240.00, subPrice:192.00},
-  {units:54, label:'3 × 18-Unit Packs',     oneTime:327.00, subPrice:261.60},
-  {units:72, label:'2 × 36-Unit Packs',     oneTime:398.00, subPrice:318.40},
-  {units:96, label:'1 × 96-Unit Bulk Pack', oneTime:410.00, subPrice:328.00},
-];
-const PLAN_MULT={full:1.0,half:0.5,topper:0.25};
-const PLAN_LABELS={full:'Full Meal Plan',half:'Mix 50/50',topper:'Topper 25/75'};
-const PLAN_MSG={
-  full:'Great news! Purchasing a full Happy Howl meal plan fits within your budget! We include a transition guide with every new customer order.',
-  half:'We recommend a half meal plan — mix Happy Howl 50/50 with your dog\'s current food or a high quality kibble.',
-  topper:'We recommend a topper plan — mix ¼ Happy Howl with ¾ of your dog\'s current food or a high quality kibble.',
+
+// ─── PRICING ─────────────────────────────────────────────────────────────────
+// ALL prices confirmed from live site screenshots March 31 2026
+// Beef and Turkey share identical pricing
+// Bulk pack (48/96) available in Variety only (separate product page)
+// 96-pack OTP estimated at $435 (sub=$348 confirmed by Melanie; $348/0.8=$435)
+
+const PACK_PRICES = {
+  variety: [
+    {units:6,  label:'1 × 6-Pack',         oneTime:79.00,  subPrice:63.20},
+    {units:18, label:'1 × 18-Pack',         oneTime:115.00, subPrice:92.00},
+    {units:24, label:'1 × 24-Pack',         oneTime:179.00, subPrice:143.20},
+    {units:36, label:'1 × 36-Pack',         oneTime:209.00, subPrice:167.20},
+    {units:48, label:'1 × 48-Pack (Bulk)',   oneTime:255.00, subPrice:204.00},
+    {units:96, label:'1 × 96-Pack (Bulk)',   oneTime:435.00, subPrice:348.00},
+  ],
+  beef: [
+    {units:6,  label:'1 × 6-Pack (Beef)',   oneTime:79.00,  subPrice:63.20},
+    {units:18, label:'1 × 18-Pack (Beef)',  oneTime:126.00, subPrice:100.80},
+    {units:24, label:'1 × 24-Pack (Beef)',  oneTime:179.00, subPrice:143.20},
+    {units:36, label:'1 × 36-Pack (Beef)',  oneTime:209.00, subPrice:167.20},
+  ],
+  turkey: [
+    {units:6,  label:'1 × 6-Pack (Turkey)', oneTime:79.00,  subPrice:63.20},
+    {units:18, label:'1 × 18-Pack (Turkey)',oneTime:126.00, subPrice:100.80},
+    {units:24, label:'1 × 24-Pack (Turkey)',oneTime:179.00, subPrice:143.20},
+    {units:36, label:'1 × 36-Pack (Turkey)',oneTime:209.00, subPrice:167.20},
+  ],
+  lamb: [
+    {units:6,  label:'1 × 6-Pack (Lamb)',   oneTime:79.00,  subPrice:63.20},
+    {units:18, label:'1 × 18-Pack (Lamb)',  oneTime:137.00, subPrice:109.60},
+    {units:24, label:'1 × 24-Pack (Lamb)',  oneTime:199.00, subPrice:159.20},
+    {units:36, label:'1 × 36-Pack (Lamb)',  oneTime:243.00, subPrice:194.40},
+  ],
 };
-const FREQ_WEEKS=[2,3,4,5,6,8,10,12];
-let dogCount=0,selectedPlan='full',mealsPerDay=1,currentResults=null,selectedPackIdx=0,currentPacks=[];
+
+const RECIPE_NOTES = {
+  variety: 'Variety Pack pricing selected — most affordable option.',
+  beef:    'Beef pricing: 18-pack is slightly higher than Variety; 24 and 36-pack same as Variety.',
+  turkey:  'Turkey pricing: 18-pack is slightly higher than Variety; 24 and 36-pack same as Variety.',
+  lamb:    'Lamb pricing selected — premium option, higher price across all pack sizes.',
+};
+const RECIPE_LABELS = {variety:'Variety Pack', beef:'Beef', turkey:'Turkey', lamb:'Lamb Delight'};
+
+const STATUS_MULT   = {normal:1.0, over:0.9, under:1.1};
+const STATUS_LABELS = {normal:'Normal', over:'Overweight', under:'Underweight'};
+const OZ_PER_UNIT   = 14.6;
+const TBSP_PER_UNIT = 29.2;
+const SMALL_DOG_LB  = 15;
+const MEALS_PER_DAY = 2;
+
+const PLAN_MULT   = {full:1.0, half:0.5, topper:0.25};
+const PLAN_LABELS = {full:'Full Meal Plan', half:'Mix 50/50', topper:'Topper 25/75'};
+const PLAN_MSG    = {
+  full:   'Great news! A full Happy Howl meal plan fits perfectly for your pup. We include a transition guide with every new customer order.',
+  half:   'We recommend a half meal plan — mix Happy Howl 50/50 with your dog\'s current food or a high quality kibble.',
+  topper: 'We recommend a topper plan — mix ¼ Happy Howl with ¾ of your dog\'s current food or a high quality kibble.',
+};
+const FREQ_WEEKS = [2,3,4,5,6,8,10,12];
+
+let dogCount=0, selectedPlan='full', selectedRecipe='variety';
+let currentResults=null, selectedPackIdx=0, currentPacks=[];
 
 function toFraction(val){
   const whole=Math.floor(val),dec=val-whole;
-  const fracs=[[0,''],[0.1,'⅒'],[0.2,'⅕'],[0.25,'¼'],[1/3,'⅓'],[0.4,'⅖'],[0.5,'½'],[0.6,'⅗'],[2/3,'⅔'],[0.75,'¾'],[0.8,'⅘'],[0.9,'⁹⁄₁₀']];
+  const fracs=[[0,''],[0.1,'⅒'],[0.2,'⅕'],[0.25,'¼'],[1/3,'⅓'],[0.4,'⅖'],
+               [0.5,'½'],[0.6,'⅗'],[2/3,'⅔'],[0.75,'¾'],[0.8,'⅘']];
   let best='',bd=1;
   fracs.forEach(([f,s])=>{const d=Math.abs(dec-f);if(d<bd){bd=d;best=s;}});
   if(whole===0&&best)return best;
   if(whole>0&&best)return`${whole} ${best}`;
   return`${whole}`;
 }
-function getBase(weight){const w=parseFloat(weight);if(isNaN(w)||w<=0)return null;const row=FEED_TABLE.find(r=>w>=r.min&&w<=r.max);return row?row.units:4.0;}
-function getAdj(weight,status){const b=getBase(weight);return b===null?null:b*(STATUS_MULT[status]||1.0);}
+function getBase(weight){
+  const w=parseFloat(weight);if(isNaN(w)||w<=0)return null;
+  const row=FEED_TABLE.find(r=>w>=r.min&&w<=r.max);return row?row.units:4.0;
+}
+function getAdj(weight,status){const b=getBase(weight);return b===null?null:b*(STATUS_MULT[status]||1);}
 function isSmall(weight){return parseFloat(weight)<=SMALL_DOG_LB;}
-function costAnchor(c){if(c<2)return'less than a can of soda a day';if(c<3.5)return'less than a cup of coffee a day';if(c<5)return'less than a fancy latte a day';if(c<8)return'less than lunch out a day';return'an investment in their health every day';}
+function costAnchor(c){
+  if(c<2)return'less than a can of soda a day';
+  if(c<3.5)return'less than a cup of coffee a day';
+  if(c<5)return'less than a fancy latte a day';
+  if(c<8)return'less than lunch out a day';
+  return'an investment in their health every day';
+}
+function getPacks(){return PACK_PRICES[selectedRecipe];}
+
 function scorePacks(upd){
-  const scored=PACKS.map(pack=>{
+  const scored=getPacks().map(pack=>{
     const days=pack.units/upd,wks=days/7;
     const cw=FREQ_WEEKS.reduce((a,b)=>Math.abs(b-wks)<Math.abs(a-wks)?b:a);
-    const fd=cw*7,cpd=pack.subPrice/fd,savePct=Math.round((1-pack.subPrice/pack.oneTime)*100);
+    const fd=cw*7,cpd=pack.subPrice/fd;
+    const savePct=Math.round((1-pack.subPrice/pack.oneTime)*100);
     return{pack,freqWeeks:cw,freqDays:fd,daysSupply:Math.round(days),costPerDay:cpd,savePct};
   });
   return scored.filter(s=>s.daysSupply>=s.freqDays*0.8).sort((a,b)=>b.pack.units-a.pack.units);
 }
-function selectPlan(id){selectedPlan=id;document.querySelectorAll('.plan-tab').forEach(t=>t.classList.toggle('active',t.dataset.plan===id));checkUpgrade();if(currentResults)renderResults();}
-function setMeal(el,n){mealsPerDay=n;document.querySelectorAll('.meal-opt').forEach(m=>m.classList.remove('active'));el.classList.add('active');if(currentResults)renderResults();}
+
+function selectPlan(id){
+  selectedPlan=id;
+  document.querySelectorAll('.plan-tab').forEach(t=>t.classList.toggle('active',t.dataset.plan===id));
+  checkUpgrade();if(currentResults)renderResults();
+}
+function selectRecipe(id){
+  selectedRecipe=id;
+  document.querySelectorAll('.recipe-btn').forEach(t=>t.classList.toggle('active',t.dataset.recipe===id));
+  document.getElementById('recipe-price-note').textContent=RECIPE_NOTES[id];
+  if(currentResults)renderResults();
+}
 function checkUpgrade(){
   const dogs=getDogsFromDOM(),banner=document.getElementById('upgrade-banner');
   if((selectedPlan==='half'||selectedPlan==='topper')&&dogs.some(d=>isSmall(d.weight))){
     const small=dogs.filter(d=>isSmall(d.weight)).map(d=>d.name||'your small dog');
     banner.classList.add('show');
-    document.getElementById('upgrade-banner-text').innerHTML=`<strong>Auto-upgrading to Full Meal Plan.</strong> ${small.join(' & ')} weigh 15 lb or under — Mix/Topper portions are too small to be nutritionally complete at this size.`;
+    document.getElementById('upgrade-banner-text').innerHTML=
+      `<strong>Auto-upgrading to Full Meal Plan.</strong> ${small.join(' & ')} weigh 15 lb or under — Mix/Topper portions are too small to be nutritionally complete at this size.`;
     selectedPlan='full';
-    document.querySelectorAll('.plan-tab').forEach(t=>{t.classList.toggle('active',t.dataset.plan==='full');t.classList.toggle('disabled',t.dataset.plan!=='full');});
+    document.querySelectorAll('.plan-tab').forEach(t=>{
+      t.classList.toggle('active',t.dataset.plan==='full');
+      t.classList.toggle('disabled',t.dataset.plan!=='full');
+    });
   } else {
     banner.classList.remove('show');
     document.querySelectorAll('.plan-tab').forEach(t=>t.classList.remove('disabled'));
   }
 }
 function setStatus(dogId,status){
-  ['normal','over','under'].forEach(s=>{const p=document.getElementById(`pill-${dogId}-${s}`);if(p)p.className=`sp${status===s?' a'+s.charAt(0):''}`;});
+  ['normal','over','under'].forEach(s=>{
+    const p=document.getElementById(`pill-${dogId}-${s}`);
+    if(p)p.className=`sp${status===s?' a'+s.charAt(0):''}`;
+  });
   const si=document.getElementById('status-'+dogId);if(si)si.value=status;
   checkUpgrade();
 }
 function addDog(){
   dogCount++;const id=dogCount;
-  const list=document.getElementById('dogs-list');
   const card=document.createElement('div');card.className='dog-card';card.id='dog-card-'+id;
   card.innerHTML=`
     <div class="dog-card-top">
-      <div><label class="field-label">Dog Name <span style="font-weight:600;opacity:0.65">(optional)</span></label><input type="text" id="name-${id}" placeholder="e.g. Biscuit"></div>
-      <div><label class="field-label">Weight (lb)</label><input type="number" id="weight-${id}" placeholder="lbs" min="1"></div>
+      <div><label class="field-label">Dog Name <span style="font-weight:600;opacity:0.65">(optional)</span></label>
+        <input type="text" id="name-${id}" placeholder="e.g. Romeo"></div>
+      <div><label class="field-label">Weight (lb)</label>
+        <input type="number" id="weight-${id}" placeholder="lbs" min="1"></div>
       <button class="remove-btn" id="remove-${id}" onclick="removeDog(${id})">✕</button>
     </div>
     <div class="rep-prompt-amber">
@@ -431,18 +483,17 @@ function addDog(){
   `;
   const pw=card.querySelector('#pills-'+id);
   [{val:'normal',icon:'✅',label:'Normal Weight',desc:'Can feel ribs but not see them. Visible waist from above.',cue:'"Healthy" or "vet says great"'},
-   {val:'over',icon:'⬆️',label:'Overweight',desc:'Hard to feel ribs. No visible waist. Vet said to slim down.',cue:'"Chunky" or "needs to lose weight"'},
-   {val:'under',icon:'⬇️',label:'Underweight',desc:'Ribs or spine visible. Vet wants them to gain weight.',cue:'"Too skinny" or "needs to gain"'},
+   {val:'over',  icon:'⬆️',label:'Overweight',   desc:'Hard to feel ribs. No visible waist. Vet said slim down.',cue:'"Chunky" or "needs to lose weight"'},
+   {val:'under', icon:'⬇️',label:'Underweight',  desc:'Ribs or spine visible. Vet wants them to gain weight.',  cue:'"Too skinny" or "needs to gain"'},
   ].forEach(s=>{
     const pill=document.createElement('button');
-    pill.className=`sp${s.val==='normal'?' an':''}`;
-    pill.id=`pill-${id}-${s.val}`;
+    pill.className=`sp${s.val==='normal'?' an':''}`;pill.id=`pill-${id}-${s.val}`;
     pill.innerHTML=`<div class="sp-icon">${s.icon}</div><span class="sp-label">${s.label}</span><span class="sp-desc">${s.desc}</span><span class="sp-cue">${s.cue}</span>`;
-    pill.onclick=()=>setStatus(id,s.val);
-    pw.appendChild(pill);
+    pill.onclick=()=>setStatus(id,s.val);pw.appendChild(pill);
   });
   card.querySelector('#weight-'+id).addEventListener('input',checkUpgrade);
-  list.appendChild(card);updateRemoveBtns();card.querySelector('#name-'+id).focus();
+  document.getElementById('dogs-list').appendChild(card);
+  updateRemoveBtns();card.querySelector('#name-'+id).focus();
 }
 function removeDog(id){const c=document.getElementById('dog-card-'+id);if(c)c.remove();updateRemoveBtns();checkUpgrade();}
 function updateRemoveBtns(){const cards=document.querySelectorAll('#dogs-list .dog-card');cards.forEach(c=>{c.querySelector('.remove-btn').disabled=cards.length===1;});}
@@ -454,14 +505,18 @@ function getDogsFromDOM(){
     const weight=document.getElementById('weight-'+id)?.value;
     const status=document.getElementById('status-'+id)?.value||'normal';
     const b=getBase(weight);
-    if(parseFloat(weight)>0&&b!==null)dogs.push({name:name||null,displayName:name||`${weight} lb dog`,weight:parseFloat(weight),status,baseUnits:b,adjUnits:getAdj(weight,status)});
+    if(parseFloat(weight)>0&&b!==null)
+      dogs.push({name:name||null,displayName:name||`${weight} lb dog`,weight:parseFloat(weight),status,adjUnits:getAdj(weight,status)});
   });
   return dogs;
 }
 function clearAll(){
-  document.getElementById('dogs-list').innerHTML='';dogCount=0;selectedPlan='full';mealsPerDay=1;currentResults=null;currentPacks=[];selectedPackIdx=0;
+  document.getElementById('dogs-list').innerHTML='';
+  dogCount=0;selectedPlan='full';selectedRecipe='variety';
+  currentResults=null;currentPacks=[];selectedPackIdx=0;
   document.querySelectorAll('.plan-tab').forEach(t=>{t.classList.toggle('active',t.dataset.plan==='full');t.classList.remove('disabled');});
-  document.querySelectorAll('.meal-opt').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.querySelectorAll('.recipe-btn').forEach(t=>t.classList.toggle('active',t.dataset.recipe==='variety'));
+  document.getElementById('recipe-price-note').textContent=RECIPE_NOTES['variety'];
   document.getElementById('upgrade-banner').classList.remove('show');
   document.getElementById('results').style.display='none';
   addDog();
@@ -469,96 +524,204 @@ function clearAll(){
 function calculate(){
   const dogs=getDogsFromDOM();
   if(!dogs.length){alert('Please enter at least one dog with a weight.');return;}
-  checkUpgrade();currentResults={dogs};selectedPackIdx=0;renderResults();
+  checkUpgrade();currentResults={dogs};selectedPackIdx=0;
+  renderResults();
   document.getElementById('results').style.display='block';
   document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function renderResults(){
   if(!currentResults)return;
-  const{dogs}=currentResults,pm=PLAN_MULT[selectedPlan],pl=PLAN_LABELS[selectedPlan];
+  const{dogs}=currentResults;
+  const pm=PLAN_MULT[selectedPlan],pl=PLAN_LABELS[selectedPlan];
+  const rl=RECIPE_LABELS[selectedRecipe];
+
   const tbody=document.getElementById('dog-table-body');tbody.innerHTML='';
   dogs.forEach(dog=>{
-    const upd=dog.adjUnits*pm,upm=upd/mealsPerDay;
-    const sb=dog.status==='normal'?`<span class="badge bn">Normal</span>`:dog.status==='over'?`<span class="badge bo2">Overweight</span>`:`<span class="badge bu">Underweight</span>`;
-    const sn=dog.status==='over'?'<br><span style="font-size:10px;color:var(--br)">−10% for weight mgmt</span>':dog.status==='under'?'<br><span style="font-size:10px;color:var(--bl)">+10% for weight gain</span>':'';
+    const upd=dog.adjUnits*pm,upm=upd/MEALS_PER_DAY;
+    const sb=dog.status==='normal'?`<span class="badge bn">Normal</span>`:
+             dog.status==='over'?  `<span class="badge bo2">Overweight</span>`:
+                                   `<span class="badge bu">Underweight</span>`;
+    const sn=dog.status==='over'? '<br><span style="font-size:10px;color:var(--br)">−10% weight mgmt</span>':
+             dog.status==='under'?'<br><span style="font-size:10px;color:var(--bl)">+10% weight gain</span>':'';
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td><strong>${dog.displayName}</strong></td><td>${dog.weight} lb</td><td>${sb}${sn}</td><td><div class="frac-display">${toFraction(upd)} carton${upd!==1?'s':''}</div><div class="frac-sub">${upd.toFixed(2)} units/day</div></td><td><div class="frac-display">${toFraction(upm)} carton${upm!==1?'s':''}</div><div class="frac-sub">${mealsPerDay}× daily</div></td><td><div class="frac-display">${(upm*OZ_PER_UNIT).toFixed(1)} oz</div><div class="frac-sub">~${(upm*TBSP_PER_UNIT).toFixed(0)} tbsp</div></td>`;
+    tr.innerHTML=`
+      <td><strong>${dog.displayName}</strong></td>
+      <td>${dog.weight} lb</td>
+      <td>${sb}${sn}</td>
+      <td><div class="frac-display">${toFraction(upd)} carton${upd!==1?'s':''}</div>
+          <div class="frac-sub">${upd.toFixed(2)} units/day</div></td>
+      <td><div class="frac-display">${toFraction(upm)} carton${upm!==1?'s':''}</div>
+          <div class="frac-sub">per meal (2× daily)</div></td>
+      <td><div class="frac-display">${(upm*OZ_PER_UNIT).toFixed(1)} oz</div>
+          <div class="frac-sub">~${(upm*TBSP_PER_UNIT).toFixed(0)} tbsp</div></td>
+    `;
     tbody.appendChild(tr);
   });
+
   const totalUpd=dogs.reduce((s,d)=>s+d.adjUnits*pm,0);
   currentPacks=scorePacks(totalUpd);
   const mp=currentPacks[selectedPackIdx]||currentPacks[0];
   const monthlyCost=mp?((30/mp.freqDays)*mp.pack.subPrice).toFixed(2):'–';
+
   document.getElementById('monthly-grid').innerHTML=`
     <div class="mb-stat"><div class="mb-l">Units needed / month</div><div class="mb-v">${(totalUpd*30).toFixed(1)}</div><div class="mb-s">${totalUpd.toFixed(2)} units/day × 30</div></div>
-    <div class="mb-stat"><div class="mb-l">Est. monthly cost</div><div class="mb-v">$${monthlyCost}</div><div class="mb-s">on subscription</div></div>
+    <div class="mb-stat"><div class="mb-l">Est. monthly cost</div><div class="mb-v">$${monthlyCost}</div><div class="mb-s">${rl} · on subscription</div></div>
     <div class="mb-stat"><div class="mb-l">Cost per day</div><div class="mb-v">$${mp?mp.costPerDay.toFixed(2):'–'}</div><div class="mb-s">${mp?costAnchor(mp.costPerDay):''}</div></div>
   `;
-  const leadPack=currentPacks[0];
-  document.getElementById('upsell-note').innerHTML=leadPack?`<strong>Lead with the ${leadPack.pack.label}</strong> — it's the highest value per unit and covers the longest supply. Start here and work down if needed.`:'';
-  const packContainer=document.getElementById('pack-options');packContainer.innerHTML='';
+
+  const lp=currentPacks[0];
+  document.getElementById('upsell-note').innerHTML=lp?
+    `<strong>Lead with the ${lp.pack.label}</strong> — highest value per unit, longest supply. Start here and work down only if needed.`:'';
+
+  const pc=document.getElementById('pack-options');pc.innerHTML='';
   currentPacks.forEach((opt,i)=>{
     const isLead=i===0,isSelected=i===selectedPackIdx;
     const div=document.createElement('div');
     div.className=`pack-option${isLead?' lead':''}${isSelected?' selected':''}`;
     let repScript='',repClass='';
-    if(i===0){repScript=`"The ${opt.pack.label} on a ${opt.freqWeeks}-week subscription is the best setup — you're getting the most cartons at the lowest cost per day. That's only $${opt.costPerDay.toFixed(2)} a day, ${costAnchor(opt.costPerDay)}, and you save ${opt.savePct}% vs buying one-time."`;repClass='upsell';}
-    else if(i===1){repScript=`"If the upfront cost is a concern, the ${opt.pack.label} is a great option — same 20% savings on subscription, just a shorter reorder cycle. Still only $${opt.costPerDay.toFixed(2)} a day."`;repClass='rebuttal';}
-    else{repScript=`"For flexibility, the ${opt.pack.label} lets you start smaller. It's still 20% off on subscription at $${opt.costPerDay.toFixed(2)} a day — and you can always move up to the larger pack once you see how much the pup loves it."`;repClass='rebuttal';}
+    if(i===0){
+      repScript=`"The ${opt.pack.label} on a ${opt.freqWeeks}-week subscription is the best setup — you get the most cartons at the lowest cost per day, just $${opt.costPerDay.toFixed(2)} a day, ${costAnchor(opt.costPerDay)}, and you save ${opt.savePct}% vs buying one-time."`;
+      repClass='upsell';
+    } else if(i===1){
+      repScript=`"If the upfront is a concern, the ${opt.pack.label} still gets you the full 20% subscription savings — just a shorter reorder cycle. That's still only $${opt.costPerDay.toFixed(2)} a day."`;
+      repClass='rebuttal';
+    } else {
+      repScript=`"For flexibility, the ${opt.pack.label} is a great way to get started — 20% off on subscription at $${opt.costPerDay.toFixed(2)} a day. You can always move up to a larger pack once you see how much [dog name] loves it."`;
+      repClass='rebuttal';
+    }
     div.innerHTML=`
-      <div class="po-top"><span class="po-badge ${isLead?'pob-lead':i===1?'pob-rebuttal':'pob-bulk'}">${isLead?'⭐ Lead with this':i===1?'💬 If budget is tight':'🔄 Flexible option'}</span><div class="po-selected-check">✓</div></div>
+      <div class="po-top">
+        <span class="po-badge ${isLead?'pob-lead':i===1?'pob-rebuttal':'pob-flex'}">${isLead?'⭐ Lead with this':i===1?'💬 If budget is tight':'🔄 Flexible option'}</span>
+        <div class="po-check">✓</div>
+      </div>
       <div class="po-name">${opt.pack.label}</div>
       <div class="po-freq">Every ${opt.freqWeeks} weeks · ~${opt.daysSupply} day supply</div>
-      <div class="po-pricing"><span class="po-price">$${opt.pack.subPrice.toFixed(2)}</span><span class="po-price-label">/order on subscription</span><span class="sub-save-badge">🎉 Subscribe &amp; Save ${opt.savePct}%</span></div>
-      <div class="po-meta"><span class="po-chip">$${opt.costPerDay.toFixed(2)}/day · ${costAnchor(opt.costPerDay)}</span><span class="po-chip">One-time: $${opt.pack.oneTime.toFixed(2)}</span><span class="po-chip">Save $${(opt.pack.oneTime-opt.pack.subPrice).toFixed(2)}/order</span></div>
-      <div class="po-rep-script ${repClass}"><div class="po-rep-label">${isLead?'🗣 Lead script':'🗣 Rebuttal script'}</div>${repScript}</div>
+      <div class="po-pricing">
+        <span class="po-price">$${opt.pack.subPrice.toFixed(2)}</span>
+        <span class="po-price-label">/order on subscription</span>
+        <span class="sub-save-badge">🎉 Subscribe &amp; Save ${opt.savePct}%</span>
+      </div>
+      <div class="po-meta">
+        <span class="po-chip">$${opt.costPerDay.toFixed(2)}/day · ${costAnchor(opt.costPerDay)}</span>
+        <span class="po-chip">One-time: $${opt.pack.oneTime.toFixed(2)}</span>
+        <span class="po-chip">Save $${(opt.pack.oneTime-opt.pack.subPrice).toFixed(2)}/order</span>
+      </div>
+      <div class="po-script ${repClass}">
+        <div class="po-script-label">${isLead?'🗣 Lead script':'🗣 Rebuttal script'}</div>
+        ${repScript}
+      </div>
     `;
     div.addEventListener('click',()=>selectPackOption(i));
-    packContainer.appendChild(div);
+    pc.appendChild(div);
   });
+
   const nudge=document.getElementById('sc-nudge');
   if(selectedPlan!=='full'){
-    const fullUpd=dogs.reduce((s,d)=>s+d.adjUnits,0),fullPacks=scorePacks(fullUpd),fp=fullPacks[0];
-    if(fp){const diffPerDay=fp.costPerDay-(mp?mp.costPerDay:0);nudge.classList.add('show');document.getElementById('sc-nudge-text').innerHTML=`Upgrading to <strong>Full Meal Plan</strong> adds just <strong>$${diffPerDay.toFixed(2)}/day</strong> more — ${costAnchor(diffPerDay)} — and gives ${dogs.map(d=>d.displayName).join(' & ')} 100% Happy Howl nutrition. Full plan: <strong>${fp.pack.label} every ${fp.freqWeeks} weeks</strong> at $${fp.pack.subPrice.toFixed(2)}.`;}
+    const fu=dogs.reduce((s,d)=>s+d.adjUnits,0),fp=scorePacks(fu)[0];
+    if(fp){
+      nudge.classList.add('show');
+      document.getElementById('sc-nudge-text').innerHTML=
+        `Upgrading to <strong>Full Meal Plan</strong> adds just <strong>$${(fp.costPerDay-(mp?mp.costPerDay:0)).toFixed(2)}/day</strong> more — ${costAnchor(fp.costPerDay)} — and gives ${dogs.map(d=>d.displayName).join(' & ')} 100% Happy Howl nutrition. Full plan: <strong>${fp.pack.label} every ${fp.freqWeeks} weeks</strong> at $${fp.pack.subPrice.toFixed(2)}.`;
+    }
   } else nudge.classList.remove('show');
-  updateMessageOutputs(dogs,totalUpd,pm,pl);
+
+  updateMessages(dogs,totalUpd,pm,pl,rl);
 }
+
 function selectPackOption(idx){
   selectedPackIdx=idx;
   document.querySelectorAll('.pack-option').forEach((el,i)=>el.classList.toggle('selected',i===idx));
-  if(currentResults){const{dogs}=currentResults,pm=PLAN_MULT[selectedPlan],pl=PLAN_LABELS[selectedPlan];updateMessageOutputs(dogs,dogs.reduce((s,d)=>s+d.adjUnits*pm,0),pm,pl);}
+  if(currentResults){
+    const{dogs}=currentResults,pm=PLAN_MULT[selectedPlan],pl=PLAN_LABELS[selectedPlan];
+    updateMessages(dogs,dogs.reduce((s,d)=>s+d.adjUnits*pm,0),pm,pl,RECIPE_LABELS[selectedRecipe]);
+  }
 }
-function updateMessageOutputs(dogs,totalUpd,pm,pl){
+
+function updateMessages(dogs,totalUpd,pm,pl,rl){
   const opt=currentPacks[selectedPackIdx]||currentPacks[0];if(!opt)return;
   const dw=dogs.length===1?dogs[0].displayName:`your ${dogs.length} pups`;
   const isUpgraded=document.getElementById('upgrade-banner').classList.contains('show');
-  document.getElementById('sc-script-text').textContent=`"Based on ${dogs.map(d=>d.displayName).join(' & ')}'s weight, I'd recommend the ${opt.pack.label} on a ${opt.freqWeeks}-week subscription — that's $${opt.costPerDay.toFixed(2)} a day, ${costAnchor(opt.costPerDay)}, and you save ${opt.savePct}% compared to buying one-time."`;
+
+  document.getElementById('sc-script-text').textContent=
+    `"Based on ${dogs.map(d=>d.displayName).join(' & ')}'s weight, I'd recommend the ${opt.pack.label} on a ${opt.freqWeeks}-week subscription — that's $${opt.costPerDay.toFixed(2)} a day, ${costAnchor(opt.costPerDay)}, and you save ${opt.savePct}% vs buying one-time."`;
+
   let msg=`Hi! Based on what we know about ${dw}, here's the Happy Howl plan I'd recommend:\n\n`;
   msg+=`📦 ${opt.pack.label} — delivered every ${opt.freqWeeks} weeks\n`;
   msg+=`💰 $${opt.pack.subPrice.toFixed(2)}/order on subscription (Subscribe & Save ${opt.savePct}% vs one-time)\n`;
-  msg+=`📅 That's just $${opt.costPerDay.toFixed(2)}/day — ${costAnchor(opt.costPerDay)}!\n\nFeeding guide (${pl}):\n`;
+  msg+=`📅 That's just $${opt.costPerDay.toFixed(2)}/day — ${costAnchor(opt.costPerDay)}!\n\n`;
+  msg+=`Feeding guide (${pl} · ${rl} · fed twice daily):\n`;
   dogs.forEach(d=>{
-    const upd=d.adjUnits*pm,upm=upd/mealsPerDay;
+    const upd=d.adjUnits*pm,upm=upd/MEALS_PER_DAY;
     const sn=d.status==='over'?' (reduced for weight management)':d.status==='under'?' (increased for healthy weight gain)':'';
-    msg+=`• ${d.displayName}: ${toFraction(upd)} carton${upd!==1?'s':''}/day (${upd.toFixed(2)} units)${sn}\n`;
-    if(mealsPerDay>1)msg+=`  Per meal (${mealsPerDay}× daily): ${toFraction(upm)} carton · ${(upm*OZ_PER_UNIT).toFixed(1)} oz · ~${(upm*TBSP_PER_UNIT).toFixed(0)} tbsp\n`;
+    msg+=`• ${d.displayName}: ${toFraction(upd)} cartons/day total${sn}\n`;
+    msg+=`  → ${toFraction(upm)} carton per meal · ${(upm*OZ_PER_UNIT).toFixed(1)} oz · ~${(upm*TBSP_PER_UNIT).toFixed(0)} tbsp each feeding\n`;
   });
-  if(isUpgraded){const small=dogs.filter(d=>isSmall(d.weight)).map(d=>d.displayName).join(' & ');msg+=`\nNote: Because ${small} is under 15 lb, we recommend the Full Meal Plan to ensure complete nutrition.\n`;}
-  msg+=`\n${PLAN_MSG[selectedPlan]}\n\nYour subscription ships automatically — pause, skip, or cancel anytime. No commitment required.\n\nReady to get started? https://www.thehappyhowl.com/products/happy-howl-all-natural-meals`;
+  if(isUpgraded)msg+=`\nNote: Small dog (≤15 lb) auto-upgraded to Full Meal Plan for complete nutrition.\n`;
+  msg+=`\n${PLAN_MSG[selectedPlan]}\n\nSubscription ships automatically — pause, skip, or cancel anytime.\n`;
+  msg+=`\nReady to get started? https://www.thehappyhowl.com/products/happy-howl-all-natural-meals`;
   document.getElementById('customer-msg').textContent=msg;
-  let note=`Happy Howl — Internal Recommendation\n${'─'.repeat(40)}\nPlan: ${pl}\n\nDog breakdown:\n`;
-  dogs.forEach(d=>{const upd=d.adjUnits*pm;const adj=d.status!=='normal'?` [${STATUS_LABELS[d.status]}]`:'';note+=`  ${d.displayName.padEnd(16)} ${d.weight}lb${adj}  →  ${toFraction(upd)} cartons/day (${upd.toFixed(4)} units)\n`;});
-  note+=`\nTotal units/day: ${totalUpd.toFixed(4)}\nUnits/month:     ${(totalUpd*30).toFixed(1)}\n\nSELECTED SUBSCRIPTION:\n  ${opt.pack.label}  |  Every ${opt.freqWeeks} weeks (~${opt.daysSupply} days)\n  Sub: $${opt.pack.subPrice.toFixed(2)}  |  One-time: $${opt.pack.oneTime.toFixed(2)}  |  Save ${opt.savePct}%\n  Cost/day: $${opt.costPerDay.toFixed(2)} — ${costAnchor(opt.costPerDay)}\n\nALL OPTIONS OFFERED:\n`;
-  currentPacks.forEach((p,i)=>{note+=`  ${i===selectedPackIdx?'★':' '} ${p.pack.label} every ${p.freqWeeks}wks | $${p.pack.subPrice.toFixed(2)}/order | $${p.costPerDay.toFixed(2)}/day\n`;});
-  if(isUpgraded)note+=`\n⚠ AUTO-UPGRADED: small dog (≤15 lb) → Full Meal Plan\n`;
+
+  let note=`Happy Howl — Internal Recommendation\n${'─'.repeat(42)}\nPlan: ${pl} | Recipe: ${rl}\n\nDog breakdown:\n`;
+  dogs.forEach(d=>{
+    const upd=d.adjUnits*pm,upm=upd/MEALS_PER_DAY;
+    const adj=d.status!=='normal'?` [${STATUS_LABELS[d.status]}]`:'';
+    note+=`  ${d.displayName.padEnd(16)} ${d.weight}lb${adj}\n`;
+    note+=`    Total/day: ${toFraction(upd)} cartons (${upd.toFixed(4)} units)\n`;
+    note+=`    Per meal:  ${toFraction(upm)} carton · ${(upm*OZ_PER_UNIT).toFixed(1)}oz · ~${(upm*TBSP_PER_UNIT).toFixed(0)}tbsp\n`;
+  });
+  note+=`\nTotal units/day: ${totalUpd.toFixed(4)} | Units/month: ${(totalUpd*30).toFixed(1)}\n\n`;
+  note+=`SELECTED: ${opt.pack.label} every ${opt.freqWeeks}wks (~${opt.daysSupply} days)\n`;
+  note+=`  Sub: $${opt.pack.subPrice.toFixed(2)} | OTP: $${opt.pack.oneTime.toFixed(2)} | Save ${opt.savePct}% | $${opt.costPerDay.toFixed(2)}/day\n\nALL OPTIONS:\n`;
+  currentPacks.forEach((p,i)=>{
+    note+=`  ${i===selectedPackIdx?'★':' '} ${p.pack.label} every ${p.freqWeeks}wks | $${p.pack.subPrice.toFixed(2)}/order | $${p.costPerDay.toFixed(2)}/day\n`;
+  });
+  if(isUpgraded)note+=`\n⚠ AUTO-UPGRADED: small dog ≤15 lb → Full Meal Plan\n`;
   document.getElementById('internal-note').textContent=note;
 }
-function copyText(id,bid){navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{const b=document.getElementById(bid),o=b.textContent;b.textContent='✓ Copied!';b.classList.add('copied');setTimeout(()=>{b.textContent=o;b.classList.remove('copied');},2000);});}
-function toggleSettings(){const body=document.getElementById('settings-body'),open=body.classList.contains('open');body.classList.toggle('open',!open);document.getElementById('settings-arrow').textContent=open?'▼ Edit':'▲ Hide';}
-function renderPriceSettings(){
-  const tb=document.getElementById('price-settings');tb.innerHTML='';
-  PACKS.forEach((p,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td style="font-size:12px;font-weight:700">${p.label}</td><td style="font-size:12px;color:var(--ts)">${p.units}</td><td><input type="number" value="${p.oneTime}" min="1" step="0.01" oninput="PACKS[${i}].oneTime=parseFloat(this.value)||0;if(currentResults)renderResults()"></td><td><input type="number" value="${p.subPrice}" min="1" step="0.01" oninput="PACKS[${i}].subPrice=parseFloat(this.value)||0;if(currentResults)renderResults()"></td>`;tb.appendChild(tr);});
+
+function copyText(id,bid){
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{
+    const b=document.getElementById(bid),o=b.textContent;
+    b.textContent='✓ Copied!';b.classList.add('copied');
+    setTimeout(()=>{b.textContent=o;b.classList.remove('copied');},2000);
+  });
 }
+function toggleSettings(){
+  const body=document.getElementById('settings-body'),open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  document.getElementById('settings-arrow').textContent=open?'▼ Edit':'▲ Hide';
+}
+function renderPriceSettings(){
+  const container=document.getElementById('price-settings-container');container.innerHTML='';
+  const recipeInfo={
+    variety:{label:'🎉 Variety Pack',note:'Includes 48 & 96-pack bulk options'},
+    beef:   {label:'🥩 Beef',note:'18-pack higher than Variety; 24 & 36-pack same as Variety'},
+    turkey: {label:'🦃 Turkey',note:'18-pack higher than Variety; 24 & 36-pack same as Variety'},
+    lamb:   {label:'🐑 Lamb Delight',note:'Premium pricing across all sizes'},
+  };
+  Object.entries(PACK_PRICES).forEach(([recipe,packs])=>{
+    const info=recipeInfo[recipe];
+    const section=document.createElement('div');
+    section.innerHTML=`<div class="price-section-label">${info.label} <span style="font-weight:600;opacity:0.7;font-size:9px">${info.note}</span></div>`;
+    const table=document.createElement('table');table.className='price-table';
+    table.innerHTML=`<thead><tr><th>Pack</th><th>Units</th><th>One-Time ($)</th><th>Sub ($)</th></tr></thead>`;
+    const tbody=document.createElement('tbody');
+    packs.forEach((p,i)=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td style="font-size:12px;font-weight:700">${p.label.replace(/ \((Beef|Turkey|Lamb)\)/,'')}</td>
+        <td style="font-size:12px;color:var(--ts)">${p.units}</td>
+        <td><input type="number" value="${p.oneTime}" min="1" step="0.01"
+            oninput="PACK_PRICES['${recipe}'][${i}].oneTime=parseFloat(this.value)||0;if(currentResults)renderResults()"></td>
+        <td><input type="number" value="${p.subPrice}" min="1" step="0.01"
+            oninput="PACK_PRICES['${recipe}'][${i}].subPrice=parseFloat(this.value)||0;if(currentResults)renderResults()"></td>
+      `;
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);section.appendChild(table);container.appendChild(section);
+  });
+}
+
 renderPriceSettings();
 addDog();
 </script>

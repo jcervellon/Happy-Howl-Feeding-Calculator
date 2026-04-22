@@ -1,994 +1,527 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Howl Feeding Calculator</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --hh-green: #2E5D3A;
-      --hh-green-light: #3A7548;
-      --hh-cream: #FDF6EC;
-      --hh-cream-dark: #F5EBDA;
-      --hh-brown: #5C3D2E;
-      --hh-brown-light: #8B6F47;
-      --hh-orange: #E8793A;
-      --hh-orange-hover: #D06A2F;
-      --hh-red: #C44B3F;
-      --hh-text: #3B2F24;
-      --hh-text-light: #7A6B5D;
-      --hh-white: #FFFFFF;
-      --hh-border: #DDD1C1;
-      --hh-shadow: 0 2px 12px rgba(60, 40, 20, 0.08);
-      --hh-shadow-lg: 0 8px 32px rgba(60, 40, 20, 0.12);
-      --hh-radius: 12px;
-      --hh-radius-sm: 8px;
-    }
-
-    body {
-      font-family: 'Noyh R', 'Nunito Sans', 'Segoe UI', sans-serif;
-      background: var(--hh-cream);
-      color: var(--hh-text);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Container ── */
-    .calc-container {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
-    }
-
-    /* ── Header ── */
-    .calc-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    .calc-header h1 {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--hh-green);
-      margin-bottom: 6px;
-      letter-spacing: -0.5px;
-    }
-    .calc-header p {
-      font-size: 15px;
-      color: var(--hh-text-light);
-    }
-
-    /* ── Progress Bar ── */
-    .progress-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-    .progress-step {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--hh-text-light);
-      transition: color 0.3s;
-    }
-    .progress-step.active { color: var(--hh-green); }
-    .progress-step.completed { color: var(--hh-green); }
-    .step-dot {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      background: var(--hh-cream-dark);
-      color: var(--hh-text-light);
-      transition: all 0.3s;
-    }
-    .progress-step.active .step-dot {
-      background: var(--hh-green);
-      color: var(--hh-white);
-    }
-    .progress-step.completed .step-dot {
-      background: var(--hh-green);
-      color: var(--hh-white);
-    }
-    .progress-line {
-      width: 48px;
-      height: 3px;
-      background: var(--hh-cream-dark);
-      border-radius: 2px;
-      transition: background 0.3s;
-    }
-    .progress-line.active { background: var(--hh-green); }
-
-    /* ── Cards ── */
-    .card {
-      background: var(--hh-white);
-      border-radius: var(--hh-radius);
-      box-shadow: var(--hh-shadow);
-      padding: 28px 24px;
-      margin-bottom: 16px;
-      border: 1px solid var(--hh-border);
-    }
-
-    .dog-card {
-      position: relative;
-    }
-    .dog-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .dog-card-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--hh-green);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .dog-card-title .paw { font-size: 20px; }
-    .remove-dog-btn {
-      background: none;
-      border: none;
-      color: var(--hh-red);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 4px 10px;
-      border-radius: var(--hh-radius-sm);
-      transition: background 0.2s;
-    }
-    .remove-dog-btn:hover { background: rgba(196, 75, 63, 0.08); }
-
-    /* ── Form Fields ── */
-    .field-group {
-      margin-bottom: 18px;
-    }
-    .field-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--hh-text);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .field-group input,
-    .field-group select {
-      width: 100%;
-      padding: 12px 14px;
-      border: 2px solid var(--hh-border);
-      border-radius: var(--hh-radius-sm);
-      font-size: 16px;
-      font-family: inherit;
-      color: var(--hh-text);
-      background: var(--hh-white);
-      transition: border-color 0.2s;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    .field-group select {
-      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%237A6B5D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 40px;
-    }
-    .field-group input:focus,
-    .field-group select:focus {
-      outline: none;
-      border-color: var(--hh-green);
-    }
-    .field-group input::placeholder {
-      color: #BDB1A1;
-    }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .field-hint {
-      font-size: 12px;
-      color: var(--hh-text-light);
-      margin-top: 4px;
-    }
-
-    /* ── Meal Plan Selector ── */
-    .meal-plan-options {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    .meal-plan-option {
-      padding: 12px 8px;
-      border: 2px solid var(--hh-border);
-      border-radius: var(--hh-radius-sm);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      background: var(--hh-white);
-    }
-    .meal-plan-option:hover {
-      border-color: var(--hh-green-light);
-    }
-    .meal-plan-option.selected {
-      border-color: var(--hh-green);
-      background: rgba(46, 93, 58, 0.05);
-    }
-    .meal-plan-option.disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-    .meal-plan-option .plan-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--hh-text);
-      display: block;
-    }
-    .meal-plan-option .plan-desc {
-      font-size: 11px;
-      color: var(--hh-text-light);
-      display: block;
-      margin-top: 2px;
-    }
-
-    /* ── Buttons ── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border: none;
-      border-radius: var(--hh-radius-sm);
-      font-size: 16px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-    .btn-primary {
-      background: var(--hh-green);
-      color: var(--hh-white);
-      width: 100%;
-    }
-    .btn-primary:hover { background: var(--hh-green-light); }
-    .btn-primary:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .btn-secondary {
-      background: transparent;
-      color: var(--hh-green);
-      border: 2px dashed var(--hh-green);
-      width: 100%;
-    }
-    .btn-secondary:hover { background: rgba(46, 93, 58, 0.05); }
-    .btn-back {
-      background: transparent;
-      color: var(--hh-text-light);
-      font-size: 14px;
-      padding: 10px 16px;
-    }
-    .btn-back:hover { color: var(--hh-text); }
-    .btn-cta {
-      background: var(--hh-orange);
-      color: var(--hh-white);
-      width: 100%;
-      font-size: 17px;
-      padding: 16px 28px;
-      border-radius: var(--hh-radius);
-    }
-    .btn-cta:hover { background: var(--hh-orange-hover); }
-
-    /* ── Step Visibility ── */
-    .step { display: none; }
-    .step.active { display: block; }
-
-    /* ── Results ── */
-    .results-summary {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    .results-summary h2 {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--hh-green);
-      margin-bottom: 6px;
-    }
-    .results-summary p {
-      font-size: 15px;
-      color: var(--hh-text-light);
-    }
-
-    .dog-result-card {
-      background: var(--hh-white);
-      border-radius: var(--hh-radius);
-      box-shadow: var(--hh-shadow);
-      border: 1px solid var(--hh-border);
-      padding: 20px 24px;
-      margin-bottom: 12px;
-    }
-    .dog-result-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .dog-result-name {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--hh-green);
-    }
-    .dog-result-weight {
-      font-size: 13px;
-      color: var(--hh-text-light);
-      font-weight: 600;
-    }
-    .feeding-detail {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .feeding-stat {
-      background: var(--hh-cream);
-      border-radius: var(--hh-radius-sm);
-      padding: 14px 16px;
-      text-align: center;
-    }
-    .feeding-stat .stat-value {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--hh-green);
-      display: block;
-    }
-    .feeding-stat .stat-label {
-      font-size: 12px;
-      color: var(--hh-text-light);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-
-    /* ── Pack Recommendations ── */
-    .packs-section {
-      margin-top: 28px;
-    }
-    .packs-section h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--hh-text);
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    .pack-card {
-      background: var(--hh-white);
-      border: 2px solid var(--hh-border);
-      border-radius: var(--hh-radius);
-      padding: 20px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.2s;
-      position: relative;
-    }
-    .pack-card.best-value {
-      border-color: var(--hh-green);
-      box-shadow: var(--hh-shadow-lg);
-    }
-    .best-value-badge {
-      position: absolute;
-      top: -11px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--hh-green);
-      color: var(--hh-white);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 14px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .pack-info { flex: 1; }
-    .pack-name {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--hh-text);
-    }
-    .pack-details {
-      font-size: 13px;
-      color: var(--hh-text-light);
-      margin-top: 2px;
-    }
-    .pack-price {
-      text-align: right;
-      margin-right: 16px;
-    }
-    .pack-price .price {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--hh-text);
-    }
-    .pack-price .frequency {
-      font-size: 11px;
-      color: var(--hh-text-light);
-    }
-
-    /* ── Recipe Selector on Results ── */
-    .recipe-toggle {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .recipe-chip {
-      padding: 8px 18px;
-      border: 2px solid var(--hh-border);
-      border-radius: 24px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      background: var(--hh-white);
-      color: var(--hh-text);
-    }
-    .recipe-chip:hover { border-color: var(--hh-green-light); }
-    .recipe-chip.selected {
-      background: var(--hh-green);
-      color: var(--hh-white);
-      border-color: var(--hh-green);
-    }
-
-    /* ── CTA Section ── */
-    .cta-section {
-      margin-top: 32px;
-      text-align: center;
-    }
-    .cta-section p {
-      font-size: 13px;
-      color: var(--hh-text-light);
-      margin-top: 10px;
-    }
-
-    /* ── Animations ── */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .step.active {
-      animation: fadeIn 0.35s ease-out;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 480px) {
-      .calc-container { padding: 16px 12px 40px; }
-      .card { padding: 20px 16px; }
-      .calc-header h1 { font-size: 24px; }
-      .field-row { grid-template-columns: 1fr; }
-      .meal-plan-options { grid-template-columns: 1fr; }
-      .pack-card { flex-direction: column; text-align: center; gap: 12px; }
-      .pack-price { text-align: center; margin-right: 0; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Howl Feeding Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gd:#2D5016;--gm:#4A7C2F;--gb:#6AAF3D;--gl:#A8D878;--gp:#EAF5DC;--gw:#F4FAF0;
+  --am:#E8A030;--ap:#FEF3DC;--ab:#F5C88A;
+  --br:#8B5E3C;--td:#1E3008;--ts:#8FAA70;
+  --bo:#D4E8BC;--bm:#B8D498;--wh:#ffffff;--cr:#FEFCF7;
+  --bl:#2A6DB5;--bp:#EEF5FE;--bb:#BAD4F5;
+  --re:#B91C1C;--rp:#FEE2E2;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--cr);color:var(--td);min-height:100vh;}
+header{background:var(--wh);border-bottom:2px solid var(--bo);padding:0 24px;display:flex;align-items:center;gap:14px;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(74,124,47,0.07);}
+.paw{width:40px;height:40px;background:var(--gp);border:2px solid var(--gl);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.logo h1{font-family:'Playfair Display',serif;font-size:17px;font-weight:800;color:var(--gd);}
+.logo p{font-size:10px;font-weight:700;color:var(--ts);letter-spacing:0.06em;text-transform:uppercase;}
+.container{max-width:780px;margin:0 auto;padding:24px 18px 60px;}
+.page-intro{text-align:center;padding:10px 0 20px;}
+.page-intro h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--gd);margin-bottom:4px;}
+.page-intro p{font-size:13px;font-weight:600;color:var(--ts);}
+.card{background:var(--wh);border:1.5px solid var(--bo);border-radius:18px;padding:22px;margin-bottom:14px;box-shadow:0 2px 10px rgba(74,124,47,0.06);}
+.card-title{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:900;color:var(--td);margin-bottom:18px;}
+.step-badge{width:26px;height:26px;border-radius:8px;background:var(--gm);color:var(--wh);font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.field-label{font-size:10px;font-weight:800;color:var(--ts);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:5px;}
+input[type=text],input[type=number]{width:100%;background:var(--gw);border:1.5px solid var(--bo);border-radius:10px;color:var(--td);padding:10px 12px;font-size:13px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;transition:border-color 0.2s;-webkit-appearance:none;}
+input:focus{border-color:var(--gb);background:var(--wh);}
+input::placeholder{color:var(--ts);font-weight:600;}
+.dog-card{background:var(--gw);border:1.5px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;}
+.dog-card-top{display:grid;grid-template-columns:1fr 100px 36px;gap:8px;align-items:flex-end;margin-bottom:12px;}
+.remove-btn{background:var(--rp);border:1.5px solid #FCA5A5;border-radius:9px;color:var(--re);width:36px;height:38px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.remove-btn:hover{background:#FECACA;}
+.remove-btn:disabled{opacity:0.3;pointer-events:none;}
+.status-pills{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
+.sp{border-radius:12px;padding:11px 8px;cursor:pointer;border:2px solid var(--bo);background:var(--wh);text-align:center;font-family:'Nunito',sans-serif;transition:all 0.15s;}
+.sp:hover{border-color:var(--bm);background:var(--gw);}
+.sp-icon{font-size:18px;margin-bottom:4px;}
+.sp-label{font-size:11px;font-weight:900;color:var(--td);display:block;margin-bottom:3px;}
+.sp-desc{font-size:10px;font-weight:700;color:var(--ts);display:block;line-height:1.35;}
+.sp.an{border-color:var(--gb);background:var(--gp);}
+.sp.an .sp-label{color:var(--gd);}
+.sp.an .sp-desc{color:var(--gm);}
+.sp.ao{border-color:var(--ab);background:var(--ap);}
+.sp.ao .sp-label{color:var(--br);}
+.sp.ao .sp-desc{color:var(--br);opacity:0.85;}
+.sp.au{border-color:var(--bb);background:var(--bp);}
+.sp.au .sp-label{color:var(--bl);}
+.sp.au .sp-desc{color:var(--bl);opacity:0.85;}
+.plan-tabs{display:flex;gap:9px;}
+.plan-tab{flex:1;padding:12px 6px;border-radius:12px;border:2px solid var(--bo);background:var(--gw);color:var(--ts);cursor:pointer;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;text-align:center;transition:all 0.15s;}
+.plan-tab:hover{border-color:var(--bm);color:var(--td);}
+.plan-tab.active{border-color:var(--gb);background:var(--gp);color:var(--gd);}
+.plan-tab.disabled{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+.upgrade-banner{background:linear-gradient(135deg,#fff8e6,#fef3d5);border:2px solid var(--ab);border-radius:12px;padding:12px 15px;margin-top:12px;display:none;align-items:flex-start;gap:10px;}
+.upgrade-banner.show{display:flex;}
+.upgrade-banner-text{font-size:12px;font-weight:700;color:var(--br);line-height:1.6;}
+.upgrade-banner-text strong{color:var(--td);}
+.recipe-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
+.recipe-btn{padding:11px 6px;border-radius:12px;border:2px solid var(--bo);background:var(--gw);color:var(--ts);cursor:pointer;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;text-align:center;transition:all 0.15s;line-height:1.4;}
+.recipe-btn:hover{border-color:var(--bm);color:var(--td);}
+.recipe-btn.active{border-color:var(--gb);background:var(--gp);color:var(--gd);}
+.btn-ghost{background:transparent;border:1.5px dashed var(--bm);border-radius:9px;color:var(--ts);padding:8px 16px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:all 0.15s;margin-top:4px;}
+.btn-ghost:hover{border-color:var(--gb);color:var(--gm);background:var(--gw);}
+.btn-primary{background:var(--gm);border:2px solid var(--gm);border-radius:13px;color:#FFFFFF;padding:15px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(74,124,47,0.3);transition:all 0.15s;width:100%;}
+.btn-primary:hover{background:var(--gd);border-color:var(--gd);color:#FFFFFF;transform:translateY(-1px);}
+.btn-primary:active{transform:translateY(0);}
+.btn-back{background:transparent;border:none;color:var(--ts);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;padding:10px 16px;transition:color 0.15s;}
+.btn-back:hover{color:var(--td);}
+/* ─── Results ─── */
+.dog-table{width:100%;border-collapse:collapse;margin-bottom:16px;}
+.dog-table th{font-size:9px;font-weight:900;color:var(--ts);letter-spacing:0.1em;text-transform:uppercase;text-align:left;padding:6px 9px;border-bottom:1.5px solid var(--bo);}
+.dog-table td{padding:9px;border-bottom:1px solid #E5F0D0;font-size:13px;font-weight:700;vertical-align:top;}
+.dog-table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;}
+.bn{background:var(--gp);color:var(--gd);border:1px solid var(--gl);}
+.bo2{background:var(--ap);color:var(--br);border:1px solid var(--ab);}
+.bu{background:var(--bp);color:var(--bl);border:1px solid var(--bb);}
+.frac-display{font-size:14px;font-weight:900;color:var(--gd);}
+.frac-sub{font-size:11px;font-weight:700;color:var(--ts);margin-top:2px;}
+.monthly-box{background:linear-gradient(135deg,var(--gp),#f0f9e8);border:1.5px solid var(--gl);border-radius:14px;padding:16px;margin-bottom:14px;}
+.mb-title{font-size:10px;font-weight:900;color:var(--ts);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;}
+.mb-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.mb-stat{background:var(--wh);border-radius:9px;padding:10px 11px;border:1px solid var(--bo);}
+.mb-l{font-size:9px;font-weight:800;color:var(--ts);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px;}
+.mb-v{font-size:17px;font-weight:900;color:var(--td);}
+.mb-s{font-size:10px;font-weight:700;color:var(--gm);margin-top:2px;}
+/* ─── Pack Cards ─── */
+.pack-section-label{font-size:10px;font-weight:900;color:var(--ts);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+.pack-option{border-radius:14px;padding:16px;margin-bottom:10px;border:2px solid var(--bo);background:var(--wh);transition:all 0.15s;position:relative;}
+.pack-option:hover{border-color:var(--gl);box-shadow:0 2px 10px rgba(74,124,47,0.1);}
+.pack-option.best-value{border-color:var(--gm);background:var(--gp);box-shadow:0 0 0 3px rgba(74,124,47,0.12);}
+.po-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.po-badge{font-size:9px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+.pob-best{background:var(--gm);color:var(--wh);}
+.pob-popular{background:var(--ap);color:var(--br);}
+.pob-starter{background:var(--bp);color:var(--bl);}
+.po-name{font-size:15px;font-weight:900;color:var(--td);margin-bottom:2px;}
+.pack-option.best-value .po-name{color:var(--gd);}
+.po-freq{font-size:12px;font-weight:700;color:var(--ts);margin-bottom:8px;}
+.po-pricing{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+.po-price{font-size:20px;font-weight:900;color:var(--gm);}
+.po-price-label{font-size:11px;font-weight:700;color:var(--ts);}
+.sub-save-badge{background:var(--ap);border:1.5px solid var(--ab);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:900;color:var(--br);}
+.po-meta{display:flex;flex-wrap:wrap;gap:7px;}
+.po-chip{background:rgba(74,124,47,0.08);border-radius:7px;padding:5px 9px;font-size:11px;font-weight:800;color:var(--gd);}
+.pack-option.best-value .po-chip{background:rgba(74,124,47,0.15);}
+/* ─── CTA ─── */
+.cta-section{text-align:center;margin:28px 0 8px;}
+.btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gm);border:2px solid var(--gm);border-radius:13px;color:#FFFFFF;padding:16px 32px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(74,124,47,0.3);transition:all 0.15s;text-decoration:none;width:100%;}
+.btn-cta:hover{background:var(--gd);border-color:var(--gd);transform:translateY(-1px);}
+.btn-cta:active{transform:translateY(0);}
+.cta-sub{font-size:12px;font-weight:700;color:var(--ts);margin-top:8px;}
+/* ─── Step visibility ─── */
+.step{display:none;}
+.step.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step.active{animation:fadeIn 0.3s ease-out;}
+/* ─── Responsive ─── */
+@media(max-width:560px){
+  .dog-card-top{grid-template-columns:1fr 90px 36px;}
+  .plan-tabs{flex-direction:column;}
+  .recipe-grid{grid-template-columns:1fr 1fr;}
+  .mb-grid{grid-template-columns:1fr 1fr;}
+  .status-pills{grid-template-columns:1fr;}
+  .dog-table{font-size:11px;}
+  .dog-table th{font-size:8px;}
+  .dog-table td{padding:7px 5px;}
+}
+</style>
 </head>
 <body>
-
-<div class="calc-container">
-  <!-- Header -->
-  <div class="calc-header">
-    <h1>Feeding Calculator</h1>
-    <p>Find the perfect meal plan for your pup</p>
-  </div>
-
-  <!-- Progress Bar -->
-  <div class="progress-bar">
-    <div class="progress-step active" id="prog-step-1">
-      <span class="step-dot">1</span>
-      <span>Your Dogs</span>
+<header>
+  <div class="paw">🐾</div>
+  <div class="logo"><h1>Happy Howl</h1><p>Feeding Calculator</p></div>
+</header>
+<div class="container">
+  <!-- ═══ STEP 1: Input ═══ -->
+  <div class="step active" id="step-input">
+    <div class="page-intro">
+      <h2>How Much Should They Eat?</h2>
+      <p>Enter your dog's info and we'll build the perfect feeding plan.</p>
     </div>
-    <div class="progress-line" id="prog-line"></div>
-    <div class="progress-step" id="prog-step-2">
-      <span class="step-dot">2</span>
-      <span>Your Plan</span>
+    <!-- Dogs -->
+    <div class="card">
+      <div class="card-title"><div class="step-badge">1</div>Your Dogs</div>
+      <div id="dogs-list"></div>
+      <button class="btn-ghost" onclick="addDog()">+ Add another dog</button>
+    </div>
+    <!-- Plan Type -->
+    <div class="card">
+      <div class="card-title"><div class="step-badge">2</div>Meal Plan Type</div>
+      <div class="plan-tabs">
+        <button class="plan-tab active" data-plan="full" onclick="selectPlan('full')">🥗 Full (100%)</button>
+        <button class="plan-tab" data-plan="half" onclick="selectPlan('half')">🥣 Mix (50/50)</button>
+        <button class="plan-tab" data-plan="topper" onclick="selectPlan('topper')">✨ Topper (25%)</button>
+      </div>
+      <div class="upgrade-banner" id="upgrade-banner">
+        <div style="font-size:18px;flex-shrink:0">⚠️</div>
+        <div class="upgrade-banner-text" id="upgrade-banner-text"></div>
+      </div>
+    </div>
+    <!-- Recipe -->
+    <div class="card">
+      <div class="card-title"><div class="step-badge">3</div>Recipe</div>
+      <div class="recipe-grid">
+        <button class="recipe-btn active" data-recipe="variety" onclick="selectRecipe('variety')">🎉 Variety Pack<br><span style="font-weight:700;font-size:10px;opacity:0.75">Best Seller</span></button>
+        <button class="recipe-btn" data-recipe="beef" onclick="selectRecipe('beef')">🥩 Beef<br><span style="font-weight:700;font-size:10px;opacity:0.75">Single Protein</span></button>
+        <button class="recipe-btn" data-recipe="turkey" onclick="selectRecipe('turkey')">🦃 Turkey<br><span style="font-weight:700;font-size:10px;opacity:0.75">Single Protein</span></button>
+        <button class="recipe-btn" data-recipe="lamb" onclick="selectRecipe('lamb')">🐑 Lamb<br><span style="font-weight:700;font-size:10px;opacity:0.75">Premium</span></button>
+      </div>
+    </div>
+    <div style="margin-bottom:18px">
+      <button class="btn-primary" onclick="calculate()">See My Feeding Plan →</button>
     </div>
   </div>
-
-  <!-- ═══════ STEP 1: Dog Info ═══════ -->
-  <div class="step active" id="step-1">
-    <div id="dogs-container"></div>
-
-    <button class="btn btn-secondary" id="add-dog-btn" style="margin-bottom: 16px;">
-      + Add Another Dog
-    </button>
-
-    <button class="btn btn-primary" id="calculate-btn">
-      See My Feeding Plan
-    </button>
-  </div>
-
-  <!-- ═══════ STEP 2: Results ═══════ -->
-  <div class="step" id="step-2">
-    <div class="results-summary">
-      <h2>Your Feeding Plan</h2>
+  <!-- ═══ STEP 2: Results ═══ -->
+  <div class="step" id="step-results">
+    <div class="page-intro">
+      <h2 id="results-title">Your Feeding Plan</h2>
       <p id="results-subtitle"></p>
     </div>
-
-    <!-- Recipe Toggle -->
-    <div class="recipe-toggle" id="recipe-toggle">
-      <span class="recipe-chip selected" data-recipe="variety">Variety</span>
-      <span class="recipe-chip" data-recipe="beef">Beef</span>
-      <span class="recipe-chip" data-recipe="turkey">Turkey</span>
-      <span class="recipe-chip" data-recipe="lamb">Lamb</span>
+    <!-- Feeding Breakdown -->
+    <div class="card">
+      <div class="card-title"><div class="step-badge">🍽</div>Feeding Breakdown <span style="font-size:11px;font-weight:700;color:var(--ts);margin-left:6px">· Fed twice daily</span></div>
+      <table class="dog-table">
+        <thead><tr>
+          <th>Dog</th><th>Weight</th><th>Status</th>
+          <th>Per Day</th><th>Per Meal (÷2)</th>
+        </tr></thead>
+        <tbody id="dog-table-body"></tbody>
+      </table>
     </div>
-
-    <!-- Dog Results -->
-    <div id="dog-results"></div>
-
-    <!-- Pack Recommendations -->
-    <div class="packs-section">
-      <h3>Recommended Subscription</h3>
-      <div id="pack-results"></div>
+    <!-- Monthly Stats -->
+    <div class="monthly-box">
+      <div class="mb-title">📅 Monthly Estimate</div>
+      <div class="mb-grid" id="monthly-grid"></div>
     </div>
-
+    <!-- Pack Options -->
+    <div class="card">
+      <div class="card-title"><div class="step-badge">📦</div>Subscription Options</div>
+      <div class="pack-section-label">Pick the plan that works best for you</div>
+      <div id="pack-options"></div>
+    </div>
     <!-- CTA -->
     <div class="cta-section">
-      <a href="https://www.thehappyhowl.com/account" class="btn btn-cta" id="cta-button">
-        Modify Your Subscription Now
+      <a href="https://www.thehappyhowl.com/account" class="btn-cta" id="cta-button">
+        Modify Your Subscription Now →
       </a>
-      <p>Update your plan to match your pup's needs</p>
+      <div class="cta-sub">Update your plan to match your pup's needs. Pause, skip, or cancel anytime.</div>
     </div>
-
-    <div style="text-align: center; margin-top: 20px;">
-      <button class="btn btn-back" id="back-btn">&larr; Back to edit</button>
+    <div style="text-align:center;margin-top:16px;margin-bottom:24px;">
+      <button class="btn-back" onclick="goBack()">← Back to edit</button>
     </div>
   </div>
 </div>
-
 <script>
-(function() {
-  'use strict';
+// ─── FEEDING TABLE ────────────────────────────────────────────────────────────
+// Source: Calculations tab CSV (source of truth)
+var FEED_TABLE = [
+  {min:1,   max:3,   units:0.20},
+  {min:4,   max:6,   units:0.20},
+  {min:7,   max:9,   units:0.33},
+  {min:10,  max:15,  units:0.50},
+  {min:16,  max:21,  units:0.67},
+  {min:22,  max:28,  units:0.80},
+  {min:29,  max:35,  units:1.00},
+  {min:36,  max:41,  units:1.25},
+  {min:42,  max:47,  units:1.50},
+  {min:48,  max:55,  units:1.75},
+  {min:56,  max:65,  units:2.00},
+  {min:66,  max:76,  units:2.25},
+  {min:77,  max:88,  units:2.50},
+  {min:89,  max:101, units:2.75},
+  {min:102, max:115, units:3.00},
+  {min:116, max:9999,units:4.00}
+];
 
-  /* ── Feeding Table (source: DONT EDIT tab, validated) ── */
-  /* Source: Calculations tab CSV (source of truth) */
-  const FEEDING_TABLE = [
-    { min: 1,   max: 3,   full: 0.20 },
-    { min: 4,   max: 6,   full: 0.20 },
-    { min: 7,   max: 9,   full: 0.33 },
-    { min: 10,  max: 15,  full: 0.50 },
-    { min: 16,  max: 21,  full: 0.67 },
-    { min: 22,  max: 28,  full: 0.80 },
-    { min: 29,  max: 35,  full: 1.00 },
-    { min: 36,  max: 41,  full: 1.25 },
-    { min: 42,  max: 47,  full: 1.50 },
-    { min: 48,  max: 55,  full: 1.75 },
-    { min: 56,  max: 65,  full: 2.00 },
-    { min: 66,  max: 76,  full: 2.25 },
-    { min: 77,  max: 88,  full: 2.50 },
-    { min: 89,  max: 101, full: 2.75 },
-    { min: 102, max: 115, full: 3.00 },
-    { min: 116, max: 140, full: 4.00 }
-  ];
+// ─── PRICING ──────────────────────────────────────────────────────────────────
+// From internal tool — confirmed live site March 2026
+var PACK_PRICES = {
+  variety: [
+    {units:6,  label:'6-Pack',          subPrice:63.20,  oneTime:79.00},
+    {units:18, label:'18-Pack',         subPrice:92.00,  oneTime:115.00},
+    {units:24, label:'24-Pack',         subPrice:143.20, oneTime:179.00},
+    {units:36, label:'36-Pack',         subPrice:167.20, oneTime:209.00},
+    {units:48, label:'48-Pack (Bulk)',   subPrice:204.00, oneTime:255.00},
+    {units:96, label:'96-Pack (Bulk)',   subPrice:348.00, oneTime:435.00}
+  ],
+  beef: [
+    {units:6,  label:'6-Pack',          subPrice:63.20,  oneTime:79.00},
+    {units:18, label:'18-Pack',         subPrice:100.80, oneTime:126.00},
+    {units:24, label:'24-Pack',         subPrice:143.20, oneTime:179.00},
+    {units:36, label:'36-Pack',         subPrice:167.20, oneTime:209.00}
+  ],
+  turkey: [
+    {units:6,  label:'6-Pack',          subPrice:63.20,  oneTime:79.00},
+    {units:18, label:'18-Pack',         subPrice:100.80, oneTime:126.00},
+    {units:24, label:'24-Pack',         subPrice:143.20, oneTime:179.00},
+    {units:36, label:'36-Pack',         subPrice:167.20, oneTime:209.00}
+  ],
+  lamb: [
+    {units:6,  label:'6-Pack',          subPrice:63.20,  oneTime:79.00},
+    {units:18, label:'18-Pack',         subPrice:109.60, oneTime:137.00},
+    {units:24, label:'24-Pack',         subPrice:159.20, oneTime:199.00},
+    {units:36, label:'36-Pack',         subPrice:194.40, oneTime:243.00}
+  ]
+};
 
-  /* ── Meal Plan Multipliers ── */
-  const PLAN_MULT = { full: 1, mix: 0.5, topper: 0.25 };
+var RECIPE_LABELS = {variety:'Variety Pack', beef:'Beef', turkey:'Turkey', lamb:'Lamb'};
+var STATUS_MULT   = {normal:1.0, over:0.9, under:1.1};
+var STATUS_LABELS = {normal:'Normal', over:'Overweight', under:'Underweight'};
+var OZ_PER_UNIT   = 14.6;
+var SMALL_DOG_LB  = 15;
+var MEALS_PER_DAY = 2;
+var PLAN_MULT   = {full:1.0, half:0.5, topper:0.25};
+var PLAN_LABELS = {full:'Full Meal Plan', half:'Mix 50/50', topper:'Topper 25/75'};
+var FREQ_WEEKS = [2,3,4,5,6,8,10,12];
 
-  /* ── Weight Status Multipliers ── */
-  const WEIGHT_MULT = { normal: 1, overweight: 0.9, underweight: 1.1 };
+var dogCount = 0;
+var selectedPlan = 'full';
+var selectedRecipe = 'variety';
+var currentResults = null;
+var currentPacks = [];
 
-  /* ── Pricing (subscription) ── */
-  /* Variety/Beef/Turkey share pricing; Lamb is higher at 18/24/36 tiers */
-  /* Source: Calculations tab CSV pricing */
-  const PRICING = {
-    variety: { 6: 63, 18: 92, 24: 143, 36: 169, 48: 204, 96: 348 },
-    beef:    { 6: 63, 18: 92, 24: 143, 36: 169, 48: 204, 96: 348 },
-    turkey:  { 6: 63, 18: 92, 24: 143, 36: 169, 48: 204, 96: 348 },
-    lamb:    { 6: 63, 18: 102, 24: 153, 36: 189, 48: 224, 96: 368 }
-  };
+// ─── Fraction Display ─────────────────────────────────────────────────────────
+function toFraction(val) {
+  var whole = Math.floor(val), dec = val - whole;
+  var fracs = [[0,''],[0.1,'⅒'],[0.2,'⅕'],[0.25,'¼'],[1/3,'⅓'],[0.4,'⅖'],
+               [0.5,'½'],[0.6,'⅗'],[2/3,'⅔'],[0.75,'¾'],[0.8,'⅘']];
+  var best = '', bd = 1;
+  fracs.forEach(function(f) { var d = Math.abs(dec - f[0]); if (d < bd) { bd = d; best = f[1]; } });
+  if (whole === 0 && best) return best;
+  if (whole > 0 && best) return whole + ' ' + best;
+  return '' + whole;
+}
 
-  const PACK_SIZES = [6, 18, 24, 36, 48, 96];
-  const PACK_LABELS = {
-    6: '6-Pack', 18: '18-Pack', 24: '24-Pack',
-    36: '36-Pack', 48: '48-Pack', 96: '96-Pack'
-  };
+// ─── Feeding Lookup ───────────────────────────────────────────────────────────
+function getBase(weight) {
+  var w = parseFloat(weight); if (isNaN(w) || w <= 0) return null;
+  for (var i = 0; i < FEED_TABLE.length; i++) {
+    if (w >= FEED_TABLE[i].min && w <= FEED_TABLE[i].max) return FEED_TABLE[i].units;
+  }
+  return 4.0;
+}
+function getAdj(weight, status) { var b = getBase(weight); return b === null ? null : b * (STATUS_MULT[status] || 1); }
+function isSmall(weight) { return parseFloat(weight) <= SMALL_DOG_LB; }
 
-  /* ── State ── */
-  let dogs = [];
-  let dogIdCounter = 0;
-  let selectedRecipe = 'variety';
+function costAnchor(c) {
+  if (c < 2) return 'less than a can of soda a day';
+  if (c < 3.5) return 'less than a cup of coffee a day';
+  if (c < 5) return 'less than a fancy latte a day';
+  if (c < 8) return 'less than lunch out a day';
+  return 'an investment in their health every day';
+}
 
-  /* ── DOM refs ── */
-  const dogsContainer = document.getElementById('dogs-container');
-  const addDogBtn = document.getElementById('add-dog-btn');
-  const calcBtn = document.getElementById('calculate-btn');
-  const backBtn = document.getElementById('back-btn');
-  const step1 = document.getElementById('step-1');
-  const step2 = document.getElementById('step-2');
+// ─── Pack Scoring ─────────────────────────────────────────────────────────────
+function scorePacks(upd) {
+  var packs = PACK_PRICES[selectedRecipe];
+  var scored = packs.map(function(pack) {
+    var days = pack.units / upd, wks = days / 7;
+    var cw = FREQ_WEEKS.reduce(function(a, b) { return Math.abs(b - wks) < Math.abs(a - wks) ? b : a; });
+    var fd = cw * 7, cpd = pack.subPrice / fd;
+    var savePct = Math.round((1 - pack.subPrice / pack.oneTime) * 100);
+    return { pack: pack, freqWeeks: cw, freqDays: fd, daysSupply: Math.round(days), costPerDay: cpd, savePct: savePct };
+  });
+  // External: smallest first
+  return scored.filter(function(s) { return s.daysSupply >= s.freqDays * 0.8; })
+    .sort(function(a, b) { return a.pack.units - b.pack.units; });
+}
 
-  /* ── Initialize ── */
-  addDog();
+// ─── Plan / Recipe Selection ──────────────────────────────────────────────────
+function selectPlan(id) {
+  selectedPlan = id;
+  document.querySelectorAll('.plan-tab').forEach(function(t) { t.classList.toggle('active', t.dataset.plan === id); });
+  checkUpgrade();
+}
+function selectRecipe(id) {
+  selectedRecipe = id;
+  document.querySelectorAll('.recipe-btn').forEach(function(t) { t.classList.toggle('active', t.dataset.recipe === id); });
+}
+function checkUpgrade() {
+  var dogs = getDogsFromDOM(), banner = document.getElementById('upgrade-banner');
+  if ((selectedPlan === 'half' || selectedPlan === 'topper') && dogs.some(function(d) { return isSmall(d.weight); })) {
+    var small = dogs.filter(function(d) { return isSmall(d.weight); }).map(function(d) { return d.name || 'your small dog'; });
+    banner.classList.add('show');
+    document.getElementById('upgrade-banner-text').innerHTML =
+      '<strong>Auto-upgrading to Full Meal Plan.</strong> ' + small.join(' & ') + ' weigh 15 lb or under — smaller portions are too small to be nutritionally complete.';
+    selectedPlan = 'full';
+    document.querySelectorAll('.plan-tab').forEach(function(t) {
+      t.classList.toggle('active', t.dataset.plan === 'full');
+      t.classList.toggle('disabled', t.dataset.plan !== 'full');
+    });
+  } else {
+    banner.classList.remove('show');
+    document.querySelectorAll('.plan-tab').forEach(function(t) { t.classList.remove('disabled'); });
+  }
+}
 
-  addDogBtn.addEventListener('click', addDog);
-  calcBtn.addEventListener('click', calculate);
-  backBtn.addEventListener('click', goBack);
+// ─── Dog Management ───────────────────────────────────────────────────────────
+function setStatus(dogId, status) {
+  ['normal','over','under'].forEach(function(s) {
+    var p = document.getElementById('pill-' + dogId + '-' + s);
+    if (p) p.className = 'sp' + (status === s ? ' a' + s.charAt(0) : '');
+  });
+  var si = document.getElementById('status-' + dogId); if (si) si.value = status;
+  checkUpgrade();
+}
 
-  document.getElementById('recipe-toggle').addEventListener('click', function(e) {
-    if (e.target.classList.contains('recipe-chip')) {
-      document.querySelectorAll('.recipe-chip').forEach(c => c.classList.remove('selected'));
-      e.target.classList.add('selected');
-      selectedRecipe = e.target.dataset.recipe;
-      renderPacks();
-    }
+function addDog() {
+  dogCount++;
+  var id = dogCount;
+  var card = document.createElement('div'); card.className = 'dog-card'; card.id = 'dog-card-' + id;
+  card.innerHTML =
+    '<div class="dog-card-top">' +
+      '<div><label class="field-label">Dog Name</label>' +
+        '<input type="text" id="name-' + id + '" placeholder="e.g. Bella"></div>' +
+      '<div><label class="field-label">Weight (lb)</label>' +
+        '<input type="number" id="weight-' + id + '" placeholder="lbs" min="1" inputmode="numeric"></div>' +
+      '<button class="remove-btn" id="remove-' + id + '" onclick="removeDog(' + id + ')">✕</button>' +
+    '</div>' +
+    '<div class="status-pills" id="pills-' + id + '"></div>' +
+    '<input type="hidden" id="status-' + id + '" value="normal">';
+
+  var pw = card.querySelector('#pills-' + id);
+  [{val:'normal',icon:'✅',label:'Healthy Weight',desc:'Can feel ribs but not see them'},
+   {val:'over',  icon:'⬆️',label:'Needs to Lose', desc:'Vet says they should slim down'},
+   {val:'under', icon:'⬇️',label:'Needs to Gain', desc:'Vet says they need more weight'}
+  ].forEach(function(s) {
+    var pill = document.createElement('button');
+    pill.className = 'sp' + (s.val === 'normal' ? ' an' : '');
+    pill.id = 'pill-' + id + '-' + s.val;
+    pill.innerHTML = '<div class="sp-icon">' + s.icon + '</div><span class="sp-label">' + s.label + '</span><span class="sp-desc">' + s.desc + '</span>';
+    pill.onclick = function() { setStatus(id, s.val); };
+    pw.appendChild(pill);
   });
 
-  /* ── Add Dog Card ── */
-  function addDog() {
-    dogIdCounter++;
-    const id = dogIdCounter;
-    const dogNum = dogs.length + 1;
+  card.querySelector('#weight-' + id).addEventListener('input', checkUpgrade);
+  document.getElementById('dogs-list').appendChild(card);
+  updateRemoveBtns();
+  card.querySelector('#name-' + id).focus();
+}
 
-    dogs.push({ id });
+function removeDog(id) { var c = document.getElementById('dog-card-' + id); if (c) c.remove(); updateRemoveBtns(); checkUpgrade(); }
+function updateRemoveBtns() {
+  var cards = document.querySelectorAll('#dogs-list .dog-card');
+  cards.forEach(function(c) { c.querySelector('.remove-btn').disabled = cards.length === 1; });
+}
 
-    const card = document.createElement('div');
-    card.className = 'card dog-card';
-    card.id = 'dog-card-' + id;
-    card.innerHTML = `
-      <div class="dog-card-header">
-        <div class="dog-card-title">
-          <span class="paw">&#128062;</span> Dog ${dogNum}
-        </div>
-        ${dogs.length > 1 ? `<button class="remove-dog-btn" onclick="window._removeDog(${id})">Remove</button>` : ''}
-      </div>
-      <div class="field-group">
-        <label for="name-${id}">Dog's Name</label>
-        <input type="text" id="name-${id}" placeholder="e.g. Bella" autocomplete="off">
-      </div>
-      <div class="field-row">
-        <div class="field-group">
-          <label for="weight-${id}">Weight (lbs)</label>
-          <input type="number" id="weight-${id}" placeholder="e.g. 35" min="1" max="150" inputmode="numeric">
-        </div>
-        <div class="field-group">
-          <label for="status-${id}">Weight Status</label>
-          <select id="status-${id}">
-            <option value="normal">Just Right</option>
-            <option value="overweight">Needs to Lose</option>
-            <option value="underweight">Needs to Gain</option>
-          </select>
-        </div>
-      </div>
-      <div class="field-group">
-        <label>Meal Plan</label>
-        <div class="meal-plan-options" id="plan-options-${id}">
-          <div class="meal-plan-option selected" data-plan="full" onclick="window._selectPlan(${id}, 'full')">
-            <span class="plan-name">Full</span>
-            <span class="plan-desc">100% Happy Howl</span>
-          </div>
-          <div class="meal-plan-option" data-plan="mix" onclick="window._selectPlan(${id}, 'mix')">
-            <span class="plan-name">Mix</span>
-            <span class="plan-desc">50 / 50 blend</span>
-          </div>
-          <div class="meal-plan-option" data-plan="topper" onclick="window._selectPlan(${id}, 'topper')">
-            <span class="plan-name">Topper</span>
-            <span class="plan-desc">25% topper</span>
-          </div>
-        </div>
-        <div class="field-hint" id="plan-hint-${id}" style="display:none; color: var(--hh-green); font-weight: 600;">
-          Dogs 15 lbs & under are automatically on the Full meal plan for complete nutrition.
-        </div>
-      </div>
-    `;
+function getDogsFromDOM() {
+  var dogs = [];
+  document.querySelectorAll('#dogs-list .dog-card').forEach(function(card) {
+    var id = card.id.replace('dog-card-', '');
+    var name = document.getElementById('name-' + id) ? document.getElementById('name-' + id).value.trim() : '';
+    var weight = document.getElementById('weight-' + id) ? document.getElementById('weight-' + id).value : '';
+    var status = document.getElementById('status-' + id) ? document.getElementById('status-' + id).value : 'normal';
+    var b = getBase(weight);
+    if (parseFloat(weight) > 0 && b !== null)
+      dogs.push({ name: name || null, displayName: name || (weight + ' lb dog'), weight: parseFloat(weight), status: status, adjUnits: getAdj(weight, status) });
+  });
+  return dogs;
+}
 
-    dogsContainer.appendChild(card);
+// ─── Calculate ────────────────────────────────────────────────────────────────
+function calculate() {
+  var dogs = getDogsFromDOM();
+  if (!dogs.length) { alert('Please enter at least one dog with a weight.'); return; }
+  checkUpgrade();
+  currentResults = { dogs: dogs };
+  renderResults();
+  document.getElementById('step-input').classList.remove('active');
+  document.getElementById('step-results').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-    // Watch weight changes for auto-upgrade logic
-    document.getElementById('weight-' + id).addEventListener('input', function() {
-      checkAutoUpgrade(id);
-    });
+function goBack() {
+  document.getElementById('step-results').classList.remove('active');
+  document.getElementById('step-input').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-    updateRemoveButtons();
-  }
+// ─── Render Results ───────────────────────────────────────────────────────────
+function renderResults() {
+  if (!currentResults) return;
+  var dogs = currentResults.dogs;
+  var pm = PLAN_MULT[selectedPlan], pl = PLAN_LABELS[selectedPlan];
+  var rl = RECIPE_LABELS[selectedRecipe];
 
-  /* ── Remove Dog ── */
-  window._removeDog = function(id) {
-    dogs = dogs.filter(d => d.id !== id);
-    const card = document.getElementById('dog-card-' + id);
-    if (card) card.remove();
-    renumberDogs();
-    updateRemoveButtons();
-  };
+  // Subtitle
+  var names = dogs.map(function(d) { return d.displayName; });
+  document.getElementById('results-subtitle').textContent =
+    dogs.length === 1 ? "Here's what " + names[0] + " needs on " + pl : "Here's what " + names.join(' & ') + " need on " + pl;
 
-  function renumberDogs() {
-    const cards = dogsContainer.querySelectorAll('.dog-card');
-    cards.forEach((card, i) => {
-      const title = card.querySelector('.dog-card-title');
-      title.innerHTML = `<span class="paw">&#128062;</span> Dog ${i + 1}`;
-    });
-  }
+  // Feeding table
+  var tbody = document.getElementById('dog-table-body'); tbody.innerHTML = '';
+  dogs.forEach(function(dog) {
+    var upd = dog.adjUnits * pm, upm = upd / MEALS_PER_DAY;
+    var sb = dog.status === 'normal' ? '<span class="badge bn">Healthy</span>' :
+             dog.status === 'over'   ? '<span class="badge bo2">Losing</span>' :
+                                       '<span class="badge bu">Gaining</span>';
+    var sn = dog.status === 'over'  ? '<br><span style="font-size:10px;color:var(--br)">−10%</span>' :
+             dog.status === 'under' ? '<br><span style="font-size:10px;color:var(--bl)">+10%</span>' : '';
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><strong>' + dog.displayName + '</strong></td>' +
+      '<td>' + dog.weight + ' lb</td>' +
+      '<td>' + sb + sn + '</td>' +
+      '<td><div class="frac-display">' + toFraction(upd) + ' carton' + (upd !== 1 ? 's' : '') + '</div>' +
+          '<div class="frac-sub">' + upd.toFixed(2) + ' units/day</div></td>' +
+      '<td><div class="frac-display">' + toFraction(upm) + ' carton' + (upm !== 1 ? 's' : '') + '</div>' +
+          '<div class="frac-sub">per meal · ' + (upm * OZ_PER_UNIT).toFixed(1) + ' oz</div></td>';
+    tbody.appendChild(tr);
+  });
 
-  function updateRemoveButtons() {
-    const cards = dogsContainer.querySelectorAll('.dog-card');
-    cards.forEach((card, i) => {
-      const existing = card.querySelector('.remove-dog-btn');
-      if (cards.length <= 1 && existing) existing.remove();
-      if (cards.length > 1 && !existing) {
-        const id = parseInt(card.id.replace('dog-card-', ''));
-        const header = card.querySelector('.dog-card-header');
-        const btn = document.createElement('button');
-        btn.className = 'remove-dog-btn';
-        btn.textContent = 'Remove';
-        btn.onclick = function() { window._removeDog(id); };
-        header.appendChild(btn);
-      }
-    });
-  }
+  // Packs
+  var totalUpd = dogs.reduce(function(s, d) { return s + d.adjUnits * pm; }, 0);
+  currentPacks = scorePacks(totalUpd);
 
-  /* ── Meal Plan Selection ── */
-  window._selectPlan = function(id, plan) {
-    const container = document.getElementById('plan-options-' + id);
-    container.querySelectorAll('.meal-plan-option').forEach(opt => opt.classList.remove('selected'));
-    container.querySelector(`[data-plan="${plan}"]`).classList.add('selected');
-  };
+  // Find best value (lowest cost per day = largest pack, which is last in smallest-first order)
+  var bestIdx = currentPacks.length - 1;
 
-  function checkAutoUpgrade(id) {
-    const weightInput = document.getElementById('weight-' + id);
-    const weight = parseFloat(weightInput.value) || 0;
-    const container = document.getElementById('plan-options-' + id);
-    const hint = document.getElementById('plan-hint-' + id);
-    const mixOpt = container.querySelector('[data-plan="mix"]');
-    const topperOpt = container.querySelector('[data-plan="topper"]');
+  var mp = currentPacks[bestIdx] || currentPacks[0];
+  var monthlyCost = mp ? ((30 / mp.freqDays) * mp.pack.subPrice).toFixed(2) : '–';
 
-    if (weight > 0 && weight <= 15) {
-      mixOpt.classList.add('disabled');
-      topperOpt.classList.add('disabled');
-      // Auto-select full
-      container.querySelectorAll('.meal-plan-option').forEach(opt => opt.classList.remove('selected'));
-      container.querySelector('[data-plan="full"]').classList.add('selected');
-      hint.style.display = 'block';
-    } else {
-      mixOpt.classList.remove('disabled');
-      topperOpt.classList.remove('disabled');
-      hint.style.display = 'none';
-    }
-  }
+  // Monthly stats
+  document.getElementById('monthly-grid').innerHTML =
+    '<div class="mb-stat"><div class="mb-l">Cartons / month</div><div class="mb-v">' + (totalUpd * 30).toFixed(1) + '</div><div class="mb-s">' + totalUpd.toFixed(2) + ' /day × 30</div></div>' +
+    '<div class="mb-stat"><div class="mb-l">Est. monthly cost</div><div class="mb-v">$' + monthlyCost + '</div><div class="mb-s">' + rl + ' · subscription</div></div>' +
+    '<div class="mb-stat"><div class="mb-l">Cost per day</div><div class="mb-v">$' + (mp ? mp.costPerDay.toFixed(2) : '–') + '</div><div class="mb-s">' + (mp ? costAnchor(mp.costPerDay) : '') + '</div></div>';
 
-  /* ── Lookup feeding amount ── */
-  function getFullUnitsPerDay(weight) {
-    for (const row of FEEDING_TABLE) {
-      if (weight >= row.min && weight <= row.max) return row.full;
-    }
-    // Extrapolate for very large dogs
-    if (weight > 140) return 4.0 + ((weight - 140) * 0.03);
-    return 0;
-  }
+  // Pack cards (smallest first, best value badge on largest)
+  var pc = document.getElementById('pack-options'); pc.innerHTML = '';
+  currentPacks.forEach(function(opt, i) {
+    var isBest = i === bestIdx;
+    var div = document.createElement('div');
+    div.className = 'pack-option' + (isBest ? ' best-value' : '');
+    var badgeClass = isBest ? 'pob-best' : i === 0 ? 'pob-starter' : 'pob-popular';
+    var badgeText = isBest ? '⭐ Best Value' : i === 0 ? '🔄 Starter' : '📦 Popular';
 
-  /* ── Convert decimal to carton-marking fraction ── */
-  function toFraction(decimal) {
-    // Round to nearest 1/20 for clean fractions matching carton markings
-    const markings = [
-      { val: 0,    label: '0' },
-      { val: 0.2,  label: '1/5' },
-      { val: 0.25, label: '1/4' },
-      { val: 0.3,  label: '1/3' },
-      { val: 0.33, label: '1/3' },
-      { val: 0.35, label: '1/3' },
-      { val: 0.4,  label: '2/5' },
-      { val: 0.5,  label: '1/2' },
-      { val: 0.6,  label: '3/5' },
-      { val: 0.67, label: '2/3' },
-      { val: 0.7,  label: '7/10' },
-      { val: 0.75, label: '3/4' },
-      { val: 0.8,  label: '4/5' },
-      { val: 0.9,  label: '9/10' },
-      { val: 1.0,  label: '1' }
-    ];
+    div.innerHTML =
+      '<div class="po-top">' +
+        '<span class="po-badge ' + badgeClass + '">' + badgeText + '</span>' +
+      '</div>' +
+      '<div class="po-name">' + opt.pack.label + '</div>' +
+      '<div class="po-freq">Every ' + opt.freqWeeks + ' weeks · ~' + opt.daysSupply + ' day supply</div>' +
+      '<div class="po-pricing">' +
+        '<span class="po-price">$' + opt.pack.subPrice.toFixed(2) + '</span>' +
+        '<span class="po-price-label">/order on subscription</span>' +
+        '<span class="sub-save-badge">Save ' + opt.savePct + '% vs one-time</span>' +
+      '</div>' +
+      '<div class="po-meta">' +
+        '<span class="po-chip">$' + opt.costPerDay.toFixed(2) + '/day · ' + costAnchor(opt.costPerDay) + '</span>' +
+        '<span class="po-chip">One-time: $' + opt.pack.oneTime.toFixed(2) + '</span>' +
+      '</div>';
+    pc.appendChild(div);
+  });
+}
 
-    const whole = Math.floor(decimal);
-    const frac = decimal - whole;
-
-    if (frac < 0.05) return whole === 0 ? '0' : String(whole);
-
-    let closest = markings[0];
-    let minDiff = 999;
-    for (const m of markings) {
-      const diff = Math.abs(frac - m.val);
-      if (diff < minDiff) {
-        minDiff = diff;
-        closest = m;
-      }
-    }
-
-    if (closest.val === 1) return String(whole + 1);
-    if (whole === 0) return closest.label;
-    return whole + ' ' + closest.label;
-  }
-
-  /* ── Calculate & Show Results ── */
-  function calculate() {
-    const results = [];
-
-    for (const dog of dogs) {
-      const nameInput = document.getElementById('name-' + dog.id);
-      const weightInput = document.getElementById('weight-' + dog.id);
-      const statusInput = document.getElementById('status-' + dog.id);
-      const planContainer = document.getElementById('plan-options-' + dog.id);
-      const selectedPlanEl = planContainer.querySelector('.meal-plan-option.selected');
-
-      const name = nameInput.value.trim() || ('Dog ' + dogs.indexOf(dog) + 1);
-      const weight = parseFloat(weightInput.value);
-      const status = statusInput.value;
-      const plan = selectedPlanEl ? selectedPlanEl.dataset.plan : 'full';
-
-      if (!weight || weight < 1) {
-        weightInput.style.borderColor = 'var(--hh-red)';
-        weightInput.focus();
-        return;
-      }
-      weightInput.style.borderColor = '';
-
-      const fullUnits = getFullUnitsPerDay(weight);
-      const adjustedUnits = fullUnits * WEIGHT_MULT[status];
-      const planUnits = adjustedUnits * PLAN_MULT[plan];
-      // Round to nearest 0.05 for clean display
-      const unitsPerDay = Math.round(planUnits * 20) / 20;
-      const perMeal = unitsPerDay / 2;
-
-      results.push({
-        name, weight, status, plan, unitsPerDay, perMeal
-      });
-    }
-
-    if (results.length === 0) return;
-
-    // Store results globally for recipe toggling
-    window._calcResults = results;
-
-    // Render results
-    renderDogResults(results);
-    renderPacks();
-
-    // Update subtitle
-    const dogNames = results.map(r => r.name);
-    const subtitle = results.length === 1
-      ? `Here's what ${dogNames[0]} needs`
-      : `Here's what ${dogNames.join(' & ')} need`;
-    document.getElementById('results-subtitle').textContent = subtitle;
-
-    // Switch steps
-    step1.classList.remove('active');
-    step2.classList.add('active');
-    document.getElementById('prog-step-1').classList.remove('active');
-    document.getElementById('prog-step-1').classList.add('completed');
-    document.getElementById('prog-step-2').classList.add('active');
-    document.getElementById('prog-line').classList.add('active');
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function renderDogResults(results) {
-    const container = document.getElementById('dog-results');
-    container.innerHTML = '';
-
-    for (const r of results) {
-      const planLabel = r.plan === 'full' ? 'Full Meal' : r.plan === 'mix' ? 'Mix (50/50)' : 'Topper (25%)';
-      const statusLabel = r.status === 'normal' ? '' : r.status === 'overweight' ? ' &middot; Weight loss' : ' &middot; Weight gain';
-      const perMealFrac = toFraction(r.perMeal);
-
-      const card = document.createElement('div');
-      card.className = 'dog-result-card';
-      card.innerHTML = `
-        <div class="dog-result-header">
-          <span class="dog-result-name">${escapeHtml(r.name)}</span>
-          <span class="dog-result-weight">${r.weight} lbs &middot; ${planLabel}${statusLabel}</span>
-        </div>
-        <div class="feeding-detail">
-          <div class="feeding-stat">
-            <span class="stat-value">${toFraction(r.unitsPerDay)}</span>
-            <span class="stat-label">Cartons / Day</span>
-          </div>
-          <div class="feeding-stat">
-            <span class="stat-value">${perMealFrac}</span>
-            <span class="stat-label">Per Meal (2x daily)</span>
-          </div>
-        </div>
-      `;
-      container.appendChild(card);
-    }
-  }
-
-  function renderPacks() {
-    const results = window._calcResults;
-    if (!results) return;
-
-    const totalPerDay = results.reduce((sum, r) => sum + r.unitsPerDay, 0);
-    const unitsPerMonth = Math.ceil(totalPerDay * 30);
-    const prices = PRICING[selectedRecipe];
-
-    const container = document.getElementById('pack-results');
-    container.innerHTML = '';
-
-    // Build pack recommendations (smallest first for external tool)
-    const recommendations = [];
-    for (const size of PACK_SIZES) {
-      if (size < 6) continue;
-      const casesNeeded = Math.ceil(unitsPerMonth / size);
-      const totalUnits = casesNeeded * size;
-      const totalPrice = casesNeeded * prices[size];
-      const daysSupply = Math.round(totalUnits / totalPerDay);
-      const pricePerUnit = totalPrice / totalUnits;
-
-      recommendations.push({
-        size, casesNeeded, totalUnits, totalPrice, daysSupply, pricePerUnit,
-        label: PACK_LABELS[size]
-      });
-    }
-
-    // Find best value (lowest price per unit)
-    let bestIdx = 0;
-    let bestPPU = Infinity;
-    recommendations.forEach((r, i) => {
-      if (r.pricePerUnit < bestPPU) {
-        bestPPU = r.pricePerUnit;
-        bestIdx = i;
-      }
-    });
-
-    // Show top 4 most relevant packs (smallest first, best value badge on best)
-    const toShow = recommendations.filter(r => r.casesNeeded <= 10 && r.totalPrice > 0).slice(0, 5);
-
-    for (const rec of toShow) {
-      const isBest = rec === recommendations[bestIdx];
-      const card = document.createElement('div');
-      card.className = 'pack-card' + (isBest ? ' best-value' : '');
-      card.innerHTML = `
-        ${isBest ? '<span class="best-value-badge">Best Value</span>' : ''}
-        <div class="pack-info">
-          <div class="pack-name">${rec.casesNeeded > 1 ? rec.casesNeeded + 'x ' : ''}${rec.label}</div>
-          <div class="pack-details">${rec.totalUnits} cartons &middot; ~${rec.daysSupply} day supply</div>
-        </div>
-        <div class="pack-price">
-          <span class="price">$${rec.totalPrice}</span>
-          <span class="frequency">/ order</span>
-        </div>
-      `;
-      container.appendChild(card);
-    }
-  }
-
-  /* ── Navigation ── */
-  function goBack() {
-    step2.classList.remove('active');
-    step1.classList.add('active');
-    document.getElementById('prog-step-2').classList.remove('active');
-    document.getElementById('prog-step-1').classList.remove('completed');
-    document.getElementById('prog-step-1').classList.add('active');
-    document.getElementById('prog-line').classList.remove('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  /* ── Helpers ── */
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-
-})();
+// ─── Init ─────────────────────────────────────────────────────────────────────
+addDog();
 </script>
 </body>
 </html>

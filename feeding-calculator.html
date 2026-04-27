@@ -212,7 +212,7 @@ input::placeholder{color:var(--ts);font-weight:600;}
     </div>
     <!-- CTA -->
     <div class="cta-section">
-      <a href="https://www.thehappyhowl.com/account" class="btn-cta" id="cta-button" target="_blank">
+      <a href="https://www.thehappyhowl.com/apps/retextion/shop/subscriptions/121976881261" class="btn-cta" id="cta-button" target="_blank">
         Sign In to Manage Subscription →
       </a>
       <div class="cta-sub">Log in to your account to update, pause, skip, or cancel anytime.</div>
@@ -251,9 +251,7 @@ var PACK_PRICES = {
     {units:6,  label:'6-Pack',          subPrice:63.20,  oneTime:79.00},
     {units:18, label:'18-Pack',         subPrice:92.00,  oneTime:115.00},
     {units:24, label:'24-Pack',         subPrice:143.20, oneTime:179.00},
-    {units:36, label:'36-Pack',         subPrice:167.20, oneTime:209.00},
-    {units:48, label:'48-Pack (Bulk)',   subPrice:204.00, oneTime:255.00},
-    {units:96, label:'96-Pack (Bulk)',   subPrice:348.00, oneTime:435.00}
+    {units:36, label:'36-Pack',         subPrice:167.20, oneTime:209.00}
   ],
   beef: [
     {units:6,  label:'6-Pack',          subPrice:63.20,  oneTime:79.00},
@@ -698,7 +696,7 @@ function renderResults() {
       div.innerHTML += '<a href="' + stayLink + '" class="btn-choose" target="_blank">Choose This Plan →</a>';
     } else {
       // Fallback for packs without Stay AI links (Variety 48/96-Pack)
-      div.innerHTML += '<a href="https://www.thehappyhowl.com/account" class="btn-choose" target="_blank">Manage Subscription →</a>';
+      div.innerHTML += '<a href="https://www.thehappyhowl.com/apps/retextion/shop/subscriptions/121976881261" class="btn-choose" target="_blank">Manage Subscription →</a>';
     }
 
     pc.appendChild(div);

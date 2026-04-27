@@ -109,6 +109,10 @@ input::placeholder{color:var(--ts);font-weight:600;}
 .po-meta{display:flex;flex-wrap:wrap;gap:7px;}
 .po-chip{background:rgba(74,124,47,0.08);border-radius:7px;padding:5px 9px;font-size:11px;font-weight:800;color:var(--gd);}
 .pack-option.best-value .po-chip{background:rgba(74,124,47,0.15);}
+.btn-choose{display:block;width:100%;margin-top:12px;padding:12px;border:2px solid var(--gm);border-radius:10px;background:var(--wh);color:var(--gm);font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer;text-align:center;text-decoration:none;transition:all 0.15s;}
+.btn-choose:hover{background:var(--gm);color:var(--wh);transform:translateY(-1px);}
+.pack-option.best-value .btn-choose{background:var(--gm);color:var(--wh);border-color:var(--gm);}
+.pack-option.best-value .btn-choose:hover{background:var(--gd);border-color:var(--gd);}
 /* ─── CTA ─── */
 .cta-section{text-align:center;margin:28px 0 8px;}
 .btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gm);border:2px solid var(--gm);border-radius:13px;color:#FFFFFF;padding:16px 32px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(74,124,47,0.3);transition:all 0.15s;text-decoration:none;width:100%;}
@@ -208,10 +212,10 @@ input::placeholder{color:var(--ts);font-weight:600;}
     </div>
     <!-- CTA -->
     <div class="cta-section">
-      <a href="https://www.thehappyhowl.com/account" class="btn-cta" id="cta-button">
-        Modify Your Subscription Now →
+      <a href="https://www.thehappyhowl.com/account" class="btn-cta" id="cta-button" target="_blank">
+        Sign In to Manage Subscription →
       </a>
-      <div class="cta-sub">Update your plan to match your pup's needs. Pause, skip, or cancel anytime.</div>
+      <div class="cta-sub">Log in to your account to update, pause, skip, or cancel anytime.</div>
     </div>
     <div style="text-align:center;margin-top:16px;margin-bottom:24px;">
       <button class="btn-back" onclick="goBack()">← Back to edit</button>
@@ -280,6 +284,177 @@ var MEALS_PER_DAY = 2;
 var PLAN_MULT   = {full:1.0, half:0.5, topper:0.25};
 var PLAN_LABELS = {full:'Full Meal Plan', half:'Mix 50/50', topper:'Topper 25/75'};
 var FREQ_WEEKS = [2,3,4,5,6,8,10,12];
+
+// ─── STAY AI PLAN IDS ────────────────────────────────────────────────────────
+// Keyed by "recipe-units-freqWeeks" → Stay AI plan UUID
+var STAY_PLAN_IDS = {
+  // Variety 6-Pack
+  'variety-6-2':'019dd00c-a4d7-700f-b42a-e9f88f1ed640',
+  'variety-6-3':'019dd00d-8527-700f-b42b-43d29efe14ef',
+  'variety-6-4':'019dd00d-df34-7000-8282-3714d0106b92',
+  'variety-6-5':'019dd00e-466e-7000-8283-2c6ea313582d',
+  'variety-6-6':'019dd00e-b509-7ee1-a833-622774e90557',
+  'variety-6-8':'019dd00f-161b-7000-8284-0f2fdfc0c5df',
+  'variety-6-10':'019dd00f-73e0-7ee1-a833-a471037e8957',
+  'variety-6-12':'019dd00f-d661-7ee1-a833-f7cc0b1386b9',
+  // Variety 18-Pack
+  'variety-18-2':'019dd01c-81ba-7000-828e-32664cbe2898',
+  'variety-18-3':'019dd01d-0af7-7000-828e-971b04728579',
+  'variety-18-4':'019dd01d-7eb3-700f-b439-77159bc953e4',
+  'variety-18-5':'019dd01d-d4ee-7ee1-a83d-6741370172bf',
+  'variety-18-6':'019dd01e-3054-700f-b439-b76324908f0b',
+  'variety-18-8':'019dd01e-86a3-7ee1-a83d-89c13e191948',
+  'variety-18-10':'019dd01e-e56b-7ee1-a83d-ef345ad88e99',
+  'variety-18-12':'019dd01f-35f8-700f-b43a-3d771ea54f22',
+  // Variety 24-Pack
+  'variety-24-2':'019dd010-a3a6-7ee1-a834-7edfb39b3b43',
+  'variety-24-3':'019dd011-0f4b-7ee1-a834-9973ce74eb40',
+  'variety-24-4':'019dd011-8127-700f-b42d-3d73be19757c',
+  'variety-24-5':'019dd014-5010-7000-8287-487d25f613be',
+  'variety-24-6':'019dd014-b3a1-700f-b430-1102e44f31be',
+  'variety-24-8':'019dd015-3a95-7000-8288-32efb450a92d',
+  'variety-24-10':'019dd015-965c-700f-b430-a447974b6e32',
+  'variety-24-12':'019dd016-3996-7000-8288-eefc6f945647',
+  // Variety 36-Pack
+  'variety-36-2':'019dd018-a4e0-7000-828a-d92699f387c9',
+  'variety-36-3':'019dd019-0fad-700f-b434-1270a64ea3ca',
+  'variety-36-4':'019dd019-7039-700f-b434-c8e19f4f6b58',
+  'variety-36-5':'019dd019-c83f-7ee1-a839-bd1ff723b7bd',
+  'variety-36-6':'019dd01a-2947-700f-b436-8ccdac573898',
+  'variety-36-8':'019dd01a-90cc-700f-b436-f52540843238',
+  'variety-36-10':'019dd01a-f572-7000-828d-32a6ad57df93',
+  'variety-36-12':'019dd01b-5b7d-7ee1-a83a-8c07b1cb0a8d',
+  // Beef 6-Pack
+  'beef-6-2':'019dd01f-98e4-7000-8291-6260fa718fc6',
+  'beef-6-3':'019dd020-1b99-7000-8291-d7586f73a97a',
+  'beef-6-4':'019dd020-7f89-7000-8292-0a65a52941cd',
+  'beef-6-5':'019dd020-db06-700f-b43b-cb30d9d61367',
+  'beef-6-6':'019dd021-50a2-700f-b43b-dd9541b45b19',
+  'beef-6-8':'019dd021-a95b-7ee1-a83f-8c1188188d25',
+  'beef-6-10':'019dd022-0e46-7000-8292-91ca6761c90e',
+  'beef-6-12':'019dd022-69cb-7ee1-a840-60bfe7988714',
+  // Beef 18-Pack
+  'beef-18-2':'019dd022-f702-7ee1-a840-d98d4b84755a',
+  'beef-18-3':'019dd023-d9de-7ee1-a842-588fddc8d31e',
+  'beef-18-4':'019dd024-5693-700f-b43e-3e9a736de0fe',
+  'beef-18-5':'019dd024-be2b-7ee1-a843-f87b660afe4f',
+  'beef-18-6':'019dd025-1c7d-7ee1-a844-5be752971070',
+  'beef-18-8':'019dd025-7750-7ee1-a844-bca1c2414b3d',
+  'beef-18-10':'019dd026-f5fb-7000-8296-a48d280ad3ed',
+  'beef-18-12':'019dd027-4f2c-7000-8296-b3fa4a052c78',
+  // Beef 24-Pack
+  'beef-24-2':'019dd027-c1b6-700f-b442-1eb9ce5c507d',
+  'beef-24-3':'019dd028-2410-7ee1-a847-04013be7eb84',
+  'beef-24-4':'019dd028-ce2a-7000-8298-b484676ff8c8',
+  'beef-24-5':'019dd029-3f53-7000-8298-f7b05e2f8ad2',
+  'beef-24-6':'019dd029-a7d9-700f-b444-5231bf4179a4',
+  'beef-24-8':'019dd029-fcb1-7ee1-a848-7b1d0077ecc9',
+  'beef-24-10':'019dd02a-88ce-7000-8299-fc4b0c68d9d9',
+  'beef-24-12':'019dd02a-e834-7000-829a-a59aacdb5fd3',
+  // Beef 36-Pack
+  'beef-36-2':'019dd02b-6a2e-700f-b446-7eafee1eb7ea',
+  'beef-36-3':'019dd02c-1fda-7000-829d-40373b5be1f4',
+  'beef-36-4':'019dd02c-77b6-700f-b447-5db55739320f',
+  'beef-36-5':'019dd02c-d8b9-700f-b447-93a21906a6dc',
+  'beef-36-6':'019dd02d-5287-7000-829e-0b35054107a4',
+  'beef-36-8':'019dd02d-d0ef-700f-b448-de5986c4f872',
+  'beef-36-10':'019dd02e-2417-7000-829e-8750f668b15d',
+  'beef-36-12':'019dd02e-99b6-7000-829f-2a79bbe517c9',
+  // Turkey 6-Pack
+  'turkey-6-2':'019dd031-fc1e-7ee1-a84e-58b606843e47',
+  'turkey-6-3':'019dd032-605d-700f-b44d-2e87bac48e1d',
+  'turkey-6-4':'019dd032-baa9-7ee1-a84e-a7441659155f',
+  'turkey-6-5':'019dd033-33d7-7ee1-a84f-1bc3c767622f',
+  'turkey-6-6':'019dd033-8ef3-7ee1-a84f-76b92313e210',
+  'turkey-6-8':'019dd033-f064-7ee1-a84f-da705d723aee',
+  'turkey-6-10':'019dd05b-8697-700f-b46d-bb8da59c6ee9',
+  'turkey-6-12':'019dd05b-ea30-7000-82c3-0b33dcf37144',
+  // Turkey 18-Pack
+  'turkey-18-2':'019dd05c-74e2-7000-82c3-e93bf340015b',
+  'turkey-18-3':'019dd063-8068-7ee1-a87d-112f81a727d3',
+  'turkey-18-4':'019dd063-f36b-7ee1-a87d-309d8ae723fd',
+  'turkey-18-5':'019dd064-6567-700f-b477-1c7c72f64d21',
+  'turkey-18-6':'019dd064-bdd6-700f-b477-b1403d82e246',
+  'turkey-18-8':'019dd065-1c92-7ee1-a87e-d41bccb59131',
+  'turkey-18-10':'019dd065-7851-7000-82cb-02240649e16a',
+  'turkey-18-12':'019dd065-dbb3-7ee1-a87f-a6eade0e005d',
+  // Turkey 24-Pack
+  'turkey-24-2':'019dd066-4f93-7000-82cb-6f57445a4458',
+  'turkey-24-3':'019dd066-b094-700f-b479-66db372c75e1',
+  'turkey-24-4':'019dd067-0385-7ee1-a880-bae271782aad',
+  'turkey-24-5':'019dd067-5829-7000-82cc-13757996e807',
+  'turkey-24-6':'019dd067-bbdf-700f-b47b-5854fe29a766',
+  'turkey-24-8':'019dd068-4526-7000-82cc-ddfbe6b73342',
+  'turkey-24-10':'019dd068-8e13-700f-b47c-7d640e7dac59',
+  'turkey-24-12':'019dd068-f7e5-7ee1-a883-180061c32d70',
+  // Turkey 36-Pack
+  'turkey-36-2':'019dd069-85a1-7ee1-a883-289f251655ca',
+  'turkey-36-3':'019dd069-dfc2-700f-b47d-75acbcc6c395',
+  'turkey-36-4':'019dd06a-39b8-700f-b47d-dde633e5a053',
+  'turkey-36-5':'019dd06a-a01a-7ee1-a884-15b71edfbdeb',
+  'turkey-36-6':'019dd06b-81cd-700f-b47e-5b59392b8bca',
+  'turkey-36-8':'019dd06b-ded1-7000-82d0-8dca416bea6b',
+  'turkey-36-10':'019dd06c-4013-700f-b47e-bc534c295dc9',
+  'turkey-36-12':'019dd06c-a3a9-7000-82d0-d9fa86a5acbb',
+  // Lamb 6-Pack
+  'lamb-6-2':'019dd06d-2d77-700f-b47f-c5a3408d4c1d',
+  'lamb-6-3':'019dd06d-eb33-7ee1-a888-1d1e9b51e9e7',
+  'lamb-6-4':'019dd06e-4417-700f-b480-34a379318932',
+  'lamb-6-5':'019dd06e-a264-7000-82d2-b72765ca8264',
+  'lamb-6-6':'019dd06f-0fe7-700f-b481-128d1f277dd7',
+  'lamb-6-8':'019dd06f-7ee2-7000-82d3-51f33c9d42ee',
+  'lamb-6-10':'019dd06f-ddc9-7000-82d3-cd8a80093aab',
+  'lamb-6-12':'019dd070-3f9d-7ee1-a88a-02accb7631a6',
+  // Lamb 18-Pack
+  'lamb-18-2':'019dd070-a44c-7000-82d5-58e16f65059d',
+  'lamb-18-3':'019dd071-0799-700f-b482-bb7db417409f',
+  'lamb-18-4':'019dd071-6994-7000-82d5-b8a467780187',
+  'lamb-18-5':'019dd071-bb60-7000-82d5-edd855e892b4',
+  'lamb-18-6':'019dd072-15cd-7000-82d6-201b5d3a8292',
+  'lamb-18-8':'019dd072-9a34-7ee1-a88c-139b11a52a1a',
+  'lamb-18-10':'019dd072-efd0-7ee1-a88c-7e3882c4472b',
+  'lamb-18-12':'019dd073-3ff9-700f-b484-39ed4ae867b5',
+  // Lamb 24-Pack
+  'lamb-24-2':'019dd073-a222-7000-82d7-6b7e2157cb91',
+  'lamb-24-3':'019dd073-f46b-700f-b485-3f66f307f502',
+  'lamb-24-4':'019dd074-4dd3-700f-b486-0ccb9a0ae036',
+  'lamb-24-5':'019dd074-a6e9-7ee1-a88d-9d19f3f7f537',
+  'lamb-24-6':'019dd075-0c2a-7ee1-a88d-ab6531b53043',
+  'lamb-24-8':'019dd075-5f65-7ee1-a88d-d3da6d4241ee',
+  'lamb-24-10':'019dd075-b3ab-7ee1-a88e-40cc0db6204e',
+  'lamb-24-12':'019dd076-0128-7ee1-a88e-a6f488977672',
+  // Lamb 36-Pack
+  'lamb-36-2':'019dd076-6fe2-7000-82da-5de52621750f',
+  'lamb-36-3':'019dd076-c437-7ee1-a88f-15741828563e',
+  'lamb-36-4':'019dd077-17cd-7000-82da-da0d862d833d',
+  'lamb-36-5':'019dd077-6a9c-7000-82da-eab9b180cf86',
+  'lamb-36-6':'019dd077-cf92-700f-b48a-44b547c3beba',
+  'lamb-36-8':'019dd078-21cc-7ee1-a890-2761f4d094f1',
+  'lamb-36-10':'019dd078-78c3-700f-b48a-8364f258dbcc',
+  'lamb-36-12':'019dd078-e15d-700f-b48a-d7a48e0433df'
+};
+
+// ─── URL PARAMS (from Klaviyo email/SMS link) ─────────────────────────────────
+// Klaviyo link to calculator: happyhowlfeeding.netlify.app/calculator.html
+//   ?email={{ person.email }}&subscriptionId={{ event.retextionSubscriptionID }}&token={{ event.stay_token }}
+var URL_PARAMS = (function() {
+  var p = new URLSearchParams(window.location.search);
+  return {
+    email: p.get('email') || '',
+    subscriptionId: p.get('subscriptionId') || '',
+    token: p.get('token') || ''
+  };
+})();
+
+function buildStayLink(recipe, units, freqWeeks) {
+  var key = recipe + '-' + units + '-' + freqWeeks;
+  var planId = STAY_PLAN_IDS[key];
+  if (!planId) return null;
+  return 'https://www.thehappyhowl.com/apps/retextion?plan=' + planId +
+    '&email=' + encodeURIComponent(URL_PARAMS.email) +
+    '&subscriptionId=' + encodeURIComponent(URL_PARAMS.subscriptionId) +
+    '&token=' + encodeURIComponent(URL_PARAMS.token);
+}
 
 var dogCount = 0;
 var selectedPlan = 'full';
@@ -516,6 +691,16 @@ function renderResults() {
         '<span class="po-chip">$' + opt.costPerDay.toFixed(2) + '/day · ' + costAnchor(opt.costPerDay) + '</span>' +
         '<span class="po-chip">One-time: $' + opt.pack.oneTime.toFixed(2) + '</span>' +
       '</div>';
+
+    // "Choose This Plan" button — links to Stay AI quick action
+    var stayLink = buildStayLink(selectedRecipe, opt.pack.units, opt.freqWeeks);
+    if (stayLink) {
+      div.innerHTML += '<a href="' + stayLink + '" class="btn-choose" target="_blank">Choose This Plan →</a>';
+    } else {
+      // Fallback for packs without Stay AI links (Variety 48/96-Pack)
+      div.innerHTML += '<a href="https://www.thehappyhowl.com/account" class="btn-choose" target="_blank">Manage Subscription →</a>';
+    }
+
     pc.appendChild(div);
   });
 }
